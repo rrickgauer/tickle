@@ -8,9 +8,12 @@
 #
 #           The solution was found: https://www.javaer101.com/en/article/1732830.html
 #************************************************************************************
+from enum import Enum
 from flask.json import JSONEncoder
 from datetime import date, datetime
 from decimal import Decimal
+
+from .structs import ISerialize
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -19,6 +22,10 @@ class CustomJSONEncoder(JSONEncoder):
                 return obj.isoformat()
             elif isinstance(obj, Decimal):
                 return float(obj)
+            elif isinstance(obj, Enum):
+                return obj.value
+            elif isinstance(obj, ISerialize):
+                return obj.__dict__
             iterable = iter(obj)
         except TypeError:
             pass
