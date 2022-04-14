@@ -11,8 +11,9 @@ This is the entry point for running an application.
 from __future__ import annotations
 import flask
 from . import routes
+from tickle.common.config import configs
+from tickle.common.config.base import ConfigBase
 
-from tickle.common import config
 
 #------------------------------------------------------
 # Register the blueprints
@@ -20,23 +21,25 @@ from tickle.common import config
 def _registerBlueprints(flask_app: flask.Flask):
     flask_app.register_blueprint(routes.bp_test, url_prefix='/test')
     
+
+def _getConfigurationClass(enviornment) -> ConfigBase:
+    if enviornment == "production":
+        return configs.Production
+    else:
+        return configs.Dev
+
+
 #------------------------------------------------------
 # Configure the application
 #------------------------------------------------------
-def _setConfiguration(flask_app: flask.Flask):
-    if flask_app.env == "production":
-        selected_config = config.Production
-    else:
-        selected_config = config.Dev
-
+def _setConfigurations(flask_app: flask.Flask, selected_config: ConfigBase):
     flask_app.config.from_object(selected_config)
     flask_app.json_encoder = selected_config.JSON_ENCODER
 
 
 app = flask.Flask(__name__)
-
-
+app_config = _getConfigurationClass(app.env)
+_setConfigurations(app, app_config)
 _registerBlueprints(app)
-_setConfiguration(app)
 
 
