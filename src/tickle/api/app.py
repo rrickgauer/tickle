@@ -13,6 +13,7 @@ import flask
 from . import routes
 from tickle.common.config import configs
 from tickle.common.config.base import ConfigBase
+import pymysql
 
 
 #------------------------------------------------------
@@ -20,14 +21,17 @@ from tickle.common.config.base import ConfigBase
 #------------------------------------------------------
 def _registerBlueprints(flask_app: flask.Flask):
     flask_app.register_blueprint(routes.bp_test, url_prefix='/test')
+    flask_app.register_blueprint(routes.bp_watches, url_prefix='/watches')
     
 
+#------------------------------------------------------
+# Get the configuration class to use for the application
+#------------------------------------------------------
 def _getConfigurationClass(enviornment) -> ConfigBase:
     if enviornment == "production":
         return configs.Production
     else:
         return configs.Dev
-
 
 #------------------------------------------------------
 # Configure the application
@@ -35,6 +39,11 @@ def _getConfigurationClass(enviornment) -> ConfigBase:
 def _setConfigurations(flask_app: flask.Flask, selected_config: ConfigBase):
     flask_app.config.from_object(selected_config)
     flask_app.json_encoder = selected_config.JSON_ENCODER
+
+    pymysql.credentials.USER     = selected_config.DB_USER
+    pymysql.credentials.PASSWORD = selected_config.DB_PASSWORD
+    pymysql.credentials.DATABASE = selected_config.DB_NAME
+    pymysql.credentials.HOST     = selected_config.DB_HOST
 
 
 app = flask.Flask(__name__)
