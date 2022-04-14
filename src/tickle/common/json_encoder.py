@@ -13,6 +13,8 @@ from flask.json import JSONEncoder
 from datetime import date, datetime
 from decimal import Decimal
 
+from .structs import ISerialize
+
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
         try:
@@ -22,6 +24,8 @@ class CustomJSONEncoder(JSONEncoder):
                 return float(obj)
             elif isinstance(obj, Enum):
                 return obj.value
+            elif isinstance(obj, ISerialize):
+                return obj.__dict__
             iterable = iter(obj)
         except TypeError:
             pass

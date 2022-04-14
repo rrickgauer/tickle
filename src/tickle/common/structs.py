@@ -1,0 +1,4 @@
+
+
+class ISerialize:
+    pass

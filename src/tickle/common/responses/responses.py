@@ -10,8 +10,14 @@ A flask response is a tuple that consists of:
 **********************************************************************************************
 """
 
+from dataclasses import dataclass
 from http import HTTPStatus
 import flask
+from .errors import BaseError
+
+@dataclass
+class StandardResponse:
+    data: any = None
 
 
 #----------------------------------------------------------
@@ -32,17 +38,33 @@ def updated(output=None) -> flask.Response:
 def created(output=None) -> flask.Response:
     return _standardReturn(output, HTTPStatus.CREATED)
 
+
+
+#----------------------------------------------------------
+# The standard return logic for all the methods
+#----------------------------------------------------------
+def _standardReturn(output, response_code: HTTPStatus) -> tuple:
+    result = StandardResponse()
+    
+    if isinstance(output, type(None)):
+        return (flask.jsonify(result), response_code)
+
+    result.data = output
+    
+    try:
+        output_string = flask.jsonify(result)
+    except Exception as ex:
+        output_string = ''
+
+    return (output_string, response_code)
+
+
 #----------------------------------------------------------
 # Resource was successfully DELETED
 #----------------------------------------------------------
 def deleted(output=None) -> flask.Response:
     return _standardReturn(output, HTTPStatus.NO_CONTENT)
 
-#----------------------------------------------------------
-# Client error
-#----------------------------------------------------------
-def badRequest(output=None) -> flask.Response:
-    return _standardReturn(output, HTTPStatus.BAD_REQUEST)
 
 #----------------------------------------------------------
 # Not found error
@@ -59,24 +81,22 @@ def forbidden(output=None) -> flask.Response:
 #----------------------------------------------------------
 # Forbidden
 #----------------------------------------------------------
-def internal_error(output=None) -> flask.Response:
+def internalError(output=None) -> flask.Response:
     return _standardReturn(output, HTTPStatus.INTERNAL_SERVER_ERROR)
 
-
 #----------------------------------------------------------
-# The standard return logic for all the methods
+# Client error
 #----------------------------------------------------------
-def _standardReturn(output, response_code: HTTPStatus) -> flask.Response:
-    if isinstance(output, type(None)):
-        return ('', response_code)
-
-    try:
-        output_string = flask.jsonify(output)
-    except Exception as ex:
-        output_string = ''
-
-    return (output_string, response_code)
+def badRequest(error: BaseError) -> flask.Response:
+    return _badReturn(error, HTTPStatus.BAD_REQUEST)
 
 
+def _badReturn(error: BaseError, response_code: HTTPStatus) -> tuple:
+    payload = dict(
+        error = error,
+    )
 
+    output = flask.jsonify(payload)
+
+    return (output, response_code.value)
 

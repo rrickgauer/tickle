@@ -8,11 +8,11 @@ Watches services
 
 from __future__ import annotations
 import flask
-from tickle.common import responses, serializers
+from tickle.common import serializers
+from tickle.common import responses
 from tickle.common.domain import models
 from tickle.common import utilities
 import tickle.api.repository.watches as watches_repo
-
 
 #------------------------------------------------------
 # Response to a POST request and create a new watch record
@@ -24,7 +24,7 @@ def responses_POST() -> flask.Response:
     try:
         saveModel(watch)
     except:
-        return responses.internal_error()
+        return responses.internalError()
 
     return responses.created(watch)
 
@@ -35,7 +35,9 @@ def getModelFromRequestForm() -> models.Watch:
     form = flask.request.form.to_dict()
     return serializers.WatchSerializer(form).serialize()
 
-
+#------------------------------------------------------
+# Save the given watch model to the database
+#------------------------------------------------------
 def saveModel(watch: models.Watch):
     result = watches_repo.insert(watch)
     
