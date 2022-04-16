@@ -34,14 +34,19 @@ def test():
 @bp_test.route('check')
 def testCheck():
 
-    data = services.inspector.getOpenWatches()
-    ticker_symbols = list(data.keys())
+    open_watches = services.inspector.getOpenWatches()
+    ticker_symbols = list(open_watches.keys())
     prices = services.tickerlib.getTickerPrices(ticker_symbols)
+
+    watches_to_confirm = services.inspector.runPriceChecks(open_watches, prices)
+
+    return responses.get(watches_to_confirm)
 
     return responses.get(dict(
         symbols = ticker_symbols,
-        watches = data,
-        prices = prices
+        watches = open_watches,
+        prices = prices,
+        confirmation_candiates = watches_to_confirm,
     ))
 
     return flask.jsonify(prices)
