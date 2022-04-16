@@ -20,8 +20,13 @@ import pymysql
 # Register the blueprints
 #------------------------------------------------------
 def _registerBlueprints(flask_app: flask.Flask):
-    flask_app.register_blueprint(routes.bp_test, url_prefix='/test')
-    flask_app.register_blueprint(routes.bp_watches, url_prefix='/watches')
+    # make a new blueprint to add the v1 prefix to the url
+    bp_version = flask.Blueprint('version', __name__)
+
+    bp_version.register_blueprint(routes.bp_test, url_prefix='/test')
+    bp_version.register_blueprint(routes.bp_watches, url_prefix='/watches')
+
+    flask_app.register_blueprint(bp_version, url_prefix='/v1')
     
 
 #------------------------------------------------------
