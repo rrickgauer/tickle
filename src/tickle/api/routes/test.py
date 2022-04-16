@@ -26,6 +26,26 @@ def test():
     return 'test endpoint'
 
         
+#------------------------------------------------------
+# Test endpoint
+#------------------------------------------------------
+@bp_test.route('check')
+def testCheck():
 
+    data = services.inspector.getOpenWatches()
+    ticker_symbols = list(data.keys())
+    prices = services.tickerlib.getTickerPrices(ticker_symbols)
+
+
+    print(prices)
+
+
+
+    return flask.jsonify(prices)
+
+
+
+
+    return 'sup'
 
 

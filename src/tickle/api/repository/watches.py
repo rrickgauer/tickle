@@ -7,6 +7,7 @@ Watches repository
 """
 
 from __future__ import annotations
+import pymysql
 import pymysql.commands as sql_engine
 from pymysql.structs import DbOperationResult
 from tickle.common.domain import models
@@ -17,6 +18,22 @@ SQL_INSERT = '''
     VALUES
         (%s, %s, %s, %s, %s);
 '''
+
+
+SQL_SELECT_ALL_OPEN = '''
+    SELECT 
+        * 
+    FROM 
+        View_Watches w
+    WHERE 
+        w.closed_on is null
+    ORDER BY 
+        ticker ASC
+    LIMIT 10;
+'''
+
+
+
 
 #------------------------------------------------------
 # Insert the watch record into the database
@@ -32,3 +49,7 @@ def insert(watch: models.Watch) -> DbOperationResult:
 
     return sql_engine.modify(SQL_INSERT, parms)
 
+
+
+def selectAllOpen() -> DbOperationResult:
+    return sql_engine.selectAll(SQL_SELECT_ALL_OPEN)
