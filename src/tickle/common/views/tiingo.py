@@ -30,3 +30,4 @@ class TickerResponse:
     bidPrice          : Decimal  = None  #:162.34,
     askSize           : Decimal  = None  #:100,
     askPrice          : Decimal  = None  #:163.0
+

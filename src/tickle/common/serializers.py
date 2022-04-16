@@ -10,8 +10,35 @@ A serializer transforms a dictionary into a domain model.
 from __future__ import annotations
 from dataclasses import dataclass
 import datetime
+from decimal import Decimal
+from typing import Any
 from tickle.common.domain import models
 from tickle.common.domain.enums.watch_types import WatchTypes
+from tickle.common.views import tiingo
+
+
+#------------------------------------------------------
+# Parse the given datetime string into a python datetime/date object
+#
+# Args:
+#   datetime_module: either the datetime.datetime module or the datetime.date module (both have the fromisoformat function)
+#   date_string: the date string to parse
+#------------------------------------------------------
+def parseIsoDatetime(datetime_module, date_string: str=None) -> datetime.datetime | str | None:    
+    try:
+        result = datetime_module.fromisoformat(date_string)
+    except Exception as e:
+        result = date_string
+    
+    return result
+
+def serializeDecimal(decimal_val) -> Decimal | None | Any:
+    try:
+        result = Decimal(decimal_val)
+    except:
+        result = decimal_val
+    
+    return result
 
 #------------------------------------------------------
 # Base serializer class
@@ -53,23 +80,7 @@ class SerializerBase:
 
         return model
 
-    #------------------------------------------------------
-    # Parse the given datetime string into a python datetime/date object
-    #
-    # Args:
-    #   datetime_module: either the datetime.datetime module or the datetime.date module (both have the fromisoformat function)
-    #   date_string: the date string to parse
-    #------------------------------------------------------
-    def _parseIsoDatetime(self, datetime_module, date_string: str=None) -> datetime.datetime | str | None:
-        if not date_string:
-            return date_string
-        
-        try:
-            result = datetime_module.fromisoformat(date_string)
-        except Exception as e:
-            result = date_string
-        
-        return result
+
 
 
 #------------------------------------------------------
@@ -87,3 +98,34 @@ class WatchSerializer(SerializerBase):
             model.watch_type = None
 
         return model
+
+
+#------------------------------------------------------
+# Watch serializer
+#------------------------------------------------------
+class TickerResponseSerializer(SerializerBase):
+    DomainModel = tiingo.TickerResponse
+
+    def serialize(self) -> models.Watch:
+        model: tiingo.TickerResponse = super().serialize()
+
+        # serialize the potential datetimes
+        model.timestamp         = parseIsoDatetime(datetime.datetime, model.timestamp)
+        model.quoteTimestamp    = parseIsoDatetime(datetime.datetime, model.quoteTimestamp)
+        model.lastSaleTimeStamp = parseIsoDatetime(datetime.datetime, model.lastSaleTimeStamp)  
+
+        # serialize the potential decimal types
+        model.last      = serializeDecimal(model.last)
+        model.tngoLast  = serializeDecimal(model.tngoLast)
+        model.prevClose = serializeDecimal(model.prevClose)
+        model.open      = serializeDecimal(model.open)
+        model.high      = serializeDecimal(model.high)
+        model.low       = serializeDecimal(model.low)
+        model.mid       = serializeDecimal(model.mid)
+        model.bidPrice  = serializeDecimal(model.bidPrice)
+        model.askSize   = serializeDecimal(model.askSize)
+        model.askPrice  = serializeDecimal(model.askPrice)
+
+        return model
+
+    

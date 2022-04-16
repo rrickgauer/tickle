@@ -11,6 +11,8 @@ import flask
 
 from tickle.api import services
 
+from tickle.common import responses
+
 
 # module blueprint
 bp_test = flask.Blueprint('test', __name__)
@@ -36,16 +38,12 @@ def testCheck():
     ticker_symbols = list(data.keys())
     prices = services.tickerlib.getTickerPrices(ticker_symbols)
 
-
-    print(prices)
-
-
+    return responses.get(dict(
+        symbols = ticker_symbols,
+        watches = data,
+        prices = prices
+    ))
 
     return flask.jsonify(prices)
-
-
-
-
-    return 'sup'
 
 

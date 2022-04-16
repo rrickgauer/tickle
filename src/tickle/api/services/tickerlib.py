@@ -10,27 +10,45 @@ from __future__ import annotations
 import requests
 
 from tickle.common.config import configs
+from tickle.common import serializers
+from tickle.common.views.tiingo import TickerResponse
+from tickle.common import utilities
 
 
 API_URL_PREFIX = 'https://api.tiingo.com'
 API_URL_IEX = f'{API_URL_PREFIX}/iex'
 
 
-def getTickerPrices(tickers: list[str]) -> list[dict]:
 
 
-    prices_list = _getTickerPriceList(tickers)
+def getTickerPrices(tickers: list[str]):
+    prices_list = _getTickerPricesList(tickers)
+    return _toDict(prices_list)
 
-    # serialize them into models and turn it into a dictionary
 
 
-    return prices_list
 
+def _getTickerPricesList(tickers: list[str]) -> list[TickerResponse]:
+    prices_api_response = _getTickerPriceList(tickers)
+
+    price_models = []
     
+    # serialize the api response dictionaries into view models
+    for api_response_dict in prices_api_response:
+        model = _serializeTickerResponseDict(api_response_dict)
+        price_models.append(model)
+
+
+    return price_models
+
+
 
 def _getTickerPriceList(tickers: list[str]) -> list[dict]:
     tickers_str = _createTickerSymbolQueryString(tickers)
-    parms = dict(tickers=tickers_str, token=configs.Dev.TICKER_API_TOKEN)
+    
+    parms = dict(
+        tickers = tickers_str,
+    )
 
     try:
         response = _makeApiRequest(API_URL_IEX, parms)
@@ -40,13 +58,12 @@ def _getTickerPriceList(tickers: list[str]) -> list[dict]:
 
     return prices_list
 
-    
+# create the tickers request url parm string:
 def _createTickerSymbolQueryString(tickers: list[str]) -> str:
     tickers_str = ''
     is_first = True
 
     for ticker in tickers:
-
         if is_first:
             is_first = False
             tickers_str = f'{ticker}'
@@ -56,9 +73,30 @@ def _createTickerSymbolQueryString(tickers: list[str]) -> str:
     return tickers_str
 
 
+def _makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
+    if not query_parms:
+        query_parms = {}
 
-def _makeApiRequest(url, query_parms) -> requests.Response:
+    query_parms.setdefault('token', configs.Dev.TICKER_API_TOKEN)
+    
     return requests.get(
         url = url,
         params=query_parms,
     )
+
+
+def _serializeTickerResponseDict(ticker_price_dict: dict) -> TickerResponse:
+    serializer = serializers.TickerResponseSerializer(ticker_price_dict)
+    model = serializer.serialize()
+
+    return model
+
+
+def _toDict(ticker_prices: list[TickerResponse]) -> dict[str, TickerResponse]:
+
+    result = {}
+
+    for ticker_price in ticker_prices:
+        result.setdefault(ticker_price.ticker, ticker_price)
+    
+    return result
