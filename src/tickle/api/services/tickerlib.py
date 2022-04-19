@@ -106,19 +106,14 @@ def _toDict(ticker_prices: list[TickerResponse]) -> dict[str, TickerResponse]:
     
     return result
 
-
-
+#------------------------------------------------------
+# Save all the crypto tickers into the database
+#------------------------------------------------------
 def saveAllCryptoTickerSymbols():
     crypto_tickers = getAllCryptoTickerSymbols()
-    result = crypto_repo.insertBatch(crypto_tickers)
-
-    # print(result)
+    return crypto_tickers
 
     return result
-
-
-
-
 
 #------------------------------------------------------
 # Get a list of CryptoSymbolApiResponse that are in the api

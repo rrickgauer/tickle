@@ -46,10 +46,9 @@ def performAudit():
 @bp_internal.route('fetch-crypto-tickers')
 def fetchCryptoTickers():
 
-    result = services.tickerlib.saveAllCryptoTickerSymbols()
-    return responses.created(result)
+    # result = services.tickerlib.saveAllCryptoTickerSymbols()
+    # return responses.created(result)
 
+    return 'fetch'
 
-
-    return responses.get(services.tickerlib.getAllCryptoTickerSymbols())
 
