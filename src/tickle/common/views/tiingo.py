@@ -31,3 +31,12 @@ class TickerResponse:
     askSize           : Decimal  = None  #:100,
     askPrice          : Decimal  = None  #:163.0
 
+
+
+@dataclass
+class CryptoSymbolApiResponse:
+    ticker       : str = None   # "dkaeth"
+    name         : str = None   # "DKA (DKA/ETH)"
+    baseCurrency : str = None   # "dka"
+    quoteCurrency: str = None   # "eth"
+

@@ -128,4 +128,14 @@ class TickerResponseSerializer(SerializerBase):
 
         return model
 
+
+#------------------------------------------------------
+# Watch serializer
+#------------------------------------------------------
+class CryptoSymbolApiResponseSerializer(SerializerBase):
+    DomainModel = tiingo.CryptoSymbolApiResponse
+
+    def serialize(self) -> tiingo.CryptoSymbolApiResponse:
+        return super().serialize()
+
     
