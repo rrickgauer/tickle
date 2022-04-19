@@ -17,9 +17,10 @@ bp_internal = flask.Blueprint('internal', __name__)
 #------------------------------------------------------
 # Audit endpoint
 # Internal use only
+# /internal/audit
 #------------------------------------------------------
 @bp_internal.route('audit')
-def testCheck():
+def performAudit():
     open_watches = services.audit.getOpenWatches()
     ticker_symbols = list(open_watches.keys())
     prices = services.tickerlib.getTickerPrices(ticker_symbols)
@@ -36,3 +37,18 @@ def testCheck():
     ))
 
     return flask.jsonify(prices)
+
+
+#------------------------------------------------------
+# Fetch and save the crypto tickers from the api
+# /internal/fetch-crypto-tickers
+#------------------------------------------------------
+@bp_internal.route('fetch-crypto-tickers')
+def fetchCryptoTickers():
+
+    # result = services.tickerlib.saveAllCryptoTickerSymbols()
+    # return responses.created(result)
+
+    return 'fetch'
+
+
