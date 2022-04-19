@@ -8,12 +8,10 @@ Watches repository
 
 from __future__ import annotations
 import requests
-
 from tickle.common.config import configs
 from tickle.common import serializers
 from tickle.common.views.tiingo import TickerResponse
-from tickle.api.globals import getConfig
-
+from tickle.common.utilities import getConfig
 
 #------------------------------------------------------
 # Get a dictionary of TickerResponses for the specified ticker symbols
@@ -21,14 +19,14 @@ from tickle.api.globals import getConfig
 #------------------------------------------------------
 def getTickerPrices(tickers: list[str]) -> dict[str, TickerResponse]:
     prices_list = _getTickerPricesList(tickers)
-    
     return _toDict(prices_list)
 
 #------------------------------------------------------
 # Get a list of TickerResponses for the specified ticker symbols
 #------------------------------------------------------
 def _getTickerPricesList(tickers: list[str]) -> list[TickerResponse]:
-    prices_api_response = _getTickerPriceList(tickers)
+    # call the api to fetch the raw data prices
+    prices_api_response = _getTickerPriceListFromApi(tickers)
 
     price_models = []
     
@@ -36,7 +34,6 @@ def _getTickerPricesList(tickers: list[str]) -> list[TickerResponse]:
     for api_response_dict in prices_api_response:
         model = _serializeTickerResponseDict(api_response_dict)
         price_models.append(model)
-
 
     return price_models
 
@@ -46,8 +43,10 @@ def _getTickerPricesList(tickers: list[str]) -> list[TickerResponse]:
 #
 # Args:
 #   tickers: the list of tickers to send to the api
+#
+# Returns the api response
 #------------------------------------------------------
-def _getTickerPriceList(tickers: list[str]) -> list[dict]:
+def _getTickerPriceListFromApi(tickers: list[str]) -> list[dict]:
     tickers_str = _createTickerSymbolQueryString(tickers)
     
     parms = dict(
@@ -104,7 +103,6 @@ def _makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
 def _serializeTickerResponseDict(ticker_price_dict: dict) -> TickerResponse:
     serializer = serializers.TickerResponseSerializer(ticker_price_dict)
     model = serializer.serialize()
-
     return model
 
 #------------------------------------------------------

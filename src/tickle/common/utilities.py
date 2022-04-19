@@ -9,9 +9,12 @@ these functions in both applications, so why not make a central respository for 
 """
 
 from __future__ import annotations
+import flask
 import json
 import flask.json as fjson
 import uuid
+from tickle.common.config import configs
+from tickle.common.config.base import ConfigBase
 
 
 
@@ -115,3 +118,10 @@ def inRange(number, minimum, maximum) -> bool:
         return True
     else:
         return False
+
+
+def getConfig() -> ConfigBase:
+    if flask.current_app.env == "production":
+        return configs.Production()
+    else:
+        return configs.Dev()

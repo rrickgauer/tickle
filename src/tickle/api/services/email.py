@@ -3,12 +3,7 @@
 from __future__ import annotations
 import flask
 import yagmail
-
-# from tickle.api.globals import app_config
-
-from tickle.api.globals import getConfig
-
-
+from tickle.common.utilities import getConfig
 
 
 def sendEmail():
