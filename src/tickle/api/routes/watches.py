@@ -21,7 +21,7 @@ bp_watches = flask.Blueprint('watches', __name__)
 @bp_watches.post('')
 def newWatch():
     try:
-        result = watch_services.createNewWatch()
+        result = watch_services.createNew()
     except Exception as ex:
         return responses.internalError(str(ex))
     
@@ -38,7 +38,15 @@ def newWatch():
     
     return responses.created(result.data)
 
-        
+
+#------------------------------------------------------
+# GET: /watches
+#------------------------------------------------------
+@bp_watches.get('')
+def getOpenWatches():
+    open_watches = watch_services.getOpenWatches()
+    return responses.get(open_watches)
+
 
 
 

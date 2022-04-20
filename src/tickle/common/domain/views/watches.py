@@ -14,6 +14,10 @@ from uuid import UUID
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.enums.watches import TickerTypes
 
+from typing import Dict, List
+
+
+
 @dataclass
 class ViewWatch:
     id              : UUID        = None
@@ -26,3 +30,18 @@ class ViewWatch:
     email           : str         = None
     created_on      : datetime    = None
     closed_on       : datetime    = None
+
+
+@dataclass
+class ViewOpenWatchesList:
+    stocks: list[ViewWatch] = None
+    crypto: list[ViewWatch] = None
+
+
+# typedef
+ViewWatchMap = Dict[str, List[ViewWatch]]
+
+@dataclass 
+class ViewOpenWatchesMaps:
+    stocks: ViewWatchMap = None
+    crypto: ViewWatchMap = None

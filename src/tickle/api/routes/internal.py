@@ -21,7 +21,9 @@ bp_internal = flask.Blueprint('internal', __name__)
 #------------------------------------------------------
 @bp_internal.route('audit')
 def performAudit():
-    open_watches = services.audit.getOpenWatches()
+    open_watches = services.watches.getOpenWatches()
+    return responses.get(open_watches)
+
     ticker_symbols = list(open_watches.keys())
     prices = services.tickerlib.getTickerPrices(ticker_symbols)
 
@@ -45,7 +47,6 @@ def performAudit():
 #------------------------------------------------------
 @bp_internal.route('fetch-crypto-tickers')
 def fetchCryptoTickers():
-
     # result = services.tickerlib.saveAllCryptoTickerSymbols()
     # return responses.created(result)
 

@@ -28,8 +28,8 @@ SQL_SELECT_ALL_OPEN = '''
     WHERE 
         w.closed_on is null
     ORDER BY 
-        ticker ASC
-    LIMIT 10;
+        ticker_type ASC,
+        ticker ASC;
 '''
 
 SQL_SELECT = '''
