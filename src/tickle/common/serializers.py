@@ -13,8 +13,10 @@ import datetime
 from decimal import Decimal
 from typing import Any
 from tickle.common.domain import models
-from tickle.common.domain.enums.watch_types import WatchTypes
-from tickle.common.views import tiingo
+from tickle.common.domain.enums.watches import WatchTypes
+from tickle.common.domain.enums.watches import TickerTypes
+from tickle.common.domain.views import tiingo
+from tickle.common.domain.views.watches import ViewWatch
 
 
 #------------------------------------------------------
@@ -81,8 +83,6 @@ class SerializerBase:
         return model
 
 
-
-
 #------------------------------------------------------
 # Watch serializer
 #------------------------------------------------------
@@ -96,6 +96,11 @@ class WatchSerializer(SerializerBase):
             model.watch_type = WatchTypes(int(model.watch_type))
         except:
             model.watch_type = None
+
+        try:
+            model.ticker_type = TickerTypes(int(model.ticker_type))
+        except:
+            model.ticker_type = None
 
         return model
 
@@ -145,4 +150,14 @@ class StockSearchApiResponseSerializer(SerializerBase):
     DomainModel = tiingo.StockSearchApiResponse
 
     def serialize(self) -> tiingo.StockSearchApiResponse:
+        return super().serialize()
+
+
+#------------------------------------------------------
+# Stock search api response serializer
+#------------------------------------------------------
+class WatchViewSerializer(WatchSerializer):
+    DomainModel = ViewWatch
+
+    def serialize(self) -> ViewWatch:
         return super().serialize()

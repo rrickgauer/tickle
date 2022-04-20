@@ -1,7 +1,7 @@
 """
 ********************************************************************************************
 
-Watch domain model
+Watch views
 
 ********************************************************************************************
 """
@@ -15,12 +15,14 @@ from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.enums.watches import TickerTypes
 
 @dataclass
-class Watch:
-    id          : UUID        = None
-    ticker_type : TickerTypes = None
-    ticker      : str         = None
-    price       : Decimal     = None
-    watch_type  : WatchTypes  = None
-    email       : str         = None
-    created_on  : datetime    = datetime.now()
-    closed_on   : datetime    = None
+class ViewWatch:
+    id              : UUID        = None
+    ticker          : str         = None
+    ticker_type     : TickerTypes = None
+    ticker_name     : str         = None
+    price           : Decimal     = None
+    watch_type      : WatchTypes  = None
+    watch_type_name : str         = None
+    email           : str         = None
+    created_on      : datetime    = None
+    closed_on       : datetime    = None

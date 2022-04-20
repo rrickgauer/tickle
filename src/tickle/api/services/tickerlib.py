@@ -11,8 +11,8 @@ This is a wrapper for calling the stocks api: api.tiingo.com.
 from __future__ import annotations
 import requests
 from tickle.common import serializers
-from tickle.common.views.tiingo import CryptoSymbolApiResponse
-from tickle.common.views.tiingo import TickerResponse
+from tickle.common.domain.views.tiingo import CryptoSymbolApiResponse
+from tickle.common.domain.views.tiingo import TickerResponse
 from tickle.common.utilities import getConfig
 
 class StockPriceApiUrls:

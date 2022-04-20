@@ -12,8 +12,8 @@ import flask
 from tickle.common import responses
 from tickle.common import serializers
 from tickle.common.responses.errors import SearchTickersMissingQArgError
-from tickle.common.views.tiingo import CryptoSymbolApiResponse
-from tickle.common.views.tiingo import StockSearchApiResponse
+from tickle.common.domain.views.tiingo import CryptoSymbolApiResponse
+from tickle.common.domain.views.tiingo import StockSearchApiResponse
 from . import tickerlib
 import tickle.api.repository.crypto_tickers as crypto_repo
 
