@@ -16,6 +16,8 @@ bp_search_tickers = flask.Blueprint('search_tickers', __name__)
 
 #------------------------------------------------------
 # Search for stock tickers
+#
+# /search/tickers/stocks?q={query}
 #------------------------------------------------------
 @bp_search_tickers.get('stocks')
 @services.search_tickers.verifyRequiredUrlParm
@@ -26,6 +28,8 @@ def searchStocks():
 
 #------------------------------------------------------
 # Search for crypto tickers
+#
+# /search/tickers/crypto?q={query}
 #------------------------------------------------------
 @bp_search_tickers.get('crypto')
 @services.search_tickers.verifyRequiredUrlParm
