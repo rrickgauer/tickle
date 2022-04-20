@@ -14,10 +14,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum, auto
 
-
-
 class ErrorCodes(Enum):
     GENERAL = auto()
+    MISSING_TICKER_SEARCH_Q_ARG = auto()
 
 
 @dataclass
@@ -31,6 +30,10 @@ DefaultError = BaseError(
     message = 'Default error'
 )
 
+SearchTickersMissingQArgError = BaseError(
+    code    = ErrorCodes.MISSING_TICKER_SEARCH_Q_ARG,
+    message = 'Missing the required "q" url parameter',
+)
 
 
 
