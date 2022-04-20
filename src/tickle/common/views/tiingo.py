@@ -32,7 +32,9 @@ class TickerResponse:
     askPrice          : Decimal  = None  #:163.0
 
 
-
+#------------------------------------------------------
+# Api response for a crypto metadata request
+#------------------------------------------------------
 @dataclass
 class CryptoSymbolApiResponse:
     ticker       : str = None   # "dkaeth"
@@ -40,3 +42,16 @@ class CryptoSymbolApiResponse:
     baseCurrency : str = None   # "dka"
     quoteCurrency: str = None   # "eth"
 
+
+#------------------------------------------------------
+# Api response for a stock search request
+#------------------------------------------------------
+@dataclass
+class StockSearchApiResponse:
+    name              : str  = None
+    ticker            : str  = None
+    permaTicker       : str  = None
+    openFIGIComposite : str  = None
+    assetType         : str  = None
+    isActive          : bool = None
+    countryCode       : str  = None
