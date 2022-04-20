@@ -84,7 +84,7 @@ def _getView(watch_id: UUID) -> ViewWatch | None:
 # Get a dictionary of open watches
 # The keys are the tickers 
 #------------------------------------------------------
-def getOpenWatches() -> ViewWatchMap:
+def getOpenWatches() -> ViewOpenWatchesMaps:
     model_list = _getOpenWatchesModelList()
     models_by_ticker_type = _splitModelsByType(model_list)
     watches_dict = _toViewOpenWatchesMaps(models_by_ticker_type)

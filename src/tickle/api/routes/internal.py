@@ -10,6 +10,7 @@ from __future__ import annotations
 import flask
 from tickle.api import services
 from tickle.common import responses
+from tickle.api.services.audit.auditor import StocksAuditor
 
 # module blueprint
 bp_internal = flask.Blueprint('internal', __name__)
@@ -21,24 +22,31 @@ bp_internal = flask.Blueprint('internal', __name__)
 #------------------------------------------------------
 @bp_internal.route('audit')
 def performAudit():
-    open_watches = services.watches.getOpenWatches()
-    return responses.get(open_watches)
+    open_watches_map = services.watches.getOpenWatches()
+    auditor = StocksAuditor(open_watches_map.stocks)
+    watches_to_close = auditor.runPriceChecks()
+    
+    return responses.get(watches_to_close)
 
-    ticker_symbols = list(open_watches.keys())
-    prices = services.tickerlib.getTickerPrices(ticker_symbols)
 
-    watches_to_confirm = services.audit.runPriceChecks(open_watches, prices)
 
-    return responses.get(watches_to_confirm)
 
-    return responses.get(dict(
-        symbols = ticker_symbols,
-        watches = open_watches,
-        prices = prices,
-        confirmation_candiates = watches_to_confirm,
-    ))
+    # ticker_symbols = list(open_watches_map.keys())
+    # prices = services.tickerlib.getTickerPrices(ticker_symbols)
 
-    return flask.jsonify(prices)
+
+    # watches_to_confirm = services.audit.runPriceChecks(open_watches_map, prices)
+
+    # return responses.get(watches_to_confirm)
+
+    # return responses.get(dict(
+    #     symbols = ticker_symbols,
+    #     watches = open_watches_map,
+    #     prices = prices,
+    #     confirmation_candiates = watches_to_confirm,
+    # ))
+
+    # return flask.jsonify(prices)
 
 
 #------------------------------------------------------

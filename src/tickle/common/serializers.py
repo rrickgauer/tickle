@@ -109,10 +109,10 @@ class WatchSerializer(SerializerBase):
 # Watch serializer
 #------------------------------------------------------
 class TickerResponseSerializer(SerializerBase):
-    DomainModel = tiingo.TickerResponse
+    DomainModel = tiingo.StockTickerPrice
 
     def serialize(self) -> models.Watch:
-        model: tiingo.TickerResponse = super().serialize()
+        model: tiingo.StockTickerPrice = super().serialize()
 
         # serialize the potential datetimes
         model.timestamp         = parseIsoDatetime(datetime.datetime, model.timestamp)

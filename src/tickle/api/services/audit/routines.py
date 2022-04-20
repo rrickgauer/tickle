@@ -10,14 +10,17 @@ from __future__ import annotations
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.views.watches import ViewWatch
 from tickle.common.domain.views.watches import ViewWatchMap
-from tickle.common.domain.views.tiingo import TickerResponse
+from tickle.common.domain.views.tiingo import StockTickerPrice
 
 
 #------------------------------------------------------
 # Run price checks on watches
 # Returns a list of watches to close
+#
+# Args:
+#   open_watches: a list of open watch records to audit
 #------------------------------------------------------
-def runPriceChecks(open_watches: ViewWatchMap, stock_prices: dict[str, list[TickerResponse]]) -> list[ViewWatch]:
+def runPriceChecks(open_watches: ViewWatchMap, stock_prices: dict[str, list[StockTickerPrice]]) -> list[ViewWatch]:
     watchs_to_confirm = []
 
     for stock_symbol, ticker_response in stock_prices.items():
@@ -35,7 +38,7 @@ def runPriceChecks(open_watches: ViewWatchMap, stock_prices: dict[str, list[Tick
 #------------------------------------------------------
 # Get a list of watches that have the specified ticker that need to be closed
 #------------------------------------------------------
-def _runPriceCheckForSymbol(open_watches: list[ViewWatch], ticker_response: TickerResponse):
+def _runPriceCheckForSymbol(open_watches: list[ViewWatch], ticker_response: StockTickerPrice):
     current_stock_price = ticker_response.last
     watches_to_confirm = []
 

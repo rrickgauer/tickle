@@ -12,7 +12,7 @@ from datetime import datetime
 from decimal import Decimal
 
 @dataclass
-class TickerResponse:
+class StockTickerPrice:
     ticker            : str      = None  #:"AAPL",
     timestamp         : datetime = None  #:"2019-01-30T10:33:38.186520297-05:00",
     quoteTimestamp    : datetime = None  #:"2019-01-30T10:33:38.186520297-05:00"
@@ -30,6 +30,9 @@ class TickerResponse:
     bidPrice          : Decimal  = None  #:162.34,
     askSize           : Decimal  = None  #:100,
     askPrice          : Decimal  = None  #:163.0
+
+
+
 
 
 #------------------------------------------------------
