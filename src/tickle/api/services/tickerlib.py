@@ -1,7 +1,7 @@
 """
 ********************************************************************************************
 
-Watches repository
+Tiingo api services
 
 ********************************************************************************************
 """
@@ -9,14 +9,15 @@ Watches repository
 from __future__ import annotations
 import requests
 from tickle.common import serializers
-from tickle.common.views.tiingo import CryptoSymbolApiResponse, TickerResponse
+from tickle.common.views.tiingo import CryptoSymbolApiResponse, TickerResponse, StockSearchApiResponse
 from tickle.common.utilities import getConfig
 import tickle.api.repository.crypto_tickers as crypto_repo
 
 
 class StockPriceApiUrls:
-    BASE = 'https://api.tiingo.com'
-    IEX  = f'{BASE}/iex'
+    BASE               = 'https://api.tiingo.com'
+    IEX                = f'{BASE}/iex'
+    SEARCH_SYMBOLS     = f'{BASE}/tiingo/utilities/search'
     CRYPTO_ALL_TICKERS = f'{BASE}/tiingo/crypto'
 
 #------------------------------------------------------
@@ -58,7 +59,7 @@ def _getTickerPriceListFromApi(tickers: list[str]) -> list[dict]:
     )
 
     try:
-        response = _makeApiRequest(StockPriceApiUrls.IEX, parms)
+        response = makeApiRequest(StockPriceApiUrls.IEX, parms)
         prices_list = response.json()
     except:
         prices_list = []
@@ -133,7 +134,7 @@ def getAllCryptoTickerSymbols() -> list[CryptoSymbolApiResponse]:
 def _getAllCryptoTickersFromApi() -> list[dict]:
     url = StockPriceApiUrls.CRYPTO_ALL_TICKERS
 
-    api_response = _makeApiRequest(url)
+    api_response = makeApiRequest(url)
 
     if not api_response.ok:
         raise api_response.text
@@ -144,10 +145,14 @@ def _getAllCryptoTickersFromApi() -> list[dict]:
         return []
 
 
+
+
+
+
 #------------------------------------------------------
 # Make the api request to get the stock prices
 #------------------------------------------------------
-def _makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
+def makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
     if not query_parms:
         query_parms = {}
 
