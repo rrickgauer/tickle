@@ -1,7 +1,9 @@
 """
 ********************************************************************************************
 
-Tiingo api services
+Tiingo api services.
+
+This is a wrapper for calling the stocks api: api.tiingo.com.
 
 ********************************************************************************************
 """
@@ -9,10 +11,9 @@ Tiingo api services
 from __future__ import annotations
 import requests
 from tickle.common import serializers
-from tickle.common.views.tiingo import CryptoSymbolApiResponse, TickerResponse, StockSearchApiResponse
+from tickle.common.views.tiingo import CryptoSymbolApiResponse
+from tickle.common.views.tiingo import TickerResponse
 from tickle.common.utilities import getConfig
-import tickle.api.repository.crypto_tickers as crypto_repo
-
 
 class StockPriceApiUrls:
     BASE               = 'https://api.tiingo.com'
@@ -26,7 +27,7 @@ class StockPriceApiUrls:
 #------------------------------------------------------
 def getTickerPrices(tickers: list[str]) -> dict[str, TickerResponse]:
     prices_list = _getTickerPricesList(tickers)
-    return _toDict(prices_list)
+    return _toTickerMap(prices_list)
 
 #------------------------------------------------------
 # Get a list of TickerResponses for the specified ticker symbols
@@ -99,21 +100,12 @@ def _serializeTickerResponseDict(ticker_price_dict: dict) -> TickerResponse:
 #------------------------------------------------------
 # Transform the given TickerResponse list into a dictionary with each key being the ticker
 #------------------------------------------------------
-def _toDict(ticker_prices: list[TickerResponse]) -> dict[str, TickerResponse]:
+def _toTickerMap(ticker_prices: list[TickerResponse]) -> dict[str, TickerResponse]:
     result = {}
 
     for ticker_price in ticker_prices:
         result.setdefault(ticker_price.ticker, ticker_price)
     
-    return result
-
-#------------------------------------------------------
-# Save all the crypto tickers into the database
-#------------------------------------------------------
-def saveAllCryptoTickerSymbols():
-    crypto_tickers = getAllCryptoTickerSymbols()
-    return crypto_tickers
-
     return result
 
 #------------------------------------------------------
@@ -146,11 +138,14 @@ def _getAllCryptoTickersFromApi() -> list[dict]:
 
 
 
-
-
-
 #------------------------------------------------------
-# Make the api request to get the stock prices
+# Make an http request to the api
+#
+# Args:
+#   url: the api endpoint to use
+#   query_parms: the url search paramters to include in the request
+#
+# Returns: the api response
 #------------------------------------------------------
 def makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
     if not query_parms:
@@ -159,6 +154,6 @@ def makeApiRequest(url: str, query_parms: dict=None) -> requests.Response:
     query_parms.setdefault('token', getConfig().STOCK_PRICE_API_TOKEN)
     
     return requests.get(
-        url = url,
-        params=query_parms,
+        url    = url,
+        params = query_parms,
     )

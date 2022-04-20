@@ -1,7 +1,12 @@
 """
 ********************************************************************************************
 
-Watches services
+Watches services.
+
+A watch is made up of:
+    a stock to keep an eye out on
+    a target price
+    a watch type (if the price falls or if it rises beyond the watch price)
 
 ********************************************************************************************
 """
