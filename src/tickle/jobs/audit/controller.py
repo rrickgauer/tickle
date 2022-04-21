@@ -10,6 +10,7 @@ from __future__ import annotations
 import pymysql
 from tickle.common.config import configs
 from . import api_wrapper
+from tickle.common.email.messenger import Messenger
 
 #------------------------------------------------------
 # Initialize some variables using the configuration values
@@ -19,17 +20,6 @@ def configureApplication(is_production: bool):
 
     _setPymysqlCredentials(config)
     _setUrls(config)
-    
-#------------------------------------------------------
-# Get the appropriate configuration class
-#------------------------------------------------------
-def _getConfigClass(is_production: bool) -> configs.ConfigBase:
-    if is_production:
-        configuration = configs.Production
-    else:
-        configuration = configs.Dev
-
-    return configuration
 
 #------------------------------------------------------
 # Set the database credentials 
@@ -49,3 +39,21 @@ def _setUrls(config: configs.ConfigBase):
 
 
 
+def getEmailEngine(is_production: bool):
+    config = _getConfigClass(is_production)
+    email_engine = Messenger(config.EMAIL_USERNAME, config.EMAIL_PASSWORD)
+
+    return email_engine
+
+
+
+#------------------------------------------------------
+# Get the appropriate configuration class
+#------------------------------------------------------
+def _getConfigClass(is_production: bool) -> configs.ConfigBase:
+    if is_production:
+        configuration = configs.Production
+    else:
+        configuration = configs.Dev
+
+    return configuration

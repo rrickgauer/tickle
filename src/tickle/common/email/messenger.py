@@ -1,0 +1,86 @@
+"""
+********************************************************************************************
+
+Email services
+
+********************************************************************************************
+"""
+
+from __future__ import annotations
+import flask
+import yagmail
+from tickle.common.domain.enums.watches import WatchTypes
+from tickle.common.utilities import getConfig
+from tickle.common.domain.models import Watch
+from tickle.common.config.configs import ConfigBase
+
+
+def sendEmail():
+
+    config = getConfig()
+
+    yag = yagmail.SMTP(
+        user = flask.current_app.config.get('EMAIL_USERNAME'),
+        password = flask.current_app.config.get('EMAIL_PASSWORD'),
+    )
+
+    contents = 'this was sent from python'
+
+    # return 'hi'.
+    return yag.send('rrickgauer1@gmail.com', 'testing', contents)
+
+
+
+CONTENTS_TEMPLATE = 'The price of {ticker} has {movement} to {price}.'
+SUBJECT = 'Tickle price alert'
+
+
+# Create the email body message
+def getContents(watch):
+    if watch.watch_type == WatchTypes.DROP:
+        movement_text = 'dropped'
+    else:
+        movement_text = 'rose'
+    
+    contents = CONTENTS_TEMPLATE.format(
+        ticker   = watch.ticker,
+        movement = movement_text,
+        price    = watch.price,
+    )
+
+    return contents
+
+
+
+class Messenger:
+
+    def __init__(self, username, password):
+        self._username = username
+        self._password = password
+        self._email_engine: yagmail.SMTP = None
+    
+    def connect(self):
+        self._email_engine = yagmail.SMTP(
+            user = self._username,
+            password = self._password,
+        )
+    
+
+    def sendMessage(self, watch: Watch):
+        contents = getContents(watch)
+
+        try:
+            send_result = self._email_engine.send(
+                to       = watch.email,
+                subject  = SUBJECT,
+                contents = contents,
+            )
+            
+        except Exception as ex:
+            print(ex)
+            return False
+
+        return True
+
+        
+
