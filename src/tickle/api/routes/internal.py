@@ -30,10 +30,9 @@ def performAudit():
 
 
     crypto_tickers = list(open_watches_map.crypto.keys())
+    crypto_prices_map = prices.getCryptoPrices(crypto_tickers)
 
-    prices.getCryptoPrices(crypto_tickers)
-
-    return responses.get()
+    return responses.get(crypto_prices_map)
 
 
 

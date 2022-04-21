@@ -12,14 +12,15 @@ from tickle.common.domain.enums.watches import TickerTypes
 from tickle.common.domain.views.tiingo import StockTickerPrice
 from tickle.api.services.tickerlib.constants import StockPriceApiUrls
 from tickle.api.services.tickerlib.utilities import makeApiRequest, createSymbolQueryString
-from tickle.common.domain.models.ticker_price import TickerPrice
+from tickle.common.domain.models import TickerPrice
+from tickle.common.domain.models import TickerPriceMap
 
 
 #------------------------------------------------------
 # Get a dictionary of TickerResponses for the specified ticker symbols
 # The keys are the ticker symbols
 #------------------------------------------------------
-def getStockPrices(tickers: list[str]) -> dict[str, TickerPrice]:
+def getStockPrices(tickers: list[str]) -> TickerPriceMap:
     prices_list = _getStockPricesList(tickers)
     price_map = _toTickerPriceMap(prices_list)
     return price_map
@@ -84,7 +85,7 @@ def _toStockTickerPrice(ticker_price_dict: dict) -> StockTickerPrice:
 # Transform the given TickerResponses into a dictionary of TickerPrice models
 # Each key being the ticker
 #------------------------------------------------------
-def _toTickerPriceMap(stock_ticker_prices: list[StockTickerPrice]) -> dict[str, TickerPrice]:
+def _toTickerPriceMap(stock_ticker_prices: list[StockTickerPrice]) -> TickerPriceMap:
     result = {}
 
     for stock_ticker_price in stock_ticker_prices:
