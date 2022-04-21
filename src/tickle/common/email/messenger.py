@@ -14,23 +14,6 @@ from tickle.common.utilities import getConfig
 from tickle.common.domain.models import Watch
 from tickle.common.config.configs import ConfigBase
 
-
-def sendEmail():
-
-    config = getConfig()
-
-    yag = yagmail.SMTP(
-        user = flask.current_app.config.get('EMAIL_USERNAME'),
-        password = flask.current_app.config.get('EMAIL_PASSWORD'),
-    )
-
-    contents = 'this was sent from python'
-
-    # return 'hi'.
-    return yag.send('rrickgauer1@gmail.com', 'testing', contents)
-
-
-
 CONTENTS_TEMPLATE = 'The price of {ticker} has {movement} to {price}.'
 SUBJECT = 'Tickle price alert'
 
@@ -75,7 +58,7 @@ class Messenger:
                 subject  = SUBJECT,
                 contents = contents,
             )
-            
+
         except Exception as ex:
             print(ex)
             return False

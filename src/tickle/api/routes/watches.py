@@ -7,6 +7,7 @@ Url Prefix: /watches
 """
 
 from __future__ import annotations
+from uuid import UUID
 import flask
 from tickle.api.services import watches as watch_services
 from tickle.common import responses
@@ -47,6 +48,17 @@ def getOpenWatches():
     open_watches = watch_services.getOpenWatches()
     return responses.get(open_watches)
 
+
+#------------------------------------------------------
+# GET: /watches
+#------------------------------------------------------
+@bp_watches.delete('<uuid:watch_id>')
+def deleteWatch(watch_id):
+    watch_services.closeWatch(watch_id)
+    return responses.deleted()
+
+    # open_watches = watch_services.getOpenWatches()
+    # return responses.get(open_watches)
 
 
 

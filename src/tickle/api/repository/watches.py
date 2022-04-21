@@ -43,6 +43,18 @@ SQL_SELECT = '''
         1;
 '''
 
+
+SQL_UPDATE = '''
+    UPDATE 
+        Watches 
+    SET
+        closed_on = NOW()
+    WHERE
+        id = %s;
+'''
+
+
+
 #------------------------------------------------------
 # Insert the watch record into the database
 #------------------------------------------------------
@@ -69,3 +81,11 @@ def selectAllOpen() -> DbOperationResult:
 def select(watch_id: UUID) -> DbOperationResult:
     parms = (str(watch_id),)
     return sql_engine.select(SQL_SELECT, parms)
+
+
+def update(watch_id: UUID) -> DbOperationResult:
+    parms = (
+        str(watch_id),
+    )
+
+    return sql_engine.modify(SQL_UPDATE, parms)
