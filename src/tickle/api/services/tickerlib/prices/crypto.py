@@ -16,8 +16,8 @@ from tickle.common import serializers
 
 
 def getCryptoPrices(tickers: list[str]) -> dict[str, TickerPrice]:
-    api_response = _getPricesFromApi(tickers)
-    prices_list = _serializeApiResponse(api_response)
+    api_response_data = _getPricesFromApi(tickers)
+    prices_list = _serializeApiResponseData(api_response_data)
 
 
 
@@ -38,13 +38,12 @@ def _getPricesFromApi(tickers: list[str]) -> list[dict]:
 
 
 # serialize the given list of dictionaries into a list of CryptoTickerPrice
-def _serializeApiResponse(api_data_records: list[dict]) -> list[CryptoTickerPrice]:
+def _serializeApiResponseData(api_data_records: list[dict]) -> list[CryptoTickerPrice]:
     crypto_ticker_prices = []
 
     for record in api_data_records:
         serializer = serializers.CryptoTickerPriceSerializer(record)
         result = serializer.serialize()
-
         crypto_ticker_prices.append(result)
     
     return crypto_ticker_prices
