@@ -8,13 +8,10 @@ Watch records auditing services
 """
 
 from __future__ import annotations
-from tickle.api.services import tickerlib
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.views.watches import ViewWatch
 from tickle.common.domain.views.watches import ViewWatchMap
-from tickle.common.domain.views.watches import ViewOpenWatchesMaps
 from tickle.common.domain.views.tiingo import StockTickerPrice
-from tickle.common import utilities
 
 
 class BaseAuditor:
@@ -80,5 +77,5 @@ class BaseAuditor:
 class StocksAuditor(BaseAuditor):
 
     def _getTickerPrices(self):
-        prices = tickerlib.getTickerPrices(self.ticker_symbols)
+        prices = prices.getTickerPrices(self.ticker_symbols)
         return prices

@@ -14,7 +14,7 @@ from tickle.common import serializers
 from tickle.common.responses.errors import SearchTickersMissingQArgError
 from tickle.common.domain.views.tiingo import CryptoSymbolApiResponse
 from tickle.common.domain.views.tiingo import StockSearchApiResponse
-from . import tickerlib
+from tickle.api.services import tickerlib
 import tickle.api.repository.crypto_tickers as crypto_repo
 
 #------------------------------------------------------
@@ -39,7 +39,7 @@ def searchStocks(query: str) -> list[StockSearchApiResponse]:
 #------------------------------------------------------
 def _sendStockSearchRequest(query: str):
     api_request_url_parms = dict(query=query)
-    api_response = tickerlib.makeApiRequest(tickerlib.StockPriceApiUrls.SEARCH_SYMBOLS, api_request_url_parms)
+    api_response = tickerlib.prices.makeApiRequest(tickerlib.constants.StockPriceApiUrls.SEARCH_SYMBOLS, api_request_url_parms)
     
     if not api_response.ok:
         print(api_response.text)
