@@ -109,4 +109,3 @@ def _toTickerPrice(stock_ticker_price: StockTickerPrice) -> TickerPrice:
 
 
 
-

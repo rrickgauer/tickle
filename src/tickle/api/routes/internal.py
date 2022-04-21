@@ -11,6 +11,7 @@ import flask
 from tickle.api import services
 from tickle.common import responses
 from tickle.api.services.audit.auditor import StocksAuditor
+from tickle.api.services.tickerlib import prices
 
 # module blueprint
 bp_internal = flask.Blueprint('internal', __name__)
@@ -23,8 +24,30 @@ bp_internal = flask.Blueprint('internal', __name__)
 @bp_internal.route('audit')
 def performAudit():
     open_watches_map = services.watches.getOpenWatches()
-    auditor = StocksAuditor(open_watches_map.stocks)
-    watches_to_close = auditor.runPriceChecks()
+
+    # return responses.get(open_watches_map)
+
+
+
+    crypto_tickers = list(open_watches_map.crypto.keys())
+
+    prices.getCryptoPrices(crypto_tickers)
+
+    return responses.get()
+
+
+
+
+    
+    # perform an audit for the stock watches
+    stocks_auditor = StocksAuditor(open_watches_map.stocks)
+
+    watches_to_close = dict(
+        stocks = stocks_auditor.runPriceChecks(),
+
+    )
+
+
     
     return responses.get(watches_to_close)
 

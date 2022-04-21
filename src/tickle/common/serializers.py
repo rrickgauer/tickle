@@ -154,10 +154,48 @@ class StockSearchApiResponseSerializer(SerializerBase):
 
 
 #------------------------------------------------------
-# Stock search api response serializer
+# Watch view serializer
 #------------------------------------------------------
 class WatchViewSerializer(WatchSerializer):
     DomainModel = ViewWatch
 
     def serialize(self) -> ViewWatch:
         return super().serialize()
+
+
+#------------------------------------------------------
+# CryptoTickerPriceTopOfBookData serializer
+#------------------------------------------------------
+class CryptoTickerPriceTopOfBookDataSerializer(SerializerBase):
+    DomainModel = tiingo.CryptoTickerPriceTopOfBookData
+
+    def serialize(self) -> tiingo.CryptoTickerPriceTopOfBookData:
+        model: tiingo.CryptoTickerPriceTopOfBookData = super().serialize()
+
+        # model.lastPrice        = serializeDecimal(model.lastPrice)
+        # model.askPrice         = serializeDecimal(model.askPrice)
+        # model.bidSize          = serializeDecimal(model.bidSize)
+        # model.lastSizeNotional = serializeDecimal(model.lastSizeNotional)
+        # model.askSize          = serializeDecimal(model.askSize)
+        # model.lastSize         = serializeDecimal(model.lastSize)
+        # model.bidPrice         = serializeDecimal(model.bidPrice)
+
+        model.quoteTimestamp = parseIsoDatetime(model.quoteTimestamp)
+        model.lastSaleTimestamp = parseIsoDatetime(model.lastSaleTimestamp)
+
+        return model
+
+#------------------------------------------------------
+# Crypto price api response serializer
+#------------------------------------------------------
+class CryptoTickerPriceSerializer(SerializerBase):
+    DomainModel = tiingo.CryptoTickerPrice
+
+    def serialize(self) -> tiingo.CryptoTickerPrice:
+        model: tiingo.CryptoTickerPrice = super().serialize()
+
+        top_of_book_dict = model.topOfBookData[0]
+        serializer = CryptoTickerPriceTopOfBookDataSerializer(top_of_book_dict)
+        model.topOfBookData = serializer.serialize()
+
+        return model

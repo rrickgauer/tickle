@@ -11,8 +11,8 @@ from __future__ import annotations
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.views.watches import ViewWatch
 from tickle.common.domain.views.watches import ViewWatchMap
-from tickle.common.domain.views.tiingo import StockTickerPrice
-
+from tickle.common.domain import models
+from tickle.api.services import tickerlib
 
 class BaseAuditor:
 
@@ -47,28 +47,29 @@ class BaseAuditor:
     #------------------------------------------------------
     # Get a list of watches that have the specified ticker that need to be closed
     #------------------------------------------------------
-    def _runPriceCheckForSymbol(self, open_watches: list[ViewWatch], ticker_response: StockTickerPrice):
-        current_stock_price = ticker_response.last
+    def _runPriceCheckForSymbol(self, open_watches: list[ViewWatch], ticker_price: models.TickerPrice):
+        current_stock_price = ticker_price.price
         watches_to_confirm = []
 
         for open_watch in open_watches:
+            # determine which qualifier routine to use as a callback
             if open_watch.watch_type == WatchTypes.RISE:
-                price_check_routine_delegate = self._priceCheckForRise
+                price_check_routine_delegate = self._priceCheckForRise  
             else:
-                price_check_routine_delegate = self._priceCheckForDrop
+                price_check_routine_delegate = self._priceCheckForDrop  
 
-
+            # utilize the callback, if it returns true then the watch should be closed
             if price_check_routine_delegate(open_watch, current_stock_price):
                 watches_to_confirm.append(open_watch)
         
         return watches_to_confirm
 
 
-
+    # check if the current price is > that the watch price
     def _priceCheckForRise(self, watch: ViewWatch, current_price) -> bool:
         return current_price > watch.price
 
-
+    # check if the current price is < than the watch price
     def _priceCheckForDrop(self, watch: ViewWatch, current_price) -> bool:
         return current_price < watch.price
 
@@ -77,5 +78,4 @@ class BaseAuditor:
 class StocksAuditor(BaseAuditor):
 
     def _getTickerPrices(self):
-        prices = prices.getTickerPrices(self.ticker_symbols)
-        return prices
+        return tickerlib.prices.getStockPrices(self.ticker_symbols)

@@ -31,10 +31,6 @@ class StockTickerPrice:
     askSize           : Decimal  = None  #:100,
     askPrice          : Decimal  = None  #:163.0
 
-
-
-
-
 #------------------------------------------------------
 # Api response for a crypto metadata request
 #------------------------------------------------------
@@ -58,3 +54,29 @@ class StockSearchApiResponse:
     assetType         : str  = None
     isActive          : bool = None
     countryCode       : str  = None
+
+
+
+
+@dataclass
+class CryptoTickerPriceTopOfBookData:
+    quoteTimestamp    : datetime = None
+    bidPrice          : Decimal  = None
+    askExchange       : str      = None
+    lastSize          : Decimal  = None
+    lastExchange      : str      = None
+    askSize           : Decimal  = None
+    bidExchange       : str      = None
+    lastPrice         : Decimal  = None
+    askPrice          : Decimal  = None
+    bidSize           : Decimal  = None
+    lastSizeNotional  : Decimal  = None
+    lastSaleTimestamp : datetime = None
+
+
+@dataclass
+class CryptoTickerPrice:
+    ticker        : str                            = None
+    quoteCurrency : str                            = None
+    baseCurrency  : str                            = None
+    topOfBookData : CryptoTickerPriceTopOfBookData = None
