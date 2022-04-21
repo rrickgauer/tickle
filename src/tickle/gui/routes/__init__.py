@@ -1,0 +1,1 @@
+from .home import bp_home as bp_home
