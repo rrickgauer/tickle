@@ -13,8 +13,10 @@ import datetime
 from decimal import Decimal
 from typing import Any
 from tickle.common.domain import models
-from tickle.common.domain.enums.watch_types import WatchTypes
-from tickle.common.views import tiingo
+from tickle.common.domain.enums.watches import WatchTypes
+from tickle.common.domain.enums.watches import TickerTypes
+from tickle.common.domain.views import tiingo
+from tickle.common.domain.views.watches import ViewWatch
 
 
 #------------------------------------------------------
@@ -81,8 +83,6 @@ class SerializerBase:
         return model
 
 
-
-
 #------------------------------------------------------
 # Watch serializer
 #------------------------------------------------------
@@ -97,6 +97,11 @@ class WatchSerializer(SerializerBase):
         except:
             model.watch_type = None
 
+        try:
+            model.ticker_type = TickerTypes(int(model.ticker_type))
+        except:
+            model.ticker_type = None
+
         return model
 
 
@@ -104,10 +109,10 @@ class WatchSerializer(SerializerBase):
 # Watch serializer
 #------------------------------------------------------
 class TickerResponseSerializer(SerializerBase):
-    DomainModel = tiingo.TickerResponse
+    DomainModel = tiingo.StockTickerPrice
 
     def serialize(self) -> models.Watch:
-        model: tiingo.TickerResponse = super().serialize()
+        model: tiingo.StockTickerPrice = super().serialize()
 
         # serialize the potential datetimes
         model.timestamp         = parseIsoDatetime(datetime.datetime, model.timestamp)
@@ -146,3 +151,51 @@ class StockSearchApiResponseSerializer(SerializerBase):
 
     def serialize(self) -> tiingo.StockSearchApiResponse:
         return super().serialize()
+
+
+#------------------------------------------------------
+# Watch view serializer
+#------------------------------------------------------
+class WatchViewSerializer(WatchSerializer):
+    DomainModel = ViewWatch
+
+    def serialize(self) -> ViewWatch:
+        return super().serialize()
+
+
+#------------------------------------------------------
+# CryptoTickerPriceTopOfBookData serializer
+#------------------------------------------------------
+class CryptoTickerPriceTopOfBookDataSerializer(SerializerBase):
+    DomainModel = tiingo.CryptoTickerPriceTopOfBookData
+
+    def serialize(self) -> tiingo.CryptoTickerPriceTopOfBookData:
+        model: tiingo.CryptoTickerPriceTopOfBookData = super().serialize()
+
+        # model.lastPrice        = serializeDecimal(model.lastPrice)
+        # model.askPrice         = serializeDecimal(model.askPrice)
+        # model.bidSize          = serializeDecimal(model.bidSize)
+        # model.lastSizeNotional = serializeDecimal(model.lastSizeNotional)
+        # model.askSize          = serializeDecimal(model.askSize)
+        # model.lastSize         = serializeDecimal(model.lastSize)
+        # model.bidPrice         = serializeDecimal(model.bidPrice)
+
+        model.quoteTimestamp = parseIsoDatetime(model.quoteTimestamp)
+        model.lastSaleTimestamp = parseIsoDatetime(model.lastSaleTimestamp)
+
+        return model
+
+#------------------------------------------------------
+# Crypto price api response serializer
+#------------------------------------------------------
+class CryptoTickerPriceSerializer(SerializerBase):
+    DomainModel = tiingo.CryptoTickerPrice
+
+    def serialize(self) -> tiingo.CryptoTickerPrice:
+        model: tiingo.CryptoTickerPrice = super().serialize()
+
+        top_of_book_dict = model.topOfBookData[0]
+        serializer = CryptoTickerPriceTopOfBookDataSerializer(top_of_book_dict)
+        model.topOfBookData = serializer.serialize()
+
+        return model

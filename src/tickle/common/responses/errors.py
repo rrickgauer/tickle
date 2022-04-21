@@ -15,8 +15,9 @@ from dataclasses import dataclass
 from enum import Enum, auto
 
 class ErrorCodes(Enum):
-    GENERAL = auto()
+    GENERAL                     = auto()
     MISSING_TICKER_SEARCH_Q_ARG = auto()
+    CREATE_NEW_WATCH            = auto()
 
 
 @dataclass
@@ -35,5 +36,10 @@ SearchTickersMissingQArgError = BaseError(
     message = 'Missing the required "q" url parameter',
 )
 
+
+CreateNewWatchError = BaseError(
+    code = ErrorCodes.CREATE_NEW_WATCH,
+    message = None
+)
 
 

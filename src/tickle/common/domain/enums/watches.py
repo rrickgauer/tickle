@@ -1,7 +1,7 @@
 """
 ********************************************************************************************
 
-Watch types enums
+Enums for watches
 
 ********************************************************************************************
 """
@@ -13,3 +13,8 @@ from enum import Enum
 class WatchTypes(Enum):
     RISE = 1
     DROP = 2
+
+
+class TickerTypes(Enum):
+    STOCKS = 1
+    CRYPTO = 2

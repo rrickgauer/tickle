@@ -1,26 +1,25 @@
 """
 ********************************************************************************************
 
-Watch domain model
+Ticker price domain model.
 
 ********************************************************************************************
 """
 
 from __future__ import annotations
 from dataclasses import dataclass
-from datetime import datetime
 from decimal import Decimal
-from uuid import UUID
-from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.enums.watches import TickerTypes
 
+import typing
+
+
 @dataclass
-class Watch:
-    id          : UUID        = None
-    ticker_type : TickerTypes = None
+class TickerPrice:
     ticker      : str         = None
     price       : Decimal     = None
-    watch_type  : WatchTypes  = None
-    email       : str         = None
-    created_on  : datetime    = datetime.now()
-    closed_on   : datetime    = None
+    ticker_type : TickerTypes = None
+
+
+# Map of TickerPrices whose keys are the ticker symbol
+TickerPriceMap = typing.Dict[str, TickerPrice]
