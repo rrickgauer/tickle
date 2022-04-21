@@ -148,3 +148,8 @@ def _toViewWatchMap(models_list: list[ViewWatch]) -> ViewWatchMap:
             watches_dict.setdefault(model.ticker, [model])
         
     return watches_dict
+
+
+
+def closeWatch(watch_id: UUID):
+    result = watches_repo.update(watch_id)

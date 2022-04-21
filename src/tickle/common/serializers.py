@@ -106,6 +106,15 @@ class WatchSerializer(SerializerBase):
 
 
 #------------------------------------------------------
+# Watch view serializer
+#------------------------------------------------------
+class WatchViewSerializer(WatchSerializer):
+    DomainModel = ViewWatch
+
+    def serialize(self) -> ViewWatch:
+        return super().serialize()
+
+#------------------------------------------------------
 # Watch serializer
 #------------------------------------------------------
 class TickerResponseSerializer(SerializerBase):
@@ -153,14 +162,7 @@ class StockSearchApiResponseSerializer(SerializerBase):
         return super().serialize()
 
 
-#------------------------------------------------------
-# Watch view serializer
-#------------------------------------------------------
-class WatchViewSerializer(WatchSerializer):
-    DomainModel = ViewWatch
 
-    def serialize(self) -> ViewWatch:
-        return super().serialize()
 
 
 #------------------------------------------------------
