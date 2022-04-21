@@ -39,7 +39,7 @@ def searchStocks(query: str) -> list[StockSearchApiResponse]:
 #------------------------------------------------------
 def _sendStockSearchRequest(query: str):
     api_request_url_parms = dict(query=query)
-    api_response = tickerlib.prices.makeApiRequest(tickerlib.constants.StockPriceApiUrls.SEARCH_SYMBOLS, api_request_url_parms)
+    api_response = tickerlib.stock_prices.makeApiRequest(tickerlib.constants.StockPriceApiUrls.SEARCH_SYMBOLS, api_request_url_parms)
     
     if not api_response.ok:
         print(api_response.text)
