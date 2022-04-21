@@ -15,7 +15,7 @@ cliargs = CliArgs()
 cliargs.parse()
 
 # configure the application
-controller.setConfigOptions(cliargs.is_production)
+controller.configureApplication(cliargs.is_production)
 
 
 

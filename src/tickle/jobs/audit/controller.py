@@ -14,7 +14,7 @@ from . import api_wrapper
 #------------------------------------------------------
 # Initialize some variables using the configuration values
 #------------------------------------------------------
-def setConfigOptions(is_production: bool):
+def configureApplication(is_production: bool):
     config = _getConfigClass(is_production)
 
     _setPymysqlCredentials(config)
