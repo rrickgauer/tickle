@@ -25,6 +25,7 @@ def getCryptoPrices(tickers: list[str]) -> TickerPriceMap:
     prices_map = _toTickerPriceMap(prices_list)
     return prices_map
 
+
 #------------------------------------------------------
 # Make an http request to the stocks api to fetch the prices of the specified crypto coins
 #------------------------------------------------------
@@ -50,11 +51,20 @@ def _serializeApiResponseData(api_data_records: list[dict]) -> list[CryptoTicker
     crypto_ticker_prices = []
 
     for record in api_data_records:
-        serializer = serializers.CryptoTickerPriceSerializer(record)
-        result = serializer.serialize()
+        result = _serializeApiResponse(record)
         crypto_ticker_prices.append(result)
     
     return crypto_ticker_prices
+
+
+#------------------------------------------------------
+# Serialize the given dictionary into a CryptoTickerPrice
+#------------------------------------------------------
+def _serializeApiResponse(api_response_record: dict) -> CryptoTickerPrice:
+    serializer = serializers.CryptoTickerPriceSerializer(api_response_record)
+    result = serializer.serialize()
+    return result
+
 
 #------------------------------------------------------
 # Convert the specified CryptoTickerPrice object into a TickerPriceMap

@@ -76,6 +76,10 @@ class BaseAuditor:
 
 
 class StocksAuditor(BaseAuditor):
-
     def _getTickerPrices(self):
         return tickerlib.prices.getStockPrices(self.ticker_symbols)
+
+
+class CryptoAuditor(BaseAuditor):
+    def _getTickerPrices(self):
+        return tickerlib.prices.getCryptoPrices(self.ticker_symbols)
