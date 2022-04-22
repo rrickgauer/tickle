@@ -18,4 +18,4 @@ bp_home = flask.Blueprint('home', __name__)
 #------------------------------------------------------
 @bp_home.route('')
 def homePage():
-    return 'gui'
+    return flask.render_template('index.html')
