@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+
+{% block progress_bar_width %}25{% endblock %}
+
+{% block content %}
+
+<fieldset class="mb-3">
+    <legend>What kind of asset is it?</legend>
+
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-stock" value="1" checked>
+        <label class="form-check-label" for="form-watch-input-ticker-type-stock">Stock</label>
+    </div>
+    
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-crypto" value="2">
+        <label class="form-check-label" for="form-watch-input-ticker-type-crypto">Crypto</label>
+    </div>
+</fieldset>
+
+<a href="/home/1" class="btn btn-success btn-next-page">Next</a>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "home/base.html" %}
+
+{% block progress_bar_width %}100{% endblock %}
+
+
+{% block content %}
+
+<div class="form-group">
+    <label for="form-watch-input-email">Email</label>
+    <input type="email" class="form-control form-control-lg form-watch-input" id="form-watch-input-email" required>
+</div>
+
+
+<button type="button" id="form-watch-button-submit" class="btn btn-primary disabled">Submit</button>
+<a href="/home/{{data.url_values.ticker_type.value}}/{{data.url_values.ticker}}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}

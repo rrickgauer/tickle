@@ -1,0 +1,16 @@
+{% extends "home/base.html" %}
+
+{% block progress_bar_width %}50{% endblock %}
+
+{% block content %}
+
+<div class="form-group">
+    <label for="form-watch-input-ticker">Enter the ticker</label>
+    <input type="text" class="form-control form-control-lg form-watch-input" id="form-watch-input-ticker">
+</div>
+
+<a href="#" class="btn btn-success btn-next-page disabled">Next</a>
+<a href="/home" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}
