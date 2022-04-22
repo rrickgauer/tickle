@@ -1,0 +1,25 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+
+<fieldset class="mb-3">
+    <legend>What kind of asset is it?</legend>
+
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-stock" value="stocks" checked>
+        <label class="form-check-label" for="form-watch-input-ticker-type-stock">Stock</label>
+    </div>
+    
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-crypto" value="crypto">
+        <label class="form-check-label" for="form-watch-input-ticker-type-crypto">Crypto</label>
+    </div>
+</fieldset>
+
+
+
+<a href="/home/1" class="btn btn-success">Continue</a>
+
+
+{% endblock %}

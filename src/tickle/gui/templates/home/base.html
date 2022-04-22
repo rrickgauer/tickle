@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/header.html' %}
+    {% block header %}{% endblock %}
+    
+    <title>
+        {% block title %}
+            Tickle home page
+        {% endblock %}
+    </title>
+    
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="my-5">Home page</h1>
+    </div>
+
+    <div class="container my-5">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    {% include 'includes/footer.html' %}
+    <script src="/static/js/dist/home.bundle.js"></script>
+    {% block footer %}{% endblock %}
+
+</body>
+</html>
