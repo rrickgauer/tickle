@@ -9,6 +9,8 @@ Url Prefix: /home
 from __future__ import annotations
 import flask
 from tickle.common.domain.enums.watches import TickerTypes, WatchTypes
+from tickle.gui.services import home_page as homepage_services
+
 
 # module blueprint
 bp_home = flask.Blueprint('home', __name__)
@@ -18,14 +20,25 @@ bp_home = flask.Blueprint('home', __name__)
 #------------------------------------------------------
 @bp_home.route('')
 def getTickerType():
-    return flask.render_template('home/form-sections/ticker-type.html')
+    url_values = homepage_services.getUrlValues()
+
+    payload = dict(
+        url_values = url_values
+    )
+
+    return flask.render_template('home/form-sections/ticker-type.html', data=payload)
 
 #------------------------------------------------------
 # Ticker search
 #------------------------------------------------------
 @bp_home.route('<ticker_type:ticker_type>')
 def getTicker(ticker_type: TickerTypes):
-    return flask.render_template('home/form-sections/ticker-search.html')
+    url_values = homepage_services.getUrlValues()
+
+    payload = dict(
+        url_values = url_values
+    )
+    return flask.render_template('home/form-sections/ticker-search.html', data=payload)
 
 
 #------------------------------------------------------
@@ -33,7 +46,12 @@ def getTicker(ticker_type: TickerTypes):
 #------------------------------------------------------
 @bp_home.route('<ticker_type:ticker_type>/<string:ticker>')
 def getPriceAndWatchType(ticker_type: TickerTypes, ticker: str):
-    return flask.render_template('home/form-sections/price.html')
+    url_values = homepage_services.getUrlValues()
+
+    payload = dict(
+        url_values = url_values
+    )
+    return flask.render_template('home/form-sections/price.html', data=payload)
 
 
 #------------------------------------------------------
@@ -41,15 +59,12 @@ def getPriceAndWatchType(ticker_type: TickerTypes, ticker: str):
 #------------------------------------------------------
 @bp_home.route('<ticker_type:ticker_type>/<ticker>/<price>/<watch_type:watch_type>')
 def getEmail(ticker_type: TickerTypes, ticker, price, watch_type: WatchTypes):
-    # data = dict(
-    #     ticker_type = ticker_type,
-    #     ticker = ticker,
-    #     price = price,
-    #     watch_type = watch_type,
-    # )
+    url_values = homepage_services.getUrlValues()
 
-    # return flask.jsonify(data)
+    payload = dict(
+        url_values = url_values
+    )
 
-    return flask.render_template('home/form-sections/email.html')
+    return flask.render_template('home/form-sections/email.html', data=payload)
 
     
