@@ -135,3 +135,9 @@ dmypy.json
 
 **/config/base.py
 **/.tables-view
+
+# Ignore the compiled css file
+**/gui/static/css/style.css*
+
+# Ignore compiled js files
+**/gui/static/js/dist/
