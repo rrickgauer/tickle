@@ -138,3 +138,6 @@ dmypy.json
 
 # Ignore the compiled css file
 **/gui/static/css/style.css*
+
+# Ignore compiled js files
+**/gui/static/js/dist/

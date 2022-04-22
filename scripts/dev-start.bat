@@ -3,4 +3,4 @@
 :: --------------------------------------------
 
 cd C:\xampp\htdocs\files\tickle\scripts
-wt -M start-api-server.bat ; start-gui-server.bat ; start-css-compiler.bat
+wt -M start-api-server.bat ; start-gui-server.bat ; start-css-compiler.bat ; start-js.bat
