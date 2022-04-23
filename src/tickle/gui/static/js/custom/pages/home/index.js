@@ -122,10 +122,19 @@ async function handleFormSubmission() {
     if (apiResponse.ok) {
         console.log('success');
         console.log(await apiResponse.json());
+
+        showSuccessfulRequest();
     }
     else {
         console.error(await apiResponse.text());
     }
 
     HomePageElements.resetSubmitButton();
+}
+
+
+function showSuccessfulRequest() {
+    $('#section-form').addClass('d-none');
+    $('#section-body-top').addClass('d-none');
+    $('#section-watch-created').removeClass('d-none');
 }
