@@ -109,14 +109,16 @@ function initTickerSelect() {
     }
 }
 
-
+/** 
+ * Submit watch to the api 
+ */
 async function handleFormSubmission() {
     HomePageElements.spinSubmitButton();
+
     const formInterface = new WatchCreationInterface();
     const watchModel = formInterface.getWatchModel();
 
     const apiResponse = await ApiWrapper.postWatch(watchModel);
-
     if (apiResponse.ok) {
         console.log('success');
         console.log(await apiResponse.json());
@@ -126,6 +128,4 @@ async function handleFormSubmission() {
     }
 
     HomePageElements.resetSubmitButton();
-
-
 }
