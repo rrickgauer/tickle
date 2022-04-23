@@ -22,7 +22,7 @@ $(document).ready(function() {
  */
 function addEventListners() {
     $(HomePageElements.Inputs.TICKER_TYPE).on('change', updateTickerTypeLink);
-    $(HomePageElements.Inputs.TICKER).on('keyup', handleTickerInputChange);
+    $(HomePageElements.Inputs.TICKER).on('change', handleTickerInputChange);
     $(HomePageElements.Inputs.PRICE).on('keyup', handlePriceInputChange);
     $(HomePageElements.Inputs.WATCH_TYPE).on('change', handlePriceInputChange);
     $(HomePageElements.Inputs.EMAIL).on('keyup', handleEmailInputChange);
@@ -54,6 +54,7 @@ function handleTickerInputChange() {
     HomePageElements.setNextPageUrlValue(newUrl);
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
+
 
 /**
  * Change in price input
@@ -89,6 +90,9 @@ function handleEmailInputChange() {
  */
 function initTickerSelect() {
     if (m_urlFormValues.tickerType == null) {
+        return;
+    } 
+    else if (m_urlFormValues.ticker != null) {
         return;
     }
 
