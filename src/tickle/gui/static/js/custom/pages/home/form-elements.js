@@ -1,4 +1,4 @@
-
+import { SpinnerButton } from "../../classes/spinner-button";
 
 export class HomePageElements 
 {
@@ -46,6 +46,14 @@ export class HomePageElements
     static setNextPageUrlValue(url) {
         $(`.${HomePageElements.Buttons.NEXT_PAGE}`).attr('href', url);
     }
+
+    static spinSubmitButton() {
+        HomePageElements.spinnerButton.showSpinner();
+    }
+
+    static resetSubmitButton() {
+        HomePageElements.spinnerButton.reset();
+    }
     
 
 }
@@ -64,6 +72,8 @@ HomePageElements.Buttons = {
     NEXT_PAGE: 'btn-next-page',
     SUBMIT: '#form-watch-button-submit',
 }
+
+HomePageElements.spinnerButton = new SpinnerButton(HomePageElements.Buttons.SUBMIT);
 
 
 

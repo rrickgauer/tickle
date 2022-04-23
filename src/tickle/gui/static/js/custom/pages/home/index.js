@@ -3,6 +3,8 @@ import { HomePageElements } from "./form-elements";
 import { UrlFormValues } from "./url-form-values";
 import { TickerSelect } from "./ticker-select";
 import { TickerTypes } from "../../domain/enums";
+import { WatchCreationInterface } from "./form-submission";
+import { ApiWrapper } from "../../classes/api-wrapper";
 
 
 const m_urlFormValues = new UrlFormValues();
@@ -26,6 +28,7 @@ function addEventListners() {
     $(HomePageElements.Inputs.PRICE).on('keyup', handlePriceInputChange);
     $(HomePageElements.Inputs.WATCH_TYPE).on('change', handlePriceInputChange);
     $(HomePageElements.Inputs.EMAIL).on('keyup', handleEmailInputChange);
+    $(HomePageElements.Buttons.SUBMIT).on('click', handleFormSubmission);
 }
 
 
@@ -104,4 +107,25 @@ function initTickerSelect() {
     else {
         TickerSelect.initStocksSelect();
     }
+}
+
+
+async function handleFormSubmission() {
+    HomePageElements.spinSubmitButton();
+    const formInterface = new WatchCreationInterface();
+    const watchModel = formInterface.getWatchModel();
+
+    const apiResponse = await ApiWrapper.postWatch(watchModel);
+
+    if (apiResponse.ok) {
+        console.log('success');
+        console.log(await apiResponse.json());
+    }
+    else {
+        console.error(await apiResponse.text());
+    }
+
+    HomePageElements.resetSubmitButton();
+
+
 }
