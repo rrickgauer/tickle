@@ -2,6 +2,7 @@
 import { HomePageElements } from "./form-elements";
 import { UrlFormValues } from "./url-form-values";
 import { TickerSelect } from "./ticker-select";
+import { TickerTypes } from "../../domain/enums";
 
 
 const m_urlFormValues = new UrlFormValues();
@@ -12,7 +13,7 @@ Main logic
 **********************************************************/
 $(document).ready(function() {
     addEventListners();
-    TickerSelect.initCryptoSelect();
+    initTickerSelect();
 });
 
 
@@ -81,4 +82,22 @@ function handleEmailInputChange() {
     }
 
     HomePageElements.toggleSubmitButtonDisabled(false);
+}
+
+/**
+ * Initialize the select2 library
+ */
+function initTickerSelect() {
+    if (m_urlFormValues.tickerType == null) {
+        return;
+    }
+
+    const tickerType = parseInt(m_urlFormValues.tickerType);
+
+    if (tickerType == TickerTypes.CRYPTO) {
+        TickerSelect.initCryptoSelect();
+    }
+    else {
+        TickerSelect.initStocksSelect();
+    }
 }
