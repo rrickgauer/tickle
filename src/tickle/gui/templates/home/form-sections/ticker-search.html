@@ -1,16 +1,28 @@
 {% extends "home/base.html" %}
 
+{% block header %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block progress_bar_width %}50{% endblock %}
 
 {% block content %}
 
 <div class="form-group">
     <label for="form-watch-input-ticker">Enter the ticker</label>
-    <input type="text" class="form-control form-control-lg form-watch-input" id="form-watch-input-ticker">
+    <select class="form-control" name="state" id="form-watch-input-ticker"></select>    
 </div>
 
-<a href="#" class="btn btn-success btn-next-page disabled">Next</a>
-<a href="/home" class="btn btn-secondary">Back</a>
+
+<div class="mt-3">
+    <a href="#" class="btn btn-success btn-next-page disabled">Next</a>
+    <a href="/home" class="btn btn-secondary">Back</a>
+</div>
 
 
+{% endblock %}
+
+{% block footer %}
+<!-- select2 js -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {% endblock %}

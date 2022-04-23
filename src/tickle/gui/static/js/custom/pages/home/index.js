@@ -1,6 +1,7 @@
 
 import { HomePageElements } from "./form-elements";
 import { UrlFormValues } from "./url-form-values";
+import { TickerSelect } from "./ticker-select";
 
 
 const m_urlFormValues = new UrlFormValues();
@@ -11,10 +12,13 @@ Main logic
 **********************************************************/
 $(document).ready(function() {
     addEventListners();
-    // console.log(m_urlFormValues);
+    TickerSelect.initCryptoSelect();
 });
 
-// add the page event handlers
+
+/**
+ * Add the page event handlers
+ */
 function addEventListners() {
     $(HomePageElements.Inputs.TICKER_TYPE).on('change', updateTickerTypeLink);
     $(HomePageElements.Inputs.TICKER).on('keyup', handleTickerInputChange);
@@ -24,7 +28,9 @@ function addEventListners() {
 }
 
 
-// user changed the watch type value
+/**
+ * User changed the watch type value
+ */
 function updateTickerTypeLink() {
     const radioValue = HomePageElements.getTickerTypeValue();
     const newUrl = `${window.location.pathname}/${radioValue}`;
@@ -32,7 +38,10 @@ function updateTickerTypeLink() {
     HomePageElements.setNextPageUrlValue(newUrl);
 }
 
-// change in ticker input
+
+/**
+ * Change in ticker input
+ */
 function handleTickerInputChange() {
     const tickerValue = HomePageElements.getTickerValue();
     if (tickerValue.length == 0) {
@@ -45,7 +54,9 @@ function handleTickerInputChange() {
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
 
-// change in price input
+/**
+ * Change in price input
+ */
 function handlePriceInputChange() {
     const priceValue = HomePageElements.getPriceValue();
     if (priceValue.length == 0) {
@@ -59,7 +70,9 @@ function handlePriceInputChange() {
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
 
-// change in email input
+/**
+ * Change in email input
+ */
 function handleEmailInputChange() {
     const emailValue = HomePageElements.getEmailValue();
     if (emailValue.length == 0) {
