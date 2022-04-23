@@ -9,6 +9,7 @@ Ticker search services
 from __future__ import annotations
 from functools import wraps
 import flask
+from tickle.api.services.tickerlib.constants import StockPriceApiUrls
 from tickle.common import responses
 from tickle.common import serializers
 from tickle.common.responses.errors import SearchTickersMissingQArgError
@@ -39,7 +40,11 @@ def searchStocks(query: str) -> list[StockSearchApiResponse]:
 #------------------------------------------------------
 def _sendStockSearchRequest(query: str):
     api_request_url_parms = dict(query=query)
-    api_response = tickerlib.stock_prices.makeApiRequest(tickerlib.constants.StockPriceApiUrls.SEARCH_SYMBOLS, api_request_url_parms)
+
+    api_response = tickerlib.prices.stocks.makeApiRequest(
+        url         = StockPriceApiUrls.SEARCH_SYMBOLS,
+        query_parms = api_request_url_parms
+    )
     
     if not api_response.ok:
         print(api_response.text)

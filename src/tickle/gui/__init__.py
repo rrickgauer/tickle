@@ -13,6 +13,7 @@ import flask
 from . import routes
 from tickle.common import url_converters
 from tickle.common.config import configs
+import flaskforward
 
 #------------------------------------------------------
 # Setup the custom url type converters for some enums
@@ -26,10 +27,12 @@ def _setupCustomConverters(flask_app: flask.Flask):
 #------------------------------------------------------
 def _registerBlueprints(flask_app: flask.Flask):
     flask_app.register_blueprint(routes.bp_home, url_prefix='/home')
+    flask_app.register_blueprint(routes.bp_api, url_prefix='/api')
 
 
 def _additionalConfig(flask_app: flask.Flask):
     flask_app.json_encoder = configs.Production.JSON_ENCODER
+    flaskforward.globals.url = configs.Production.URL_API
 
 
 # Main logic
@@ -37,3 +40,5 @@ app = flask.Flask(__name__)
 _setupCustomConverters(app)
 _registerBlueprints(app)
 _additionalConfig(app)
+
+# app.add_url_rule()

@@ -1,6 +1,8 @@
 
 import { HomePageElements } from "./form-elements";
 import { UrlFormValues } from "./url-form-values";
+import { TickerSelect } from "./ticker-select";
+import { TickerTypes } from "../../domain/enums";
 
 
 const m_urlFormValues = new UrlFormValues();
@@ -11,20 +13,25 @@ Main logic
 **********************************************************/
 $(document).ready(function() {
     addEventListners();
-    // console.log(m_urlFormValues);
+    initTickerSelect();
 });
 
-// add the page event handlers
+
+/**
+ * Add the page event handlers
+ */
 function addEventListners() {
     $(HomePageElements.Inputs.TICKER_TYPE).on('change', updateTickerTypeLink);
-    $(HomePageElements.Inputs.TICKER).on('keyup', handleTickerInputChange);
+    $(HomePageElements.Inputs.TICKER).on('change', handleTickerInputChange);
     $(HomePageElements.Inputs.PRICE).on('keyup', handlePriceInputChange);
     $(HomePageElements.Inputs.WATCH_TYPE).on('change', handlePriceInputChange);
     $(HomePageElements.Inputs.EMAIL).on('keyup', handleEmailInputChange);
 }
 
 
-// user changed the watch type value
+/**
+ * User changed the watch type value
+ */
 function updateTickerTypeLink() {
     const radioValue = HomePageElements.getTickerTypeValue();
     const newUrl = `${window.location.pathname}/${radioValue}`;
@@ -32,7 +39,10 @@ function updateTickerTypeLink() {
     HomePageElements.setNextPageUrlValue(newUrl);
 }
 
-// change in ticker input
+
+/**
+ * Change in ticker input
+ */
 function handleTickerInputChange() {
     const tickerValue = HomePageElements.getTickerValue();
     if (tickerValue.length == 0) {
@@ -45,7 +55,10 @@ function handleTickerInputChange() {
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
 
-// change in price input
+
+/**
+ * Change in price input
+ */
 function handlePriceInputChange() {
     const priceValue = HomePageElements.getPriceValue();
     if (priceValue.length == 0) {
@@ -59,7 +72,9 @@ function handlePriceInputChange() {
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
 
-// change in email input
+/**
+ * Change in email input
+ */
 function handleEmailInputChange() {
     const emailValue = HomePageElements.getEmailValue();
     if (emailValue.length == 0) {
@@ -68,4 +83,25 @@ function handleEmailInputChange() {
     }
 
     HomePageElements.toggleSubmitButtonDisabled(false);
+}
+
+/**
+ * Initialize the select2 library
+ */
+function initTickerSelect() {
+    if (m_urlFormValues.tickerType == null) {
+        return;
+    } 
+    else if (m_urlFormValues.ticker != null) {
+        return;
+    }
+
+    const tickerType = parseInt(m_urlFormValues.tickerType);
+
+    if (tickerType == TickerTypes.CRYPTO) {
+        TickerSelect.initCryptoSelect();
+    }
+    else {
+        TickerSelect.initStocksSelect();
+    }
 }
