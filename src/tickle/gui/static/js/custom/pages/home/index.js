@@ -132,7 +132,9 @@ async function handleFormSubmission() {
     HomePageElements.resetSubmitButton();
 }
 
-
+/**
+ * Show the success alert
+ */
 function showSuccessfulRequest() {
     $('#section-form').addClass('d-none');
     $('#section-body-top').addClass('d-none');
