@@ -13,19 +13,21 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="section-body-top">
         <h1 class="my-5">Home page</h1>
         
         <div class="progress" style="height: 7px;">
-            <!-- <div class="progress-bar w-75"></div> -->
             <div class="progress-bar w-{% block progress_bar_width %}0{% endblock %}"></div>
         </div>
     </div>
 
-    <div class="container my-5">
+    <div class="container my-5" id="section-form">
         {% block content %}{% endblock %}
     </div>
 
+    <div class="container">
+        {% include 'home/created.html' %}
+    </div>
 
     {% include 'includes/footer.html' %}
     {% block footer %}{% endblock %}

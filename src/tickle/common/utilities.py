@@ -21,10 +21,10 @@ from tickle.common.config.base import ConfigBase
 #------------------------------------------------------
 # return the data from the specified json file
 #------------------------------------------------------
-def readJsonFile(file_name_path: str) -> dict:
-    with open(file_name_path) as configFile:
-        configData = json.loads(configFile.read())
-        return configData
+def readJsonFile(file_name_path: str) -> list | dict:
+    with open(file_name_path) as json_file:
+        data = json.loads(json_file.read())
+        return data
 
 # ------------------------------------------------------
 # Returns a UUID
@@ -125,3 +125,29 @@ def getConfig() -> ConfigBase:
         return configs.Production()
     else:
         return configs.Dev()
+
+
+"""
+method
+scheme
+server
+root_path
+path
+query_string
+headers
+remote_addr
+environ
+shallow
+url_rule
+view_args
+"""
+def printFlaskRequest(flask_request: flask.Request):
+    
+    items = list(flask_request.__dict__.items())
+
+    for key, value in items:
+        # print((key, value))
+        print(key)
+
+
+
