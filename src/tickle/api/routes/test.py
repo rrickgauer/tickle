@@ -10,6 +10,7 @@ from __future__ import annotations
 import flask
 from tickle.common import responses
 from tickle.common.email import messenger
+from tickle.api import security
 
 # module blueprint
 bp_test = flask.Blueprint('test', __name__)
@@ -18,9 +19,10 @@ bp_test = flask.Blueprint('test', __name__)
 # Test endpoint
 #------------------------------------------------------
 @bp_test.route('')
+@security.localEndpoint
 def test():
 
-    # messenger.sendEmail()
+    security.isRequestLocal()
 
     return responses.get('test endpoint')
 
