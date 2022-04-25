@@ -5,20 +5,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 {% endblock %}
 
-{% block form_section_title %}Ticker information{% endblock %}
+{% block form_section_title %}Ticker{% endblock %}
 
 
 {% block form_section_description %}
-Time to pick what ticker we will be watching for you.
+What ticker should we watch?
 {% endblock %}
-
 
 
 {% block form_section_inputs %}
 
 <!-- asset type -->
 <fieldset class="mb-4">
-    <legend>What kind of ticker is it?</legend>
+    <legend class="form-label">What kind of ticker is it?</legend>
 
     <div class="form-check">
         <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-stock" value="1" checked>
@@ -34,7 +33,7 @@ Time to pick what ticker we will be watching for you.
 
 <!-- ticker -->
 <div class="form-group mb-4">
-    <label for="form-watch-input-ticker">Enter the ticker</label>
+    <label for="form-watch-input-ticker" class="form-label">Select the ticker symbol</label>
     <select class="form-control" name="state" id="form-watch-input-ticker"></select>    
 </div>
 

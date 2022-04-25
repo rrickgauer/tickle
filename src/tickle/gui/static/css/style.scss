@@ -21,8 +21,19 @@ textarea {
 
 
 
-body {
-    // background-color: map-get($map: $colors-grays, $key: "lighter");
+.h1, 
+.h2, 
+.h3, 
+.h4, 
+.h5, 
+.h6, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    font-weight: 700;
 }
 
 
@@ -52,3 +63,18 @@ body {
     justify-content: center;
 }
 
+
+
+.form-section {
+    border-top: 1px solid map-get($map: $colors-grays, $key: "lighter");
+    border-bottom: 1px solid map-get($map: $colors-grays, $key: "lighter");
+    padding: 20px 0px;
+}
+
+
+.form-label {
+    color: #6c757d;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
