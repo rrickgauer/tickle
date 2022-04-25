@@ -7,8 +7,8 @@ Url Prefix: /watches
 """
 
 from __future__ import annotations
-from uuid import UUID
 import flask
+from tickle.api import security
 from tickle.api.services import watches as watch_services
 from tickle.common import responses
 from tickle.common.responses.errors import BaseError, ErrorCodes
@@ -44,21 +44,20 @@ def newWatch():
 # GET: /watches
 #------------------------------------------------------
 @bp_watches.get('')
+@security.localEndpoint
 def getOpenWatches():
     open_watches = watch_services.getOpenWatches()
     return responses.get(open_watches)
 
 
 #------------------------------------------------------
-# GET: /watches
+# Delete a watch (close it)
 #------------------------------------------------------
 @bp_watches.delete('<uuid:watch_id>')
+@security.localEndpoint
 def deleteWatch(watch_id):
     watch_services.closeWatch(watch_id)
     return responses.deleted()
-
-    # open_watches = watch_services.getOpenWatches()
-    # return responses.get(open_watches)
 
 
 

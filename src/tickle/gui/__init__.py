@@ -32,7 +32,12 @@ def _registerBlueprints(flask_app: flask.Flask):
 
 def _additionalConfig(flask_app: flask.Flask):
     flask_app.json_encoder = configs.Production.JSON_ENCODER
+    
     flaskforward.globals.url = configs.Production.URL_API
+    
+    flaskforward.globals.headers = {
+        configs.Production.SECURITY_HEADER_KEY: configs.Production.SECURITY_HEADER_VALUE,
+    }
 
 
 # Main logic
