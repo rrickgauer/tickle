@@ -20,7 +20,11 @@ bp_new = flask.Blueprint('new', __name__)
 #------------------------------------------------------
 @bp_new.route('')
 def getTickerInfo():
-    return flask.render_template('new/form-sections/ticker.html')
+    payload = dict(
+        url_values = homepage_services.getUrlValues(),
+    )
+
+    return flask.render_template('new/form-sections/ticker.html', data=payload)
 
 
 #------------------------------------------------------
@@ -28,4 +32,22 @@ def getTickerInfo():
 #------------------------------------------------------
 @bp_new.route('<ticker_type:ticker_type>/<string:ticker>')
 def getPriceAndWatchType(ticker_type: TickerTypes, ticker: str):
-    return flask.render_template('new/form-sections/price.html')
+
+    payload = dict(
+        url_values = homepage_services.getUrlValues(),
+    )
+
+    return flask.render_template('new/form-sections/price.html', data=payload)
+
+
+#------------------------------------------------------
+# Get the email
+#------------------------------------------------------
+@bp_new.route('<ticker_type:ticker_type>/<ticker>/<price>/<watch_type:watch_type>')
+def getEmail(ticker_type: TickerTypes, ticker, price, watch_type: WatchTypes):
+
+    payload = dict(
+        url_values = homepage_services.getUrlValues(),
+    )
+
+    return flask.render_template('new/form-sections/email.html', data=payload)
