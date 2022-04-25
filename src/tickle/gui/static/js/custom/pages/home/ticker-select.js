@@ -10,6 +10,7 @@ export class TickerSelect
     static initCryptoSelect() {
         $(HomePageElements.Inputs.TICKER).select2({
             theme: 'bootstrap4',
+            minimumInputLength: 1,
             ajax: {
                 url: ApiWrapper.endpoints.SEARCH_CRYPTO,
                 data:  TickerSelect._createDataQuery,
@@ -43,6 +44,7 @@ export class TickerSelect
     static initStocksSelect() {
         $(HomePageElements.Inputs.TICKER).select2({
             theme: 'bootstrap4',
+            minimumInputLength: 1,
             ajax: {
                 url: ApiWrapper.endpoints.SEARCH_STOCKS,
                 data:  TickerSelect._createDataQuery,
