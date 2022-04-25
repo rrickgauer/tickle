@@ -1,8 +1,7 @@
 from __future__ import annotations
 import flask
 from functools import wraps
-
-
+from tickle.common.utilities import getConfig
 
 #------------------------------------------------------
 # Decorator for verify_authorization_credentials
@@ -16,21 +15,12 @@ def localEndpoint(f):
     return wrap
 
 def isRequestLocal():
-    request_ip = _getRequestIpAddress()
-    host_ip = _getHostIpAddress()
+    config = getConfig()
+    request_header_value = flask.request.headers.get(config.SECURITY_HEADER_KEY, 'nope')
 
-    if request_ip == host_ip:
+    if request_header_value == config.SECURITY_HEADER_VALUE:
         return True
     else:
         return False
 
-
-def _getRequestIpAddress() -> str:
-    request_ip = flask.request.remote_addr.split(':')[0]
-    return request_ip
-
-
-def _getHostIpAddress() -> str:
-    host_ip = flask.request.host.split(':')[0]
-    return host_ip
 

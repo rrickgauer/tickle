@@ -142,7 +142,6 @@ url_rule
 view_args
 """
 def printFlaskRequest(flask_request: flask.Request):
-    
     items = list(flask_request.__dict__.items())
 
     for key, value in items:
