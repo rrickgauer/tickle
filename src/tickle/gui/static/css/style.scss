@@ -1,3 +1,80 @@
-body {
-    // background-color: aliceblue;
+@import "./colors";
+
+input[type=color],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+
+
+
+.h1, 
+.h2, 
+.h3, 
+.h4, 
+.h5, 
+.h6, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    font-weight: 700;
+}
+
+
+// ------------------------------------
+// Gray button
+// ------------------------------------
+.btn.btn-gray {
+    border: 1px solid map-get($colors-grays, "lighter");
+    background-color: map-get($colors-grays, "lightest");
+    // color: map-get($colors-grays, "darkest");
+    font-weight: 500;
+    transition: filter 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-shadow: rgba(27, 31, 36, 0.04) 0px 1px 0px 0px;
+
+    &:hover,
+    &:active,
+    &:focus {
+        filter: brightness(95%);
+    }
+}
+
+#section-form-container {
+    display: flex;
+    height: 800px;
+    // flex-
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.form-section {
+    border-top: 1px solid map-get($map: $colors-grays, $key: "lighter");
+    border-bottom: 1px solid map-get($map: $colors-grays, $key: "lighter");
+    padding: 20px 0px;
+}
+
+
+.form-label {
+    color: #6c757d;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
 }

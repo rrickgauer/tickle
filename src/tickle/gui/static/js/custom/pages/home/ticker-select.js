@@ -9,6 +9,8 @@ export class TickerSelect
     /** Initialize the select2 library for crypto searches */
     static initCryptoSelect() {
         $(HomePageElements.Inputs.TICKER).select2({
+            theme: 'bootstrap4',
+            minimumInputLength: 1,
             ajax: {
                 url: ApiWrapper.endpoints.SEARCH_CRYPTO,
                 data:  TickerSelect._createDataQuery,
@@ -41,6 +43,8 @@ export class TickerSelect
     /** Initialize the select input for stock search */
     static initStocksSelect() {
         $(HomePageElements.Inputs.TICKER).select2({
+            theme: 'bootstrap4',
+            minimumInputLength: 1,
             ajax: {
                 url: ApiWrapper.endpoints.SEARCH_STOCKS,
                 data:  TickerSelect._createDataQuery,

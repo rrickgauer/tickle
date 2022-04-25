@@ -23,7 +23,7 @@ $(document).ready(function() {
  * Add the page event handlers
  */
 function addEventListners() {
-    $(HomePageElements.Inputs.TICKER_TYPE).on('change', updateTickerTypeLink);
+    $(HomePageElements.Inputs.TICKER_TYPE).on('change', initTickerSelect);
     $(HomePageElements.Inputs.TICKER).on('change', handleTickerInputChange);
     $(HomePageElements.Inputs.PRICE).on('keyup', handlePriceInputChange);
     $(HomePageElements.Inputs.WATCH_TYPE).on('change', handlePriceInputChange);
@@ -53,7 +53,8 @@ function handleTickerInputChange() {
         return;
     }
 
-    const newUrl = `${window.location.pathname}/${tickerValue}`;
+    const tickerType = HomePageElements.getTickerTypeValue();
+    const newUrl = `${window.location.pathname}/${tickerType}/${tickerValue}`;
     HomePageElements.setNextPageUrlValue(newUrl);
     HomePageElements.toggleNextPageButtonDisabled(false);
 }
@@ -92,15 +93,11 @@ function handleEmailInputChange() {
  * Initialize the select2 library
  */
 function initTickerSelect() {
-    if (m_urlFormValues.tickerType == null) {
-        return;
-    } 
-    else if (m_urlFormValues.ticker != null) {
+    if (m_urlFormValues.ticker != null) {
         return;
     }
 
-    const tickerType = parseInt(m_urlFormValues.tickerType);
-
+    const tickerType = parseInt(HomePageElements.getTickerTypeValue());
     if (tickerType == TickerTypes.CRYPTO) {
         TickerSelect.initCryptoSelect();
     }

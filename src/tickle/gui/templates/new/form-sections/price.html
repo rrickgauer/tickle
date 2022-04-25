@@ -1,15 +1,25 @@
-{% extends "home/base.html" %}
+{% extends "new/base.html" %}
 
-{% block progress_bar_width %}75{% endblock %}
 
-{% block content %}
+{% block form_section_title %}Price{% endblock %}
 
-<div class="form-group">
-    <label for="form-watch-input-price">Price</label>
+
+{% block form_section_description %}
+Select the price that you want to get alerted for.
+{% endblock %}
+
+
+
+{% block form_section_inputs %}
+
+<div class="form-group mb-4">
+    <label for="form-watch-input-price" class="form-label">Price</label>
     <input type="number" class="form-control form-control-lg form-watch-input" id="form-watch-input-price" step="0.01" min="0" required>
 </div>
 
-<fieldset class="mb-3">
+<fieldset class="mb-4">
+    <legend class="form-label">Do you want to be alerted when the price rises or falls?</legend>
+
     <div class="form-check">
         <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-watch-type" id="form-watch-input-watch-type-rise" value="1" checked>
         <label class="form-check-label" for="form-watch-input-watch-type-rise">Rise</label>
@@ -21,8 +31,7 @@
     </div>
 </fieldset>
 
-<a href="/home/1/ticker_name/85/1" class="btn btn-success btn-next-page disabled">Next</a>
-<a href="/home/{{ data.url_values.ticker_type.value }}" class="btn btn-secondary">Back</a>
-
-
 {% endblock %}
+
+
+

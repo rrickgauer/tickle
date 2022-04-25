@@ -1,0 +1,21 @@
+// primary colors
+$colors-primary: (
+    "darkest":  hsl(245, 96%, 9%),
+    "darker":   hsl(245, 81%, 31%),
+    "dark":     hsl(245, 52%, 52%),
+    "primary":  hsl(245, 100%, 73%),
+    "light":    hsl(245, 100%, 81%),
+    "lighter":  hsl(245, 100%, 90%),
+    "lightest": hsl(246, 100%, 98%),
+);
+
+// grays
+$colors-grays: (
+    "darkest": hsl(245, 9%, 23%),
+    "darker": hsl(245, 9%, 35%),
+    "dark": hsl(245, 9%, 48%),
+    "primary": hsl(245, 9%, 61%),
+    "light": hsl(245, 9%, 73%),
+    "lighter": hsl(245, 8%, 86%),
+    "lightest": hsl(245, 9%, 98%),
+);

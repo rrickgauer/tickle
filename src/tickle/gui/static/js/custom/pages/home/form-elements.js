@@ -36,9 +36,9 @@ export class HomePageElements
     // enable or disable the submit button
     static toggleSubmitButtonDisabled(setToDisabled) {
         if (setToDisabled) {
-            $(HomePageElements.Buttons.SUBMIT).addClass('disabled');
+            $(HomePageElements.Buttons.SUBMIT).prop('disabled', true);
         } else {
-            $(HomePageElements.Buttons.SUBMIT).removeClass('disabled');
+            $(HomePageElements.Buttons.SUBMIT).prop('disabled', false);
         }
     }
     

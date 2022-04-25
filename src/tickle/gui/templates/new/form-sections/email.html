@@ -1,0 +1,26 @@
+{% extends "new/base.html" %}
+
+{% block form_section_title %}Contact{% endblock %}
+
+{% block form_section_description %}
+How would you like to get alerted?
+{% endblock %}
+
+
+{% block form_section_inputs %}
+
+<div class="form-group">
+    <label for="form-watch-input-email" class="form-label">Email</label>
+    <input type="email" class="form-control form-control-lg form-watch-input" id="form-watch-input-email" required>
+</div>
+
+{% endblock %}
+
+
+{% block form_section_buttons %}
+<a href="/new/{{data.url_values.ticker_type.value}}/{{data.url_values.ticker}}" class="btn btn-gray text-danger">Back</a>
+<button type="button" id="form-watch-button-submit" class="btn btn-primary" disabled>Submit</button>
+{% endblock %}
+
+
+

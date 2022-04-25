@@ -1,0 +1,59 @@
+{% extends "new/base.html" %}
+
+{% block header %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+{% endblock %}
+
+{% block form_section_title %}Ticker{% endblock %}
+
+
+{% block form_section_description %}
+What ticker should we watch?
+{% endblock %}
+
+
+{% block form_section_inputs %}
+
+<!-- asset type -->
+<fieldset class="mb-4">
+    <legend class="form-label">What kind of ticker is it?</legend>
+
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-stock" value="1" checked>
+        <label class="form-check-label" for="form-watch-input-ticker-type-stock">Stock</label>
+    </div>
+    
+    <div class="form-check">
+        <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-ticker-type" id="form-watch-input-ticker-type-crypto" value="2">
+        <label class="form-check-label" for="form-watch-input-ticker-type-crypto">Crypto</label>
+    </div>
+</fieldset>
+
+
+<!-- ticker -->
+<div class="form-group mb-4">
+    <label for="form-watch-input-ticker" class="form-label">Select the ticker symbol</label>
+    <select class="form-control" name="state" id="form-watch-input-ticker"></select>    
+</div>
+
+{% endblock %}
+
+
+{% block form_section_buttons %}
+
+
+<div class="w-100 d-flex justify-content-end">
+    <a href="#" class="btn btn-gray text-success btn-next-page disabled">Next</a>
+</div>
+
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+<!-- select2 js -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
