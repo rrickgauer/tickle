@@ -1,3 +1,3 @@
-from wmiys import app as application
+from wmiys.api import app as application
 import sys
 #sys.stdout = sys.stderr
