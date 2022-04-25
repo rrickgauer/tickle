@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/header.html' %}
+    {% block header %}{% endblock %}
+    
+    <title>
+        {% block title %}Tickle{% endblock %}
+    </title>
+    
+</head>
+<body>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <h4 class="form-section-title">
+                    {% block form_section_title %}Form Section Title{% endblock %}
+                </h4>
+        
+                <p class="form-section-description text-muted text-sm">
+                    {% block form_section_description %}Elitr accusam stet diam accusam clita lorem diam stet tempor invidunt nonumy clita{% endblock %}
+                </p>
+            </div>
+
+            <div class="ml-auto col-lg-7">
+                <div class="form-section-inputs">
+                    {% block form_section_inputs %}Form section inputs{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        {% block form_section_buttons %}
+            <a href="#" class="btn btn-gray text-success btn-next-page disabled">Next</a>
+            <a href="/home" class="btn btn-gray text-danger">Back</a>
+        {% endblock %}
+    </div>
+
+
+    {% include 'includes/footer.html' %}
+    {% block footer %}{% endblock %}
+    <script src="/static/js/dist/home.bundle.js"></script>
+    
+
+</body>
+</html>

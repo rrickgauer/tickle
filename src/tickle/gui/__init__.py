@@ -26,6 +26,7 @@ def _setupCustomConverters(flask_app: flask.Flask):
 # Register the blueprints
 #------------------------------------------------------
 def _registerBlueprints(flask_app: flask.Flask):
+    flask_app.register_blueprint(routes.bp_new, url_prefix='/new')
     flask_app.register_blueprint(routes.bp_home, url_prefix='/home')
     flask_app.register_blueprint(routes.bp_api, url_prefix='/api')
 
