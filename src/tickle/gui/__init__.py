@@ -10,6 +10,7 @@ This is the entry point for running an application.
 
 from __future__ import annotations
 import flask
+from flask_cors import CORS
 from . import routes
 from tickle.common import url_converters
 from tickle.common.config import configs
@@ -45,5 +46,5 @@ app = flask.Flask(__name__)
 _setupCustomConverters(app)
 _registerBlueprints(app)
 _additionalConfig(app)
+CORS(app)
 
-# app.add_url_rule()
