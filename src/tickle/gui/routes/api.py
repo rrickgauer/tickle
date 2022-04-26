@@ -20,6 +20,7 @@ bp_api = flask.Blueprint('api', __name__)
 #------------------------------------------------------
 @bp_api.get('search/tickers/crypto')
 def searchCryptoTickers():
+    return _sendRequest('search/tickers/crypto')
 
     # url = 'http://api.tickle.ryanrickgauer.com:5010/v1/watches'
 
@@ -38,40 +39,20 @@ def searchCryptoTickers():
 #------------------------------------------------------
 @bp_api.get('search/tickers/stocks')
 def searchStockTickers():
+    return _sendRequest('search/tickers/stocks')
+    # url = f'{getConfig().URL_API}/search/tickers/stocks'
 
-    # url = 'http://api.tickle.ryanrickgauer.com:5010/v1/search/tickers/stocks'
-    # parms = flask.request.args.to_dict()
+    # response = flaskforward.routines.sendRequest(flaskforward.structs.SingleRequest(
+    #     method='get',
+    #     url    = url,
+    #     params = flask.request.args.to_dict(),
+    # ))
 
-    # response = requests.get(url, params=parms)
-    
-    # lineBreak(5)
-    # print(response.text)
-    # lineBreak(5)
-
-    # if not response.ok:
-    #     return response.text
-    
-    # return flask.jsonify(response.json().get('data'))
-
-    # return 'got it'
-
-    url = f'{getConfig().URL_API}/search/tickers/stocks'
-
-    lineBreak(5)
-    print(url)
-    lineBreak(5)
-
-    response = flaskforward.routines.sendRequest(flaskforward.structs.SingleRequest(
-        method='get',
-        url    = url,
-        params = flask.request.args.to_dict(),
-    ))
-
-    return flaskforward.routines.toFlaskResponse(response)
+    # return flaskforward.routines.toFlaskResponse(response)
 
 
-    api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
-    return flaskforward.routines.toFlaskResponse(api_response)
+    # api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
+    # return flaskforward.routines.toFlaskResponse(api_response)
 
 
 #------------------------------------------------------
@@ -79,5 +60,20 @@ def searchStockTickers():
 #------------------------------------------------------
 @bp_api.post('watches')
 def createWatch():
+    return _sendRequest('watches')
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/watches')
+    return flaskforward.routines.toFlaskResponse(api_response)
+
+
+def _sendRequest(endpoint):
+    url = f'{getConfig().URL_API}/{endpoint}'
+
+    single_request = flaskforward.structs.SingleRequest(
+        method = flask.request.method,
+        url    = url,
+        params = flask.request.args.to_dict(),
+        data   = flask.request.form.to_dict(),
+    )
+
+    api_response = flaskforward.routines.sendRequest(single_request)
     return flaskforward.routines.toFlaskResponse(api_response)
