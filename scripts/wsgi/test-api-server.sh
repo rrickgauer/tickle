@@ -8,5 +8,5 @@ mod_wsgi-express start-server \
 --server-root /etc/api.tickle.ryanrickgauer.com \
 --host 104.225.208.163 \
 --log-to-terminal \
---document-root /var/www/tickle/src/tickle/api/static \
+--python-path /var/www/tickle/src \
 /var/www/tickle/src/tickle_api.wsgi
