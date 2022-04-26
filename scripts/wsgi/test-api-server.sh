@@ -5,8 +5,8 @@ mod_wsgi-express start-server \
 --port 5010   \
 --access-log  \
 --log-level info   \
---server-root /etc/api.tickle.ryanrickgauer.com \
---host 104.225.208.163 \
 --log-to-terminal \
 --python-path /var/www/tickle/src \
+--host 104.225.208.163 \
+--server-root /etc/api.tickle.ryanrickgauer.com \
 /var/www/tickle/src/tickle_api.wsgi
