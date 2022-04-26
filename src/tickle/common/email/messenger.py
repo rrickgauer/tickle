@@ -44,6 +44,9 @@ class Messenger:
             user = self._username,
             password = self._password,
         )
+
+    def disconnect(self):
+        self._email_engine.close()
     
 
     def sendMessage(self, watch: Watch):

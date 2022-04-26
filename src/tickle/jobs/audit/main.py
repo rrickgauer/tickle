@@ -33,6 +33,7 @@ for watch in watches_to_close:
     except Exception as ex:
         print(ex)
 
+email_engine.disconnect()
 
 
 
