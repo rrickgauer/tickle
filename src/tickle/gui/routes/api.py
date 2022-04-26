@@ -27,10 +27,8 @@ def searchCryptoTickers():
 #------------------------------------------------------
 @bp_api.get('search/tickers/stocks')
 def searchStockTickers():
-    print(flaskforward.globals.url)
-    return 'search stocks'
-    # api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
-    # return flaskforward.routines.toFlaskResponse(api_response)
+    api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
+    return flaskforward.routines.toFlaskResponse(api_response)
 
 
 #------------------------------------------------------
