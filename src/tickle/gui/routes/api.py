@@ -10,6 +10,7 @@ from __future__ import annotations
 import flask
 import flaskforward
 import requests
+from tickle.common.utilities import lineBreak
 
 # module blueprint
 bp_api = flask.Blueprint('api', __name__)
@@ -42,6 +43,10 @@ def searchStockTickers():
     parms = flask.request.args.to_dict()
 
     response = requests.get(url, params=parms)
+    
+    lineBreak(5)
+    print(response.text)
+    lineBreak(5)
 
     if not response.ok:
         return response.text
