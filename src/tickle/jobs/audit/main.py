@@ -15,6 +15,8 @@ from . import controller
 cliargs = CliArgs()
 cliargs.parse()
 
+print('inside python')
+
 # configure the application
 controller.configureApplication(cliargs.is_production)
 
@@ -35,6 +37,8 @@ for watch in watches_to_close:
 
 email_engine.disconnect()
 
+
+print('ending python')
 
 
 
