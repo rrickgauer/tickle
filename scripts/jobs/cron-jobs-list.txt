@@ -1,6 +1,3 @@
 
-
-Run the audit job every 15 minutes:     
-* * * * * /var/www/tickle/scripts/jobs/audit.sh >> /root/cron-output.log  2>&1
-
-
+Audit:
+*/15 * * * * /var/www/tickle/scripts/jobs/audit.sh >> /var/www/tickle/scripts/jobs/audit-output.log 2>&1
