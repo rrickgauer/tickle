@@ -9,6 +9,7 @@ Url Prefix: /api
 from __future__ import annotations
 import flask
 import flaskforward
+import requests
 
 # module blueprint
 bp_api = flask.Blueprint('api', __name__)
@@ -18,6 +19,14 @@ bp_api = flask.Blueprint('api', __name__)
 #------------------------------------------------------
 @bp_api.get('search/tickers/crypto')
 def searchCryptoTickers():
+
+    url = 'http://api.tickle.ryanrickgauer.com:5010/v1/watches'
+
+    response = requests.get(url)
+
+    print(response.ok)
+
+
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/crypto')
     return flaskforward.routines.toFlaskResponse(api_response)
 
