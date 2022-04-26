@@ -4,4 +4,4 @@ cd "$(dirname "$0")";
 CWD="$(pwd)"
 echo $CWD
 #python -m /var/www/tickle/scripts/jobs.py
-python3.8 -m tickle.jobs.audit.main
+python -m tickle.jobs.audit.main
