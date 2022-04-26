@@ -12,6 +12,7 @@ cd $DIRECTORY_APACHE_SITES_AVAILABLE
 a2dissite $CONF_API
 a2dissite $CONF_GUI
 
+
 # remove the symbolic links
 rm $CONF_API
 rm $CONF_GUI
