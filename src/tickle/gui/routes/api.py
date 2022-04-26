@@ -62,6 +62,7 @@ def searchStockTickers():
     lineBreak(5)
 
     response = flaskforward.routines.sendRequest(flaskforward.structs.SingleRequest(
+        method='get',
         url    = url,
         params = flask.request.args.to_dict(),
     ))
