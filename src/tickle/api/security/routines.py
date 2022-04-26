@@ -9,8 +9,8 @@ from tickle.common.utilities import getConfig
 def localEndpoint(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if not isRequestLocal():
-            flask.abort(403)
+        # if not isRequestLocal():
+        #     flask.abort(403)
         return f(*args, **kwargs)
     return wrap
 
