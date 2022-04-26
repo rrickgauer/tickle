@@ -21,13 +21,13 @@ bp_api = flask.Blueprint('api', __name__)
 @bp_api.get('search/tickers/crypto')
 def searchCryptoTickers():
 
-    url = 'http://api.tickle.ryanrickgauer.com:5010/v1/watches'
+    # url = 'http://api.tickle.ryanrickgauer.com:5010/v1/watches'
 
-    response = requests.get(url)
+    # response = requests.get(url)
 
-    return 'sup'
+    # # return 'sup'
 
-    print(response.ok)
+    # print(response.ok)
 
 
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/crypto')
@@ -39,21 +39,21 @@ def searchCryptoTickers():
 @bp_api.get('search/tickers/stocks')
 def searchStockTickers():
 
-    url = 'http://api.tickle.ryanrickgauer.com:5010/v1/search/tickers/stocks'
-    parms = flask.request.args.to_dict()
+    # url = 'http://api.tickle.ryanrickgauer.com:5010/v1/search/tickers/stocks'
+    # parms = flask.request.args.to_dict()
 
-    response = requests.get(url, params=parms)
+    # response = requests.get(url, params=parms)
     
-    lineBreak(5)
-    print(response.text)
-    lineBreak(5)
+    # lineBreak(5)
+    # print(response.text)
+    # lineBreak(5)
 
-    if not response.ok:
-        return response.text
+    # if not response.ok:
+    #     return response.text
     
-    return flask.jsonify(response.json().get('data'))
+    # return flask.jsonify(response.json().get('data'))
 
-    return 'got it'
+    # return 'got it'
 
 
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
