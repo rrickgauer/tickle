@@ -24,6 +24,8 @@ def searchCryptoTickers():
 
     response = requests.get(url)
 
+    return 'sup'
+
     print(response.ok)
 
 
