@@ -6,6 +6,8 @@
 
 source .build-variables.sh
 
-cd $DIRECTORY_HOME/scripts
-chmod u+x -R *.sh
+cd $DIRECTORY_HOME/scripts/wsgi
+chmod u+x *.sh
+
+
 

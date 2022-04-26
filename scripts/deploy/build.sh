@@ -1,10 +1,11 @@
 
-# DIRECTORY_HOME='/var/www/tickle'
-# DIRECTORY_GUI_STATIC='/var/www/tickle/src/tickle/gui/static'
-# DIRECTORY_APACHE_SITES_AVAILABLE='/etc/apache2/sites-available'
+#****************************************************************************
+#
+# Pull down any changes from GitHub and deploy the application
+#
+#****************************************************************************
 
-# CONF_API='api.tickle.ryanrickgauer.com.conf'
-# CONF_GUI='tickle.ryanrickgauer.com.conf'
+source .build-variables.sh
 
 # Pull down any changes from git
 echo 'Fetching new source code from GitHub...'
@@ -25,4 +26,7 @@ echo 'Refreshing the apache configuration files...'
 ./.refresh-apache-conf-files.sh
 
 
-
+# Restart the servers
+echo '\nRestart the servers...'
+cd $DIRECTORY_HOME/wsgi
+./restart-servers.sh
