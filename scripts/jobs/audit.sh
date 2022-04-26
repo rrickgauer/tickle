@@ -1,3 +1,4 @@
+cd /var/www/tickle/scripts/jobs
 source .constants.sh
 
 
