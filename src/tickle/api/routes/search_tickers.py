@@ -40,7 +40,7 @@ def searchStocks():
 # /search/tickers/crypto?q={query}
 #------------------------------------------------------
 @bp_search_tickers.get('crypto')
-@security.localEndpoint
+# @security.localEndpoint
 @services.search_tickers.verifyRequiredUrlParm
 def searchCrypto():
     query = flask.request.args.get('q')

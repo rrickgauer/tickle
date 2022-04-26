@@ -37,6 +37,20 @@ def searchCryptoTickers():
 #------------------------------------------------------
 @bp_api.get('search/tickers/stocks')
 def searchStockTickers():
+
+    url = 'http://api.tickle.ryanrickgauer.com:5010/v1/search/tickers/stocks'
+    parms = flask.request.args.to_dict()
+
+    response = requests.get(url, params=parms)
+
+    if not response.ok:
+        return response.text
+    
+    return flask.jsonify(response.json().get('data'))
+
+    return 'got it'
+
+
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
     return flaskforward.routines.toFlaskResponse(api_response)
 
