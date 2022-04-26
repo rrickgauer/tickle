@@ -9,13 +9,12 @@ from tickle.common.utilities import getConfig
 def localEndpoint(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        # if not isRequestLocal():
-        #     flask.abort(403)
+        if not isRequestLocal():
+            flask.abort(403)
         return f(*args, **kwargs)
     return wrap
 
 def isRequestLocal():
-    return True
     config = getConfig()
     request_header_value = flask.request.headers.get(config.SECURITY_HEADER_KEY, 'nope')
 
