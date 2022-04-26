@@ -7,15 +7,12 @@ Email services
 """
 
 from __future__ import annotations
-import flask
 import yagmail
 from tickle.common.domain.enums.watches import WatchTypes
-from tickle.common.utilities import getConfig
 from tickle.common.domain.models import Watch
-from tickle.common.config.configs import ConfigBase
 
 CONTENTS_TEMPLATE = 'The price of {ticker} has {movement} to {price}.'
-SUBJECT = 'Tickle price alert'
+SUBJECT           = 'Tickle price alert'
 
 
 # Create the email body message
@@ -47,6 +44,9 @@ class Messenger:
             user = self._username,
             password = self._password,
         )
+
+    def disconnect(self):
+        self._email_engine.close()
     
 
     def sendMessage(self, watch: Watch):

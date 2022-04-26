@@ -141,3 +141,6 @@ dmypy.json
 
 # Ignore compiled js files
 **/gui/static/js/dist/
+
+# Job log files
+**/jobs/logs/
