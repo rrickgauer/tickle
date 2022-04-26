@@ -26,7 +26,6 @@ email_engine.connect()
 watches_to_close = api_wrapper.getWatchesToClose()
 
 for watch in watches_to_close:
-    print(watch)
     
     try:
         email_engine.sendMessage(watch)     # send email to recipient

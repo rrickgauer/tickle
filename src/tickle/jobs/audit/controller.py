@@ -17,7 +17,6 @@ from tickle.common.email.messenger import Messenger
 #------------------------------------------------------
 def configureApplication(is_production: bool):
     config = _getConfigClass(is_production)
-
     _setPymysqlCredentials(config)
     _setUrls(config)
 
@@ -37,14 +36,13 @@ def _setPymysqlCredentials(config: configs.ConfigBase):
 def _setUrls(config: configs.ConfigBase):
     api_wrapper.API_URL_PREFIX = config.URL_API
 
-
-
-def getEmailEngine(is_production: bool):
+#------------------------------------------------------
+# Get an email engine object
+#------------------------------------------------------
+def getEmailEngine(is_production: bool) -> Messenger:
     config = _getConfigClass(is_production)
     email_engine = Messenger(config.EMAIL_USERNAME, config.EMAIL_PASSWORD)
-
     return email_engine
-
 
 
 #------------------------------------------------------
