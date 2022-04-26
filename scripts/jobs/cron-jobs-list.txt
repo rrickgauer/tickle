@@ -1,0 +1,4 @@
+
+
+Run the audit job every 15 minutes:     
+*/15 * * * * /var/www/tickle/scripts/jobs/audit.sh >/dev/null 2>&1
