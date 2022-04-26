@@ -15,6 +15,7 @@ from . import routes
 from tickle.common.config import configs
 from tickle.common.config.base import ConfigBase
 import pymysql
+from flask_cors import CORS
 
 
 #------------------------------------------------------
@@ -56,6 +57,7 @@ def _setConfigurations(flask_app: flask.Flask, selected_config: ConfigBase):
 
 # Main logic
 app = flask.Flask(__name__)
+CORS(app)
 app_config = _getConfigurationClass(app.env)
 _registerBlueprints(app)
 _setConfigurations(app, app_config)

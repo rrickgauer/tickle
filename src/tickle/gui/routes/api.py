@@ -13,7 +13,6 @@ import flaskforward
 # module blueprint
 bp_api = flask.Blueprint('api', __name__)
 
-
 #------------------------------------------------------
 # search for crypto tickers
 #------------------------------------------------------
