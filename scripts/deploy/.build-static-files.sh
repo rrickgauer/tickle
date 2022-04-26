@@ -7,11 +7,9 @@
 source .build-variables.sh
 
 # css
-cd $DIRECTORY_GUI_STATIC
-cd css
+cd $DIRECTORY_GUI_STATIC/css
 sass style.scss style.css
 
 # JavaScript
-cd $DIRECTORY_GUI_STATIC
-cd js
+cd $DIRECTORY_GUI_STATIC/js
 rollup -c rollup.config.js

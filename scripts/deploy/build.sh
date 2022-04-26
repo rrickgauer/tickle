@@ -28,5 +28,5 @@ echo 'Refreshing the apache configuration files...'
 
 # Restart the servers
 echo '\nRestart the servers...'
-cd $DIRECTORY_HOME/wsgi
+cd $DIRECTORY_HOME/scripts/wsgi
 ./restart-servers.sh
