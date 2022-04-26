@@ -9,5 +9,4 @@ mod_wsgi-express start-server \
 --host 104.225.208.163 \
 --log-to-terminal \
 --python-path /var/www/tickle/src \
---document-root /var/www/tickle/src/tickle/gui/static \
 /var/www/tickle/src/tickle_gui.wsgi
