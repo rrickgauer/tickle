@@ -1,3 +1,3 @@
-from wmiys.api import app as application
+from tickle.api import app as application
 import sys
 #sys.stdout = sys.stderr
