@@ -30,6 +30,8 @@ def searchStocks():
     print('whats up')
     lineBreak(5)
 
+
+
     query = flask.request.args.get('q')
     search_result = services.search_tickers.searchStocks(query)
     return responses.get(search_result)

@@ -10,7 +10,7 @@ from __future__ import annotations
 import flask
 import flaskforward
 import requests
-from tickle.common.utilities import lineBreak
+from tickle.common.utilities import lineBreak, getConfig
 
 # module blueprint
 bp_api = flask.Blueprint('api', __name__)
@@ -54,6 +54,19 @@ def searchStockTickers():
     # return flask.jsonify(response.json().get('data'))
 
     # return 'got it'
+
+    url = f'{getConfig().URL_API}/search/tickers/stocks'
+
+    lineBreak(5)
+    print(url)
+    lineBreak(5)
+
+    response = flaskforward.routines.sendRequest(flaskforward.structs.SingleRequest(
+        url    = url,
+        params = flask.request.args.to_dict(),
+    ))
+
+    return flaskforward.routines.toFlaskResponse(response)
 
 
     api_response = flaskforward.routines.sendExternalRequest(flask.request, '/search/tickers/stocks')
