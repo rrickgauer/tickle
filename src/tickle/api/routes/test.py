@@ -35,49 +35,26 @@ def test():
 #------------------------------------------------------
 @bp_test.route('investpy')
 def testInvestpy():
-
-    # return _getStock()
-
-    s = investpy.stocks.get_stock_recent_data('AAPL', country='united states')
-    print(s)
-
-    # a = investpy.stocks.ge
-
-    investpy.search_quotes('AAPL')
-    
-
-
     q = flask.request.args.get('q') or ''
 
+    products = [
+        # "indices",
+        "stocks",
+        "etfs",
+        # "funds",
+        # "commodities",
+        # "currencies",
+        "cryptos",
+        # "bonds",
+        # "certificates",
+        # "fxfutures",
+    ]
 
-    # # print(flask.request.args.get('x'))
-
-    # tag = flask.request.args.get('x')
-    # tag = tag.replace('|','/')
-    # print(tag)
-
-    # searchObj = SearchObj(
-    #     id_ = None,
-    #     name = None,
-    #     symbol = None,
-    #     country = None,
-    #     tag = tag,
-    #     pair_type = None,
-    #     exchange = None,
-    # )
-
-
-    # re = searchObj.retrieve_information()
-    # dumpJson(re)
-    
-
-    search_results: list[SearchObj] = [investpy.search_quotes(
+    search_results: list[SearchObj] = investpy.search_quotes(
         text      = q,
-        n_results = 1,
-        # products=[
-        #     'cryptos',
-        # ]
-    )]
+        n_results = 20,
+        products  = products,
+    )
 
     data = []
 
@@ -85,9 +62,9 @@ def testInvestpy():
         result_obj = dict()
 
         result_obj['meta']        = copy.deepcopy(search_result.__dict__)
-        result_obj['recent']      = search_result.retrieve_recent_data().to_dict('records')
-        result_obj['information'] = search_result.retrieve_information()
-        result_obj['indicators']  = search_result.retrieve_technical_indicators().to_dict('records')
+        # result_obj['recent']      = search_result.retrieve_recent_data().to_dict('records')
+        result_obj['information'] = search_result.retrieve_information()  
+        # result_obj['indicators']  = search_result.retrieve_technical_indicators().to_dict('records')
 
         data.append(result_obj)
         

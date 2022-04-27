@@ -17,6 +17,7 @@ from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.enums.watches import TickerTypes
 from tickle.common.domain.views import tiingo
 from tickle.common.domain.views.watches import ViewWatch
+from tickle.common.domain.views import stockslib
 
 
 #------------------------------------------------------
@@ -162,9 +163,6 @@ class StockSearchApiResponseSerializer(SerializerBase):
         return super().serialize()
 
 
-
-
-
 #------------------------------------------------------
 # CryptoTickerPriceTopOfBookData serializer
 #------------------------------------------------------
@@ -201,3 +199,11 @@ class CryptoTickerPriceSerializer(SerializerBase):
         model.topOfBookData = serializer.serialize()
 
         return model
+
+
+
+class StocksLibSearchResponseSerializer(SerializerBase):
+    DomainModel = stockslib.StocksApiSearchResponse
+
+    def serialize(self) -> stockslib.StocksApiSearchResponse:
+        return super().serialize()

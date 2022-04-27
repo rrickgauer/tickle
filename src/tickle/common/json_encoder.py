@@ -12,6 +12,7 @@ from enum import Enum
 from flask.json import JSONEncoder
 from datetime import date, datetime
 from decimal import Decimal
+from investpy.utils.search_obj import SearchObj
 
 from .structs import ISerialize
 
@@ -25,6 +26,8 @@ class CustomJSONEncoder(JSONEncoder):
             elif isinstance(obj, Enum):
                 return obj.value
             elif isinstance(obj, ISerialize):
+                return obj.__dict__
+            elif isinstance(obj, SearchObj):
                 return obj.__dict__
             iterable = iter(obj)
         except TypeError:
