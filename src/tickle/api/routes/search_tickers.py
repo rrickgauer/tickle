@@ -54,10 +54,9 @@ def searchCrypto():
 # @services.search_tickers.verifyRequiredUrlParm
 def searchTickers():
 
-    price_data = stockslib.getPriceData('/equities/tmx-group-inc-groupe-tmx-inc')
-    dumpJson(price_data)
-
+    # price_data = stockslib.getPriceData('/equities/tmx-group-inc-groupe-tmx-inc')
+    # dumpJson(price_data)
 
     query = flask.request.args.get('q') or None
-    results = stockslib.search(query)
-    return responses.get(results)
+    search_results = stockslib.search(query)
+    return responses.get(search_results)

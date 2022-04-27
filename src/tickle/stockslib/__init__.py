@@ -1,2 +1,2 @@
 from .routines import search
-from .routines import getPriceData
+from .routines import getPrices
