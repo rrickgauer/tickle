@@ -18,3 +18,32 @@ class WatchTypes(Enum):
 class TickerTypes(Enum):
     STOCKS = 1
     CRYPTO = 2
+
+
+@unique
+class PairTypes(Enum):
+    INDICES      = 1
+    STOCKS       = 2
+    ETFS         = 3
+    FUNDS        = 4
+    COMMODITIES  = 5
+    CURRENCIES   = 6
+    CRYPTOS      = 7
+    BONDS        = 8
+    CERTIFICATES = 9
+    FXFUTURES    = 10
+
+
+@unique
+class PairTypesText(str, Enum):
+    INDICES      = 'indices'
+    STOCKS       = 'stocks'
+    ETFS         = 'etfs'
+    FUNDS        = 'funds'
+    COMMODITIES  = 'commodities'
+    CURRENCIES   = 'currencies'
+    CRYPTOS      = 'cryptos'
+    BONDS        = 'bonds'
+    CERTIFICATES = 'certificates'
+    FXFUTURES    = 'fxfutures'
+
