@@ -16,9 +16,10 @@ from tickle.common import serializers
 from tickle.common.domain.views.stockslib import StocksApiSearchResponse, StocksApiPriceResponse
 from .constants import INVESTPY_PRODUCTS, MAX_SEARCH_RESULTS, PRICE_THREAD_CHUNK_SIZE
 
-
+#------------------------------------------------------
 # Search the stocks api for the financial product
-def search(query):
+#------------------------------------------------------
+def search(query) -> list[StocksApiSearchResponse]:
     api_results = _getSearchResultsFromApi(query)
     return api_results
 
