@@ -13,7 +13,7 @@ import datetime
 from decimal import Decimal
 from typing import Any
 from tickle.common.domain import models
-from tickle.common.domain.enums.watches import WatchTypes
+from tickle.common.domain.enums.watches import PairTypes, WatchTypes
 from tickle.common.domain.enums.watches import TickerTypes
 from tickle.common.domain.views import tiingo
 from tickle.common.domain.views.watches import ViewWatch
@@ -214,3 +214,28 @@ class StocksApiPriceResponseSerializer(SerializerBase):
 
     def serialize(self) -> stockslib.StocksApiPriceResponse:
         return super().serialize()
+
+
+
+class Watch2Serializer(SerializerBase):
+    DomainModel = models.Watch2
+
+    def serialize(self) -> models.Watch2:
+        model: models.Watch2 = super().serialize()
+
+        if model.pair_type is not None:
+            self._parsePairType(model)
+
+        return model
+
+    def _parsePairType(self, model: models.Watch2):
+        val = str(model.pair_type).upper()
+        
+        pair_type = PairTypes.getByKey(val)
+
+        if not pair_type:
+            raise ValueError("Invalid pair_type")
+
+        model.pair_type = pair_type
+        
+        
