@@ -20,7 +20,7 @@ class StocksApiSearchResponse:
     exchange  : str = None #  "NYSE"
 
 @dataclass
-class StocksApiInformationResponse:
+class StocksApiPriceResponse:
     last              : float = None # 34.11,
     prevClose         : float = None # 35.38,
     dailyRange        : str   = None # "33.73-35.34",

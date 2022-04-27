@@ -194,8 +194,8 @@ class CryptoTickerPriceSerializer(SerializerBase):
     def serialize(self) -> tiingo.CryptoTickerPrice:
         model: tiingo.CryptoTickerPrice = super().serialize()
 
-        top_of_book_dict = model.topOfBookData[0]
-        serializer = CryptoTickerPriceTopOfBookDataSerializer(top_of_book_dict)
+        top_of_book_dict    = model.topOfBookData[0]
+        serializer          = CryptoTickerPriceTopOfBookDataSerializer(top_of_book_dict)
         model.topOfBookData = serializer.serialize()
 
         return model
@@ -206,4 +206,11 @@ class StocksLibSearchResponseSerializer(SerializerBase):
     DomainModel = stockslib.StocksApiSearchResponse
 
     def serialize(self) -> stockslib.StocksApiSearchResponse:
+        return super().serialize()
+
+
+class StocksApiPriceResponseSerializer(SerializerBase):
+    DomainModel = stockslib.StocksApiPriceResponse
+
+    def serialize(self) -> stockslib.StocksApiPriceResponse:
         return super().serialize()
