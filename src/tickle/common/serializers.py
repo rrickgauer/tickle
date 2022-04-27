@@ -220,17 +220,39 @@ class StocksApiPriceResponseSerializer(SerializerBase):
 class Watch2Serializer(SerializerBase):
     DomainModel = models.Watch2
 
+    INVALID_WATCH_TYPE_EXCEPTION = ValueError("Invalid watch_type value")
+    INVALID_PAIR_ID_EXCEPTION    = ValueError("Invalid pair_id value: must be an integer")
+    INVALID_PRICE_EXCEPTION    = ValueError("Invalid price value: must be a float")
+
     def serialize(self) -> models.Watch2:
         model: models.Watch2 = super().serialize()
 
         if model.pair_type is not None:
             self._parsePairType(model)
 
+        if model.watch_type is not None:
+            self._parseWatchType(model)
+
+        if model.pair_id is not None:
+            try:
+                model.pair_id = int(model.pair_id)
+            except:
+                raise self.INVALID_PAIR_ID_EXCEPTION
+
+        if model.price is not None:
+            try:
+                model.price = Decimal(model.price)
+            except:
+                raise self.INVALID_PRICE_EXCEPTION
+
         return model
 
+    #------------------------------------------------------
+    # parse the specified model's pair_type value
+    # assumes that the given model's pair_type value is not null
+    #------------------------------------------------------
     def _parsePairType(self, model: models.Watch2):
         val = str(model.pair_type).upper()
-        
         pair_type = PairTypes.getByKey(val)
 
         if not pair_type:
@@ -238,4 +260,14 @@ class Watch2Serializer(SerializerBase):
 
         model.pair_type = pair_type
         
+    #------------------------------------------------------
+    # parse the specified model's watch_type value
+    # assumes that the given model's watch_type value is not null
+    #------------------------------------------------------
+    def _parseWatchType(self, model: models.Watch2):
+        try:
+            val = int(model.watch_type)
+            model.watch_type = WatchTypes(val)
+        except:
+            raise self.INVALID_WATCH_TYPE_EXCEPTION
         

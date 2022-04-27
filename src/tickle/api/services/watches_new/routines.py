@@ -25,7 +25,12 @@ def createNew() -> BaseReturn:
         service_result.error = ex
         return service_result
 
-    dumpJson(model)
+    # validate the model's properties
+
+    service_result.successful = True
+    service_result.data = model
+
+    return service_result
 
 
 
@@ -38,5 +43,13 @@ def _getRequestFormData() -> models.Watch2:
 def _serializeModel(watch_dict: dict) -> models.Watch2:
     serializer = serializers.Watch2Serializer(watch_dict)
     return serializer.serialize()
+
+
+def _validateNewModel(watch: models.Watch2):
+
+    # need to check if the id exists
+    s = 3
+
+    
 
 

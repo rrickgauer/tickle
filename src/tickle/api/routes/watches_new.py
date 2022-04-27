@@ -24,6 +24,9 @@ bp_watches_new = flask.Blueprint('watches_new', __name__)
 @bp_watches_new.post('')
 def newWatch():
 
-    watch_services.createNew()
+    result = watch_services.createNew()
 
-    return 'created'
+    if not result.successful:
+        return (str(result.error), 400)
+    
+    return responses.created(result.data)
