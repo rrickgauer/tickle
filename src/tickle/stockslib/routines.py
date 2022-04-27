@@ -13,6 +13,7 @@ import concurrent.futures
 import investpy
 from investpy.utils.search_obj import SearchObj
 from tickle.common import serializers
+from tickle.common.domain.enums.watches import PairTypes
 from tickle.common.domain.views.stockslib import StocksApiSearchResponse, StocksApiPriceResponse
 from .constants import INVESTPY_PRODUCTS, MAX_SEARCH_RESULTS, PRICE_THREAD_CHUNK_SIZE
 
@@ -137,3 +138,42 @@ def _getEmptySearchObj():
 def _toStocksApiPriceResponse(search_obj_info: dict) -> StocksApiPriceResponse:
     serializer = serializers.StocksApiPriceResponseSerializer(search_obj_info)
     return serializer.serialize()
+
+
+
+
+
+
+# Get the map of the specified pair type
+# The id is the map key
+def getProductMap(pair_type: PairTypes) -> dict[int, dict]:
+    product_list = []
+
+    if pair_type == PairTypes.STOCKS:
+        product_list = investpy.stocks.get_stocks_dict()
+    elif pair_type == PairTypes.CRYPTOS:
+        product_list = investpy.crypto.get_cryptos_dict()
+    
+    return _getInvestpyMap(product_list)
+
+
+def _getInvestpyMap(product_list) -> dict[int, dict]:
+    product_map = {}
+
+    for product in product_list:
+        try:
+            pair_id = int(product.get('id'))
+            product_map[pair_id] = product
+        except:
+            continue
+    
+    return product_map
+
+
+
+    
+
+
+
+
+
