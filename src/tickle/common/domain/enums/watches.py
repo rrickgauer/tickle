@@ -9,6 +9,8 @@ Enums for watches
 from __future__ import annotations
 from enum import Enum, unique
 
+from .extended_enums import ExtendedEnum
+
 @unique
 class WatchTypes(Enum):
     RISE = 1
@@ -21,7 +23,7 @@ class TickerTypes(Enum):
 
 
 @unique
-class PairTypes(Enum):
+class PairTypes(ExtendedEnum):
     INDICES      = 1
     STOCKS       = 2
     ETFS         = 3
@@ -35,7 +37,7 @@ class PairTypes(Enum):
 
 
 @unique
-class PairTypesText(str, Enum):
+class PairTypesText(str, ExtendedEnum):
     INDICES      = 'indices'
     STOCKS       = 'stocks'
     ETFS         = 'etfs'
