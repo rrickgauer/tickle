@@ -12,7 +12,6 @@ from tickle.api import services
 from tickle.common import responses
 from tickle.api import security
 from tickle import stockslib
-from tickle.common.utilities import dumpJson
 
 # module blueprint
 bp_search_tickers = flask.Blueprint('search_tickers', __name__)
@@ -47,16 +46,12 @@ def searchCrypto():
 #------------------------------------------------------
 # New search
 #
-# /search/tickers/crypto?q={query}
+# /search/tickers?q={query}
 #------------------------------------------------------
-@bp_search_tickers.get('test')
-# @security.localEndpoint
-# @services.search_tickers.verifyRequiredUrlParm
+@bp_search_tickers.get('')
+@security.localEndpoint
+@services.search_tickers.verifyRequiredUrlParm
 def searchTickers():
-
-    # price_data = stockslib.getPriceData('/equities/tmx-group-inc-groupe-tmx-inc')
-    # dumpJson(price_data)
-
     query = flask.request.args.get('q') or None
     search_results = stockslib.search(query)
     return responses.get(search_results)
