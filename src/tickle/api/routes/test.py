@@ -14,6 +14,8 @@ from tickle import stockslib
 from tickle.common.utilities import dumpJson
 import investpy
 
+from tickle.common.domain.enums.watches import PairTypes
+
 
 # module blueprint
 bp_test = flask.Blueprint('test', __name__)
@@ -22,7 +24,7 @@ bp_test = flask.Blueprint('test', __name__)
 # Test endpoint
 #------------------------------------------------------
 @bp_test.route('')
-@security.localEndpoint
+# @security.localEndpoint
 def test():
     security.isRequestLocal()
     return responses.get('test endpoint')
