@@ -14,9 +14,6 @@ from decimal import Decimal
 from typing import Any
 from tickle.common.domain import models
 from tickle.common.domain.enums.watches import WatchTypes
-from tickle.common.domain.enums.watches import TickerTypes
-from tickle.common.domain.views import tiingo
-from tickle.common.domain.views.watches import ViewWatch
 from tickle.common.domain.views import stockslib
 
 
@@ -34,6 +31,7 @@ def parseIsoDatetime(datetime_module, date_string: str=None) -> datetime.datetim
         result = date_string
     
     return result
+
 
 def serializeDecimal(decimal_val) -> Decimal | None | Any:
     try:
@@ -84,123 +82,6 @@ class SerializerBase:
         return model
 
 
-#------------------------------------------------------
-# Watch serializer
-#------------------------------------------------------
-class WatchSerializer(SerializerBase):
-    DomainModel = models.Watch
-
-    def serialize(self) -> models.Watch:
-        model = super().serialize()
-
-        try:
-            model.watch_type = WatchTypes(int(model.watch_type))
-        except:
-            model.watch_type = None
-
-        try:
-            model.ticker_type = TickerTypes(int(model.ticker_type))
-        except:
-            model.ticker_type = None
-
-        return model
-
-
-#------------------------------------------------------
-# Watch view serializer
-#------------------------------------------------------
-class WatchViewSerializer(WatchSerializer):
-    DomainModel = ViewWatch
-
-    def serialize(self) -> ViewWatch:
-        return super().serialize()
-
-#------------------------------------------------------
-# Watch serializer
-#------------------------------------------------------
-class TickerResponseSerializer(SerializerBase):
-    DomainModel = tiingo.StockTickerPrice
-
-    def serialize(self) -> models.Watch:
-        model: tiingo.StockTickerPrice = super().serialize()
-
-        # serialize the potential datetimes
-        model.timestamp         = parseIsoDatetime(datetime.datetime, model.timestamp)
-        model.quoteTimestamp    = parseIsoDatetime(datetime.datetime, model.quoteTimestamp)
-        model.lastSaleTimeStamp = parseIsoDatetime(datetime.datetime, model.lastSaleTimeStamp)  
-
-        # serialize the potential decimal types
-        model.last      = serializeDecimal(model.last)
-        model.tngoLast  = serializeDecimal(model.tngoLast)
-        model.prevClose = serializeDecimal(model.prevClose)
-        model.open      = serializeDecimal(model.open)
-        model.high      = serializeDecimal(model.high)
-        model.low       = serializeDecimal(model.low)
-        model.mid       = serializeDecimal(model.mid)
-        model.bidPrice  = serializeDecimal(model.bidPrice)
-        model.askSize   = serializeDecimal(model.askSize)
-        model.askPrice  = serializeDecimal(model.askPrice)
-
-        return model
-
-
-#------------------------------------------------------
-# Crypto symbol api response serializer
-#------------------------------------------------------
-class CryptoSymbolApiResponseSerializer(SerializerBase):
-    DomainModel = tiingo.CryptoSymbolApiResponse
-
-    def serialize(self) -> tiingo.CryptoSymbolApiResponse:
-        return super().serialize()
-
-#------------------------------------------------------
-# Stock search api response serializer
-#------------------------------------------------------
-class StockSearchApiResponseSerializer(SerializerBase):
-    DomainModel = tiingo.StockSearchApiResponse
-
-    def serialize(self) -> tiingo.StockSearchApiResponse:
-        return super().serialize()
-
-
-#------------------------------------------------------
-# CryptoTickerPriceTopOfBookData serializer
-#------------------------------------------------------
-class CryptoTickerPriceTopOfBookDataSerializer(SerializerBase):
-    DomainModel = tiingo.CryptoTickerPriceTopOfBookData
-
-    def serialize(self) -> tiingo.CryptoTickerPriceTopOfBookData:
-        model: tiingo.CryptoTickerPriceTopOfBookData = super().serialize()
-
-        # model.lastPrice        = serializeDecimal(model.lastPrice)
-        # model.askPrice         = serializeDecimal(model.askPrice)
-        # model.bidSize          = serializeDecimal(model.bidSize)
-        # model.lastSizeNotional = serializeDecimal(model.lastSizeNotional)
-        # model.askSize          = serializeDecimal(model.askSize)
-        # model.lastSize         = serializeDecimal(model.lastSize)
-        # model.bidPrice         = serializeDecimal(model.bidPrice)
-
-        model.quoteTimestamp = parseIsoDatetime(model.quoteTimestamp)
-        model.lastSaleTimestamp = parseIsoDatetime(model.lastSaleTimestamp)
-
-        return model
-
-#------------------------------------------------------
-# Crypto price api response serializer
-#------------------------------------------------------
-class CryptoTickerPriceSerializer(SerializerBase):
-    DomainModel = tiingo.CryptoTickerPrice
-
-    def serialize(self) -> tiingo.CryptoTickerPrice:
-        model: tiingo.CryptoTickerPrice = super().serialize()
-
-        top_of_book_dict    = model.topOfBookData[0]
-        serializer          = CryptoTickerPriceTopOfBookDataSerializer(top_of_book_dict)
-        model.topOfBookData = serializer.serialize()
-
-        return model
-
-
 
 class StocksLibSearchResponseSerializer(SerializerBase):
     DomainModel = stockslib.StocksApiSearchResponse
@@ -214,3 +95,31 @@ class StocksApiPriceResponseSerializer(SerializerBase):
 
     def serialize(self) -> stockslib.StocksApiPriceResponse:
         return super().serialize()
+
+
+
+class WatchSerializer(SerializerBase):
+    DomainModel = models.Watch
+
+    INVALID_WATCH_TYPE_EXCEPTION = ValueError("Invalid watch_type value")
+
+    def serialize(self) -> models.Watch:
+        model: models.Watch = super().serialize()
+
+        if model.watch_type is not None:
+            self._parseWatchType(model)
+
+        return model
+
+        
+    #------------------------------------------------------
+    # parse the specified model's watch_type value
+    # assumes that the given model's watch_type value is not null
+    #------------------------------------------------------
+    def _parseWatchType(self, model: models.Watch):
+        try:
+            val = int(model.watch_type)
+            model.watch_type = WatchTypes(val)
+        except:
+            raise self.INVALID_WATCH_TYPE_EXCEPTION
+        

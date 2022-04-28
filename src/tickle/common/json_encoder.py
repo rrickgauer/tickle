@@ -25,6 +25,8 @@ class CustomJSONEncoder(JSONEncoder):
                 return float(obj)
             elif isinstance(obj, Enum):
                 return obj.value
+            elif issubclass(obj, Enum):
+                return obj.value
             elif isinstance(obj, ISerialize):
                 return obj.__dict__
             elif isinstance(obj, SearchObj):

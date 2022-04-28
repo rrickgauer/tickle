@@ -10,11 +10,15 @@ Routines for the investpy library
 from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 import concurrent.futures
+
 import investpy
 from investpy.utils.search_obj import SearchObj
+
 from tickle.common import serializers
-from tickle.common.domain.views.stockslib import StocksApiSearchResponse, StocksApiPriceResponse
-from .constants import INVESTPY_PRODUCTS, MAX_SEARCH_RESULTS, PRICE_THREAD_CHUNK_SIZE
+from tickle.common.domain.views.stockslib import StocksApiSearchResponse
+from tickle.common.domain.views.stockslib import StocksApiPriceResponse
+from tickle.common.domain.views.stockslib import TagPriceMap
+from . import constants
 
 #------------------------------------------------------
 # Search the stocks api for the financial product
@@ -46,8 +50,8 @@ def _getSearchResultsFromApi(query) -> list[StocksApiSearchResponse]:
 def _runApiQuoteSearch(query) -> list[SearchObj]:
     search_results = investpy.search_quotes(
         text      = query,
-        n_results = MAX_SEARCH_RESULTS,
-        products  = INVESTPY_PRODUCTS,
+        n_results = constants.MAX_SEARCH_RESULTS,
+        products  = constants.INVESTPY_PRODUCTS,
     ) 
 
     return search_results
@@ -60,22 +64,21 @@ def _serlializeSearchObj(search_obj: SearchObj) -> StocksApiSearchResponse:
     result = serializer.serialize()
     return result
 
-
 #------------------------------------------------------
 # Get the prices for the specified tags
 #------------------------------------------------------
-def getPrices(tags: list[str]) -> list[StocksApiPriceResponse]:
+def getPrices(tags: list[str]) -> TagPriceMap:
     prices = _getPricesMultiThreaded(tags)
     return prices
 
 #------------------------------------------------------
 # Using threads, fetch the prices of the specified list of tags
 #------------------------------------------------------
-def _getPricesMultiThreaded(tags: list) -> list[StocksApiPriceResponse]:
-    chunk_size = PRICE_THREAD_CHUNK_SIZE
+def _getPricesMultiThreaded(tags: list) -> TagPriceMap:
+    chunk_size = constants.PRICE_THREAD_CHUNK_SIZE
     num_chunks = len(tags)
     executor = ThreadPoolExecutor(max_workers=num_chunks)
-    prices = []
+    tag_prices = {}
     threads = []
 
     for i in range(num_chunks):
@@ -88,21 +91,21 @@ def _getPricesMultiThreaded(tags: list) -> list[StocksApiPriceResponse]:
             break
         
         # add the thread to the pool
-        threads.append(executor.submit(_setTagPrices, chunk, prices))
+        threads.append(executor.submit(_setTagPrices, chunk, tag_prices))
     
     # execute all the threads
     for _ in concurrent.futures.as_completed(threads):
         pass
 
-    return prices
+    return tag_prices
 
 #------------------------------------------------------
 # Append the prices for the specified tags to the given list of prices
 #------------------------------------------------------
-def _setTagPrices(tags: list[str], prices: list) -> list[StocksApiPriceResponse]:
+def _setTagPrices(tags: list[str], prices: TagPriceMap) -> list[StocksApiPriceResponse]:
     for tag in tags:
         price = _getTagPrice(tag)
-        prices.append(price)
+        prices.setdefault(tag, price)
 
 #------------------------------------------------------
 # Get the price information for the specified tag
@@ -137,3 +140,10 @@ def _getEmptySearchObj():
 def _toStocksApiPriceResponse(search_obj_info: dict) -> StocksApiPriceResponse:
     serializer = serializers.StocksApiPriceResponseSerializer(search_obj_info)
     return serializer.serialize()
+
+
+
+
+
+
+

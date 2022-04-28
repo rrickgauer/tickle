@@ -14,43 +14,30 @@ from tickle.common.domain import models
 
 SQL_INSERT = '''
     INSERT INTO 
-        Watches (id, ticker, ticker_type, price, watch_type, email)
+        Watches (id, tag, symbol, price, watch_type, email)
     VALUES
         (%s, %s, %s, %s, %s, %s);
 '''
 
-
 SQL_SELECT_ALL_OPEN = '''
     SELECT 
-        * 
-    FROM 
-        View_Watches w
-    WHERE 
-        w.closed_on is null
-    ORDER BY 
-        ticker_type ASC,
-        ticker ASC;
-'''
-
-SQL_SELECT = '''
-    SELECT
         *
     FROM 
-        View_Watches w
+        Watches w
     WHERE
-        w.id = %s
-    LIMIT 
-        1;
+        w.closed_on IS NULL
+    ORDER BY 
+        created_on DESC;
 '''
 
-
-SQL_UPDATE = '''
+SQL_CLOSE_WATCH = '''
     UPDATE 
-        Watches 
-    SET
-        closed_on = NOW()
-    WHERE
-        id = %s;
+        Watches w
+    SET 
+        w.closed_on = NOW()
+    WHERE 
+        w.id = %s
+    LIMIT 1;
 '''
 
 
@@ -59,11 +46,10 @@ SQL_UPDATE = '''
 # Insert the watch record into the database
 #------------------------------------------------------
 def insert(watch: models.Watch) -> DbOperationResult:
-
     parms = (
         str(watch.id),
-        watch.ticker,
-        watch.ticker_type.value,
+        watch.tag,
+        watch.symbol,
         watch.price,
         watch.watch_type.value,
         watch.email,
@@ -71,21 +57,14 @@ def insert(watch: models.Watch) -> DbOperationResult:
 
     return sql_engine.modify(SQL_INSERT, parms)
 
-#------------------------------------------------------
-# Get all the open watch records from the database
-#------------------------------------------------------
+
+# Fetch all the open watches from the database
 def selectAllOpen() -> DbOperationResult:
     return sql_engine.selectAll(SQL_SELECT_ALL_OPEN)
 
 
-def select(watch_id: UUID) -> DbOperationResult:
+def closeWatch(watch_id: UUID) -> DbOperationResult:
     parms = (str(watch_id),)
-    return sql_engine.select(SQL_SELECT, parms)
+    return sql_engine.modify(SQL_CLOSE_WATCH, parms)
 
-
-def update(watch_id: UUID) -> DbOperationResult:
-    parms = (
-        str(watch_id),
-    )
-
-    return sql_engine.modify(SQL_UPDATE, parms)
+    

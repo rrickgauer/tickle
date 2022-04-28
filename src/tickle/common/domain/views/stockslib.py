@@ -8,6 +8,7 @@ Investpy api response data views
 
 from __future__ import annotations
 from dataclasses import dataclass
+import typing
 
 @dataclass
 class StocksApiSearchResponse:
@@ -37,3 +38,11 @@ class StocksApiPriceResponse:
     oneYearReturn     : str   = None # "-",
     sharesOutstanding : int   = None # 271755385,
     nextEarningDate   : str   = None # "29/06/2022"
+
+
+#------------------------------------------------------
+# A dictionary comprised of
+#   key: tag
+#   value: StocksApiPriceResponse
+#------------------------------------------------------
+TagPriceMap = typing.Dict[str, StocksApiPriceResponse]
