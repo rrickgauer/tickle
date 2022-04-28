@@ -59,7 +59,6 @@ SQL_UPDATE = '''
 # Insert the watch record into the database
 #------------------------------------------------------
 def insert(watch: models.Watch) -> DbOperationResult:
-
     parms = (
         str(watch.id),
         watch.ticker,

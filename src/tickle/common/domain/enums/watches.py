@@ -12,7 +12,7 @@ from enum import Enum, unique
 from .extended_enums import ExtendedEnum
 
 @unique
-class WatchTypes(Enum):
+class WatchTypes(ExtendedEnum):
     RISE = 1
     DROP = 2
 

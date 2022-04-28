@@ -41,3 +41,9 @@ class ExtendedEnum(Enum):
     def names(cls) -> list[str]:
         """Get a list of all the enum class names"""
         return list(map(lambda c: c.name, cls))
+
+    
+    @classmethod
+    def getByKey(cls, key: str) -> Enum | None:
+        """Get the enum value that has the specified key"""
+        return cls._member_map_.get(key)
