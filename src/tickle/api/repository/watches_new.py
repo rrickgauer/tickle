@@ -19,6 +19,19 @@ SQL_INSERT = '''
         (%s, %s, %s, %s, %s, %s);
 '''
 
+SQL_SELECT_ALL_OPEN = '''
+    SELECT 
+        *
+    FROM 
+        Watches2 w
+    WHERE
+        w.closed_on IS NULL
+    ORDER BY 
+        created_on desc,
+        pair_id,
+        pair_type;
+'''
+
 
 
 #------------------------------------------------------
@@ -35,3 +48,8 @@ def insert(watch: models.Watch) -> DbOperationResult:
     )
 
     return sql_engine.modify(SQL_INSERT, parms)
+
+
+
+def selectAllOpen() -> DbOperationResult:
+    return sql_engine.selectAll(SQL_SELECT_ALL_OPEN)

@@ -118,3 +118,14 @@ def _saveWatch(watch: models.Watch):
     return db_result
 
 
+#------------------------------------------------------
+# Get all open watches
+#------------------------------------------------------
+def getOpenWatches() -> list[models.Watch]:
+    db_result = watches_repo.selectAllOpen()
+
+    if not db_result.successful:
+        raise RuntimeError(str(db_result.error))
+    
+    watches = db_result.data or []
+    return watches
