@@ -50,10 +50,9 @@ for open_watch in open_watches:
 email_engine = routines.getEmailEngine(cliargs.is_production)
 email_engine.connect()
 
-
 for watch in watches_to_close:
     try:
-        email_engine.sendMessage(watch)     # send email to recipient
+        print(email_engine.sendPriceAlertMessage(watch))     # send email to recipient
         api_wrapper.closeWatch(watch.id)    # close watch in database
     except Exception as ex:
         print(ex)

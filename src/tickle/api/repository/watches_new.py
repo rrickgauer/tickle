@@ -16,7 +16,7 @@ SQL_INSERT = '''
     INSERT INTO 
         Watches2 (id, tag, symbol, price, watch_type, email)
     VALUES
-        (%s, %s, %s, %s, %s);
+        (%s, %s, %s, %s, %s, %s);
 '''
 
 SQL_SELECT_ALL_OPEN = '''
