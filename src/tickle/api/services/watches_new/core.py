@@ -7,6 +7,9 @@ Watches services.
 """
 
 from __future__ import annotations
+from http.client import NOT_ACCEPTABLE
+from uuid import UUID
+from xml.dom import NotFoundErr
 import flask
 from tickle.common.domain import models
 from tickle.common import serializers
@@ -111,3 +114,23 @@ def getOpenWatches() -> list[models.Watch]:
     
     watches = db_result.data or []
     return watches
+
+#------------------------------------------------------
+# Close the specified watch
+#
+# Returns a bool:
+#    true: all good
+#    false: watch does not exist
+#------------------------------------------------------
+def closeWatch(watch_id: UUID) -> bool:
+    result = watches_repo.closeWatch(watch_id)
+
+    if not result.successful:
+        raise result.error
+
+    if result.data == 1:
+        return True
+    else:
+        return False
+    
+

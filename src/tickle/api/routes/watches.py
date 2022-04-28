@@ -11,7 +11,6 @@ from uuid import UUID
 import flask
 from tickle.api import security
 from tickle.common import responses
-from tickle.common.responses.errors import BaseError, ErrorCodes
 from tickle.api.services import watches_new as watch_services
 
 # module blueprint
@@ -19,6 +18,8 @@ bp_watches = flask.Blueprint('watches_new', __name__)
 
 #------------------------------------------------------
 # POST: /watches
+#
+# Create a new watch
 #------------------------------------------------------
 @bp_watches.post('')
 def newWatch():
@@ -48,14 +49,16 @@ def get():
 
 
 #------------------------------------------------------
-# GET: /watches
+# DELETE: /watches/:watch_id
 #
-# Get all open watches
+# Delete (close) the specified watch record
 #------------------------------------------------------
 @bp_watches.delete('<uuid:watch_id>')
 @security.localEndpoint
 def delete(watch_id: UUID):
+    if not watch_services.closeWatch(watch_id):
+        return ('', 404)
     
-    return 'deleted'
-
-    return responses.get(watches)
+    return responses.deleted()
+    
+    

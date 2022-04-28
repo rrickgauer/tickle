@@ -7,6 +7,7 @@ Watches repository
 """
 
 from __future__ import annotations
+from uuid import UUID
 import pymysql.commands as sql_engine
 from pymysql.structs import DbOperationResult
 from tickle.common.domain import models
@@ -29,6 +30,16 @@ SQL_SELECT_ALL_OPEN = '''
         created_on DESC;
 '''
 
+SQL_CLOSE_WATCH = '''
+    UPDATE 
+        Watches2 w
+    SET 
+        w.closed_on = NOW()
+    WHERE 
+        w.id = %s
+    LIMIT 1;
+'''
+
 
 
 #------------------------------------------------------
@@ -46,6 +57,13 @@ def insert(watch: models.Watch) -> DbOperationResult:
     return sql_engine.modify(SQL_INSERT, parms)
 
 
-
+# Fetch all the open watches from the database
 def selectAllOpen() -> DbOperationResult:
     return sql_engine.selectAll(SQL_SELECT_ALL_OPEN)
+
+
+def closeWatch(watch_id: UUID) -> DbOperationResult:
+    parms = (str(watch_id),)
+    return sql_engine.modify(SQL_CLOSE_WATCH, parms)
+
+    
