@@ -49,6 +49,10 @@ export class HomePageElements
         return $(HomePageElements.form)[0].reportValidity();
     }
 
+    static resetForm() {
+        $(HomePageElements.form)[0].reset();
+    }
+
 }
 
 HomePageElements.Inputs = {

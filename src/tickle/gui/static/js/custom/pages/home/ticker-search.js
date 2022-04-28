@@ -37,4 +37,8 @@ export class TickerSearchInput
 
         return {results: stockTickers}
     }
+
+    static reset() {
+        $(HomePageElements.Inputs.TICKER).val('').trigger('change');
+    }
 }

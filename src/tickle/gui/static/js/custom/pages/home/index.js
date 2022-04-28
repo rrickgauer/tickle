@@ -3,6 +3,7 @@ import { HomePageElements } from "./form-elements";
 import { WatchCreationInterface } from "./form-submission";
 import { ApiWrapper } from "../../classes/api-wrapper";
 import { TickerSearchInput } from "./ticker-search";
+import { PageAlert } from "../../classes/page-alert";
 
 /**********************************************************
 Main logic
@@ -10,6 +11,7 @@ Main logic
 $(document).ready(function() {
     addEventListners();
     TickerSearchInput.initSearchInput();
+    PageAlert.init();
 });
 
 
@@ -45,10 +47,11 @@ async function handleFormSubmission() {
 }
 
 /**
- * Show the success alert
+ * Show the success alert and reset the form
  */
 function showSuccessfulRequest() {
-
-    console.log('successful post');
-
+    PageAlert.setNormalText('Success! Be sure to check your email for the alert.');
+    PageAlert.show();
+    HomePageElements.resetForm();
+    TickerSearchInput.reset();
 }
