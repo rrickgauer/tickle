@@ -3,8 +3,13 @@ import { SpinnerButton } from "../../classes/spinner-button";
 export class HomePageElements 
 {
     // get the current value of the ticker text input 
-    static getTickerValue() {
+    static getTagValue() {
         return $(HomePageElements.Inputs.TICKER).val();
+    }
+
+    static getSelectedSymbolText() {
+        const eSelectedOption = $(`${HomePageElements.Inputs.TICKER}`).find(':selected').text();    
+        return eSelectedOption;
     }
 
     static getPriceValue() {

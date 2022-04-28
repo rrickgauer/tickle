@@ -70,7 +70,7 @@ def _serializeModel(watch_dict: dict) -> models.Watch:
 #------------------------------------------------------
 def _validateNewModel(watch: models.Watch):
     if _checkForNull(watch):
-        raise ValueError("Missing a required field in the request. The required fields are: 'pair_type', 'pair_id', 'price', 'watch_type', 'email'.")
+        raise ValueError("Missing a required field in the request. The required fields are: 'tag', 'symbol', 'price', 'watch_type', and 'email'.")
 
 #------------------------------------------------------
 # Checks if any of the required Watch properties are null 
@@ -82,6 +82,7 @@ def _checkForNull(watch: models.Watch) -> bool:
         watch.price,
         watch.watch_type,
         watch.email,
+        watch.symbol,
     ]
 
     if None in required_properties:

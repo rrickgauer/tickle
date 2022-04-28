@@ -31,9 +31,7 @@ async function handleFormSubmission() {
 
     const apiResponse = await ApiWrapper.postWatch(watchModel);
     if (apiResponse.ok) {
-        console.log('success');
         console.log(await apiResponse.json());
-
         showSuccessfulRequest();
     }
     else {
@@ -47,7 +45,7 @@ async function handleFormSubmission() {
  * Show the success alert
  */
 function showSuccessfulRequest() {
-    $('#section-form').addClass('d-none');
-    $('#section-body-top').addClass('d-none');
-    $('#section-watch-created').removeClass('d-none');
+
+    console.log('successful post');
+
 }

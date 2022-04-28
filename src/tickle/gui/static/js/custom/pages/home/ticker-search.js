@@ -26,14 +26,12 @@ export class TickerSearchInput
     static _processApiSearchResults(apiResponse) {
         const stockTickers = [];
 
-        console.log(apiResponse);
-
         for (const stockSymbolObject of apiResponse.data) {
-            const stockView = new TickerSearchResponse(stockSymbolObject);
+            const tickerSearchResponse = new TickerSearchResponse(stockSymbolObject);
 
             stockTickers.push({
-                id: stockView.tag,
-                text: stockView.name,
+                id: tickerSearchResponse.tag,
+                text: tickerSearchResponse.name,
             });
         }
 
