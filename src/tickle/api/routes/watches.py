@@ -35,6 +35,7 @@ def newWatch():
 # Get all open watches
 #------------------------------------------------------
 @bp_watches.get('')
+@security.localEndpoint
 def get():
     try:
         watches = watch_services.getOpenWatches()
