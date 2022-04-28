@@ -30,7 +30,7 @@ def getOpenWatches() -> list[Watch]:
     watches = []
     
     for watch_record in api_response:
-        serializer = serializers.Watch2Serializer(watch_record)
+        serializer = serializers.WatchSerializer(watch_record)
         watches.append(serializer.serialize())
 
     return watches

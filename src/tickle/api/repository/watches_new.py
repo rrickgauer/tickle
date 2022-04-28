@@ -7,16 +7,15 @@ Watches repository
 """
 
 from __future__ import annotations
-from uuid import UUID
 import pymysql.commands as sql_engine
 from pymysql.structs import DbOperationResult
 from tickle.common.domain import models
 
 SQL_INSERT = '''
     INSERT INTO 
-        Watches2 (id, pair_type, pair_id, price, watch_type, email)
+        Watches2 (id, tag, price, watch_type, email)
     VALUES
-        (%s, %s, %s, %s, %s, %s);
+        (%s, %s, %s, %s, %s);
 '''
 
 SQL_SELECT_ALL_OPEN = '''
@@ -27,9 +26,7 @@ SQL_SELECT_ALL_OPEN = '''
     WHERE
         w.closed_on IS NULL
     ORDER BY 
-        created_on desc,
-        pair_id,
-        pair_type;
+        created_on DESC;
 '''
 
 
@@ -40,8 +37,7 @@ SQL_SELECT_ALL_OPEN = '''
 def insert(watch: models.Watch) -> DbOperationResult:
     parms = (
         str(watch.id),
-        watch.pair_type.value,
-        watch.pair_id,
+        watch.tag,
         watch.price,
         watch.watch_type.value,
         watch.email,
