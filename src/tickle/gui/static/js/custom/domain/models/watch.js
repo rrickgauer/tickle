@@ -3,8 +3,8 @@
 export class Watch
 {
     constructor() {
-        this.ticker_type = null;
-        this.ticker      = null;
+        this.tag = null;
+        this.symbol      = null;
         this.price       = null;
         this.watch_type  = null;
         this.email       = null;

@@ -22,8 +22,7 @@ ApiWrapper.url = '/api';
 
 
 ApiWrapper.endpoints = {
-    SEARCH_CRYPTO: `${ApiWrapper.url}/search/tickers/crypto`,
-    SEARCH_STOCKS: `${ApiWrapper.url}/search/tickers/stocks`,
+    SEARCH: `${ApiWrapper.url}/search/tickers`,
     WATCHES: `${ApiWrapper.url}/watches`,
 }
 
