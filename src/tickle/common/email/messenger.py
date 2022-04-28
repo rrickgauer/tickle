@@ -11,19 +11,20 @@ import yagmail
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.models import Watch
 
-CONTENTS_TEMPLATE = 'The price of {ticker} has {movement} to {price}.'
+CONTENTS_TEMPLATE = 'The price of {symbol} has {movement} to {price}.'
 SUBJECT           = 'Tickle price alert'
+SUBJECT_TEMPLATE  = '{symbol} price alert'
 
 
 # Create the email body message
-def getContents(watch):
+def getContents(watch: Watch):
     if watch.watch_type == WatchTypes.DROP:
         movement_text = 'dropped'
     else:
         movement_text = 'rose'
     
     contents = CONTENTS_TEMPLATE.format(
-        ticker   = watch.ticker,
+        symbol = watch.symbol,
         movement = movement_text,
         price    = watch.price,
     )
@@ -49,21 +50,21 @@ class Messenger:
         self._email_engine.close()
     
 
-    def sendMessage(self, watch: Watch):
+    def sendPriceAlertMessage(self, watch: Watch):
         contents = getContents(watch)
 
         try:
             send_result = self._email_engine.send(
                 to       = watch.email,
-                subject  = SUBJECT,
+                subject  = SUBJECT_TEMPLATE.format(symbol=watch.symbol),
                 contents = contents,
             )
+
+            return True
 
         except Exception as ex:
             print(ex)
             return False
-
-        return True
 
         
 

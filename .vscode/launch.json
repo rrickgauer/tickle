@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Audit job",
+            "type": "python",
+            "request": "launch",
+            "module": "tickle.jobs.audit.main",
+            "justMyCode": true,
+            "cwd": "C:\\xampp\\htdocs\\files\\tickle\\src",
+            "args": [
+                "-d"
+            ]
+        },
+        {
             "name": "Flask - API",
             "type": "python",
             "request": "launch",
