@@ -7,9 +7,13 @@ This is the main entry point.
 """
 
 from __future__ import annotations
+import json
+from tickle.common.domain.enums.watches import PairTypes
 from tickle.jobs.audit import api_wrapper
 from .cliargs import CliArgs
 from . import controller
+import tickle.stockslib.tags
+from tickle.stockslib import getProductMap
 
 # parse the command line
 cliargs = CliArgs()
@@ -19,20 +23,23 @@ cliargs.parse()
 controller.configureApplication(cliargs.is_production)
 
 
+# m = getProductMap(PairTypes.CRYPTOS)
+
+# with open('out.txt', 'w') as f:
+#     f.write(json.dumps(m, indent=4))
+
+
 # get a list of watches that need to be closed
 open_watches = api_wrapper.getOpenWatches()
-print(open_watches)
+
 
 # need to build a list of tags for each of the open watches
+for watch in open_watches:
+    tickle.stockslib.tags.getTag(watch)
+
 
 
 # then, pass that list of tags to the stockslib to fetch the prices
-
-
-
-
-
-
 
 
 

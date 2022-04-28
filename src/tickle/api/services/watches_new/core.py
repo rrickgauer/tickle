@@ -81,6 +81,7 @@ def _validateNewModel(watch: models.Watch):
 # Checks if any of the required Watch properties are null 
 #------------------------------------------------------
 def _checkForNull(watch) -> bool:
+    
     required_properties = [
         watch.pair_type,
         watch.pair_id,
@@ -100,6 +101,8 @@ def _checkForNull(watch) -> bool:
 def _isPairIdValid(pair_id: int, pair_type: PairTypes) -> bool:
     product_map = stockslib.getProductMap(pair_type)
     product = product_map.get(pair_id) or None
+
+    print(product)
 
     if not product:
         return False

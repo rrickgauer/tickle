@@ -27,8 +27,6 @@ class ApiEndpoints(str, Enum):
 #------------------------------------------------------
 def getOpenWatches() -> list[Watch]:
     api_response = _requestOpenWatches()
-    dumpJson(api_response)
-
     watches = []
     
     for watch_record in api_response:
