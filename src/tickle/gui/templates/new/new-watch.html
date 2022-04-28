@@ -1,85 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% include 'includes/header.html' %}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
-    
+
     <title>Create a new watch</title>
-    
+
 </head>
+
 <body>
 
     <div class="container my-5">
 
-        <!-- ticker search -->
-        <div class="row form-section">
-            <div class="col-lg-4">
-                <h4 class="form-section-title">Ticker</h4>
-                <p class="form-section-description text-muted text-sm">What ticker should we watch?</p>
-            </div>
+        <form id="form-watch-new">
 
-            
-            <div class="ml-auto col-lg-7">
-                <div class="form-section-inputs">
-                    <div class="form-group mb-4">
-                        <label for="form-watch-input-ticker" class="form-label">Select the ticker symbol</label>
-                        <select class="form-control" name="state" id="form-watch-input-ticker" required></select>    
-                    </div>
+            <!-- ticker search -->
+            <div class="row form-section">
+                <div class="col-lg-4">
+                    <h4 class="form-section-title">Ticker</h4>
+                    <p class="form-section-description text-muted text-sm">What ticker should we watch?</p>
                 </div>
-            </div>
-        </div>
 
 
-        <!-- price -->
-        <div class="row form-section">
-            <div class="col-lg-4">
-                <h4 class="form-section-title">Price</h4>
-                <p class="form-section-description text-muted text-sm">What price do you want us to keep track of?</p>
-            </div>
-
-            
-            <div class="ml-auto col-lg-7">
-                <div class="form-section-inputs">
-                    <div class="form-group mb-4">
-                        <label for="form-watch-input-price" class="form-label">Price</label>
-                        <input type="number" class="form-control form-control-lg form-watch-input" id="form-watch-input-price" step="0.01" min="0" required>
-                    </div>
-                    
-                    <fieldset class="mb-4">
-                        <legend class="form-label">Do you want to be alerted when the price rises or falls?</legend>
-                    
-                        <div class="form-check">
-                            <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-watch-type" id="form-watch-input-watch-type-rise" value="1" checked>
-                            <label class="form-check-label" for="form-watch-input-watch-type-rise">Rise</label>
+                <div class="ml-auto col-lg-7">
+                    <div class="form-section-inputs">
+                        <div class="form-group mb-4">
+                            <label for="form-watch-input-ticker" class="form-label">Select the ticker symbol</label>
+                            <select class="form-control" name="state" id="form-watch-input-ticker" required></select>
                         </div>
-                        
-                        <div class="form-check">
-                            <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-watch-type" id="form-watch-input-watch-type-drop" value="2">
-                            <label class="form-check-label" for="form-watch-input-watch-type-drop">Drop</label>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- email -->
-        <div class="row form-section">
-            <div class="col-lg-4">
-                <h4 class="form-section-title">Contact</h4>
-                <p class="form-section-description text-muted text-sm">Where should we send the alert?</p>
-            </div>
-            
-            <div class="ml-auto col-lg-7">
-                <div class="form-section-inputs">
-                    <div class="form-group">
-                        <label for="form-watch-input-email" class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-lg form-watch-input" id="form-watch-input-email" required>
                     </div>
                 </div>
             </div>
-        </div>
+
+
+            <!-- price -->
+            <div class="row form-section">
+                <div class="col-lg-4">
+                    <h4 class="form-section-title">Price</h4>
+                    <p class="form-section-description text-muted text-sm">What price do you want us to keep track of?</p>
+                </div>
+
+
+                <div class="ml-auto col-lg-7">
+                    <div class="form-section-inputs">
+                        <div class="form-group mb-4">
+                            <label for="form-watch-input-price" class="form-label">Price</label>
+                            <input type="number" class="form-control form-control-lg form-watch-input" id="form-watch-input-price" step="0.01" min="0" required>
+                        </div>
+
+                        <fieldset class="mb-4">
+                            <legend class="form-label">Do you want to be alerted when the price rises or falls?</legend>
+
+                            <div class="form-check">
+                                <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-watch-type" id="form-watch-input-watch-type-rise" value="1" checked>
+                                <label class="form-check-label" for="form-watch-input-watch-type-rise">Rise</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input form-watch-input" type="radio" name="form-watch-input-watch-type" id="form-watch-input-watch-type-drop" value="2">
+                                <label class="form-check-label" for="form-watch-input-watch-type-drop">Drop</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- email -->
+            <div class="row form-section">
+                <div class="col-lg-4">
+                    <h4 class="form-section-title">Contact</h4>
+                    <p class="form-section-description text-muted text-sm">Where should we send the alert?</p>
+                </div>
+
+                <div class="ml-auto col-lg-7">
+                    <div class="form-section-inputs">
+                        <div class="form-group">
+                            <label for="form-watch-input-email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg form-watch-input" id="form-watch-input-email" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
 
         <!-- submit button -->
         <button type="button" id="form-watch-button-submit" class="btn btn-primary float-right">Submit</button>
@@ -92,7 +98,8 @@
     {% include 'includes/footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="/static/js/dist/home.bundle.js"></script>
-    
+
 
 </body>
+
 </html>

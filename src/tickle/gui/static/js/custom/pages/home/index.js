@@ -24,6 +24,10 @@ function addEventListners() {
  * Submit watch to the api 
  */
 async function handleFormSubmission() {
+    if (!HomePageElements.validateForm()) {
+        return;
+    }
+
     HomePageElements.spinSubmitButton();
 
     const formInterface = new WatchCreationInterface();
@@ -31,7 +35,6 @@ async function handleFormSubmission() {
 
     const apiResponse = await ApiWrapper.postWatch(watchModel);
     if (apiResponse.ok) {
-        console.log(await apiResponse.json());
         showSuccessfulRequest();
     }
     else {

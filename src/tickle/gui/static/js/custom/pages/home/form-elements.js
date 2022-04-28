@@ -41,6 +41,14 @@ export class HomePageElements
         HomePageElements.spinnerButton.reset();
     }
 
+    /** 
+     * Validates the form. 
+     * Returns true if all inputs have a valid value. 
+     */
+    static validateForm() {
+        return $(HomePageElements.form)[0].reportValidity();
+    }
+
 }
 
 HomePageElements.Inputs = {
@@ -49,6 +57,8 @@ HomePageElements.Inputs = {
     WATCH_TYPE : '[name="form-watch-input-watch-type"]',
     EMAIL      : '#form-watch-input-email',
 }
+
+HomePageElements.form = '#form-watch-new',
 
 
 HomePageElements.Buttons = {
