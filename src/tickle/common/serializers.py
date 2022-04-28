@@ -11,13 +11,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 import datetime
 from decimal import Decimal
-from operator import mod
 from typing import Any
 from tickle.common.domain import models
-from tickle.common.domain.enums.watches import PairTypes, WatchTypes
-from tickle.common.domain.enums.watches import TickerTypes
-from tickle.common.domain.views import tiingo
-from tickle.common.domain.views.watches import ViewWatch
+from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.views import stockslib
 
 
@@ -35,6 +31,7 @@ def parseIsoDatetime(datetime_module, date_string: str=None) -> datetime.datetim
         result = date_string
     
     return result
+
 
 def serializeDecimal(decimal_val) -> Decimal | None | Any:
     try:
@@ -105,8 +102,6 @@ class WatchSerializer(SerializerBase):
     DomainModel = models.Watch
 
     INVALID_WATCH_TYPE_EXCEPTION = ValueError("Invalid watch_type value")
-    INVALID_PAIR_ID_EXCEPTION    = ValueError("Invalid pair_id value: must be an integer")
-    INVALID_PRICE_EXCEPTION      = ValueError("Invalid price value: must be a float")
 
     def serialize(self) -> models.Watch:
         model: models.Watch = super().serialize()

@@ -1,4 +1,4 @@
 
 
-from .routines import localEndpoint
-from .routines import isRequestLocal
+from .security import localEndpoint as localEndpoint
+from .security import isRequestLocal as isRequestLocal

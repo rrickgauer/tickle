@@ -11,10 +11,10 @@ from uuid import UUID
 import flask
 from tickle.api import security
 from tickle.common import responses
-from tickle.api.services import watches_new as watch_services
+from tickle.api.services import watches as watch_services
 
 # module blueprint
-bp_watches = flask.Blueprint('watches_new', __name__)
+bp_watches = flask.Blueprint('watches', __name__)
 
 #------------------------------------------------------
 # POST: /watches
