@@ -37,23 +37,29 @@ prices = stockslib.getPrices(tags)
 watches_to_close: list[models.Watch] = []
 
 for open_watch in open_watches:
-    current_price = prices.get(open_watch.tag).last
+    current_prices = prices.get(open_watch.tag) or None
+
+    if not current_prices:
+        continue
+
+    last_price = current_prices.last
     
     if open_watch.watch_type == WatchTypes.RISE:
-        if current_price >= open_watch.price:
+        if last_price >= open_watch.price:
             watches_to_close.append(open_watch)
     else:
-        if current_price <= open_watch.price:
+        if last_price <= open_watch.price:
             watches_to_close.append(open_watch)
 
 # get an email connection
 email_engine = routines.getEmailEngine(cliargs.is_production)
 email_engine.connect()
 
+# close out each record and send out the email
 for watch in watches_to_close:
     try:
-        print(email_engine.sendPriceAlertMessage(watch))     # send email to recipient
-        api_wrapper.closeWatch(watch.id)    # close watch in database
+        api_wrapper.closeWatch(watch.id)            # close watch in database
+        email_engine.sendPriceAlertMessage(watch)   # send email to recipient
     except Exception as ex:
         print(ex)
 
