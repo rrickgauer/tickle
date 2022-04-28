@@ -9,8 +9,11 @@
             "type": "python",
             "request": "launch",
             "module": "tickle.jobs.audit.main",
-            // "justMyCode": true
-            "cwd": "C:\\xampp\\htdocs\\files\\tickle\\src"
+            "justMyCode": true,
+            "cwd": "C:\\xampp\\htdocs\\files\\tickle\\src",
+            "args": [
+                "-d"
+            ]
         },
         {
             "name": "Flask - API",

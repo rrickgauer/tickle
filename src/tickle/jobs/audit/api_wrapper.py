@@ -21,7 +21,6 @@ class ApiEndpoints(str, Enum):
     AUDIT = '/internal/audit'
     WATCHES = '/watches'
 
-
 #------------------------------------------------------
 # Fetch a list of open watches from the api
 #------------------------------------------------------
@@ -36,8 +35,11 @@ def getOpenWatches() -> list[Watch]:
     return watches
 
 def _requestOpenWatches() -> list[dict]:
+    
+    api_url = _getApiUrl(ApiEndpoints.WATCHES)
+
     api_response = requests.get(
-        url     = _getApiUrl(ApiEndpoints.WATCHES),
+        url     = api_url,
         headers = _getCustomHeaders(),
     )
 

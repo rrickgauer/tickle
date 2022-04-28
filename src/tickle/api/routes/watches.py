@@ -7,6 +7,7 @@ Url Prefix: /watches
 """
 
 from __future__ import annotations
+from uuid import UUID
 import flask
 from tickle.api import security
 from tickle.common import responses
@@ -41,5 +42,20 @@ def get():
         watches = watch_services.getOpenWatches()
     except RuntimeError as ex:
         return (str(ex), 500)
+
+    return responses.get(watches)
+
+
+
+#------------------------------------------------------
+# GET: /watches
+#
+# Get all open watches
+#------------------------------------------------------
+@bp_watches.delete('<uuid:watch_id>')
+@security.localEndpoint
+def delete(watch_id: UUID):
+    
+    return 'deleted'
 
     return responses.get(watches)
