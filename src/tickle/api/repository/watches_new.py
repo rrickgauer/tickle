@@ -14,7 +14,7 @@ from tickle.common.domain import models
 
 SQL_INSERT = '''
     INSERT INTO 
-        Watches2 (id, tag, price, watch_type, email)
+        Watches2 (id, tag, symbol, price, watch_type, email)
     VALUES
         (%s, %s, %s, %s, %s);
 '''
@@ -49,6 +49,7 @@ def insert(watch: models.Watch) -> DbOperationResult:
     parms = (
         str(watch.id),
         watch.tag,
+        watch.symbol,
         watch.price,
         watch.watch_type.value,
         watch.email,

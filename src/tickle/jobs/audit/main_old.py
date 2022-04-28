@@ -9,17 +9,17 @@ This is the main entry point.
 from __future__ import annotations
 from tickle.jobs.audit import api_wrapper
 from .cliargs import CliArgs
-from . import configurator
+from . import routines
 
 # parse the command line
 cliargs = CliArgs()
 cliargs.parse()
 
 # configure the application
-configurator.configureApplication(cliargs.is_production)
+routines.configureApplication(cliargs.is_production)
 
 # get an email connection
-email_engine = configurator.getEmailEngine(cliargs.is_production)
+email_engine = routines.getEmailEngine(cliargs.is_production)
 email_engine.connect()
 
 # get a list of watches that need to be closed

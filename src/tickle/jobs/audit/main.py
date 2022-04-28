@@ -9,11 +9,11 @@ This is the main entry point.
 from __future__ import annotations
 import json
 
-
+from tickle.common.domain import models
 from tickle.common.domain.enums.watches import WatchTypes
 from tickle.jobs.audit import api_wrapper
 from .cliargs import CliArgs
-from . import configurator
+from . import routines
 from tickle import stockslib
 
 # parse the command line
@@ -21,7 +21,7 @@ cliargs = CliArgs()
 cliargs.parse()
 
 # configure the application
-configurator.configureApplication(cliargs.is_production)
+routines.configureApplication(cliargs.is_production)
 
 
 # get a list of watches that need to be closed
@@ -34,7 +34,7 @@ for x in open_watches:
 
 prices = stockslib.getPrices(tags)
 
-watches_to_close = []
+watches_to_close: list[models.Watch] = []
 
 for open_watch in open_watches:
     current_price = prices.get(open_watch.tag).last
@@ -46,19 +46,16 @@ for open_watch in open_watches:
         if current_price <= open_watch.price:
             watches_to_close.append(open_watch)
 
-
-# # get an email connection
-# email_engine = controller.getEmailEngine(cliargs.is_production)
-# email_engine.connect()
-
+# get an email connection
+email_engine = routines.getEmailEngine(cliargs.is_production)
+email_engine.connect()
 
 
-# for watch in watches_to_close:
-    
-#     try:
-#         email_engine.sendMessage(watch)     # send email to recipient
-#         api_wrapper.closeWatch(watch.id)    # close watch in database
-#     except Exception as ex:
-#         print(ex)
+for watch in watches_to_close:
+    try:
+        email_engine.sendMessage(watch)     # send email to recipient
+        api_wrapper.closeWatch(watch.id)    # close watch in database
+    except Exception as ex:
+        print(ex)
 
-# email_engine.disconnect()
+email_engine.disconnect()

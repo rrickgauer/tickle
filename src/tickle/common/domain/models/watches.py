@@ -17,6 +17,7 @@ from tickle.common.domain.enums.watches import WatchTypes
 class Watch:
     id         : UUID                 = None
     tag        : str                  = None
+    symbol     : str                  = None
     price      : Decimal              = None
     watch_type : WatchTypes           = None
     email      : str                  = None

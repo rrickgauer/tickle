@@ -7,9 +7,7 @@ Watches services.
 """
 
 from __future__ import annotations
-from http.client import NOT_ACCEPTABLE
 from uuid import UUID
-from xml.dom import NotFoundErr
 import flask
 from tickle.common.domain import models
 from tickle.common import serializers
