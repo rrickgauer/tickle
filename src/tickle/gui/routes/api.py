@@ -14,19 +14,13 @@ from tickle.common.utilities import getConfig
 # module blueprint
 bp_api = flask.Blueprint('api', __name__)
 
+
 #------------------------------------------------------
 # search for crypto tickers
 #------------------------------------------------------
-@bp_api.get('search/tickers/crypto')
-def searchCryptoTickers():
-    return _sendRequest('search/tickers/crypto')
-
-#------------------------------------------------------
-# search for stock tickers
-#------------------------------------------------------
-@bp_api.get('search/tickers/stocks')
-def searchStockTickers():
-    return _sendRequest('search/tickers/stocks')
+@bp_api.get('search/tickers')
+def searchTickers():
+    return _sendRequest('search/tickers')
 
 #------------------------------------------------------
 # Create a new watch

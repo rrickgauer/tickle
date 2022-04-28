@@ -9,7 +9,7 @@ Send it to the api
 */
 
 
-import { UrlFormValues } from "./url-form-values";
+// import { UrlFormValues } from "./url-form-values";
 import { HomePageElements } from "./form-elements";
 import { Watch } from "../../domain/models/watch";
 
@@ -27,11 +27,11 @@ export class WatchCreationInterface
 
     /** Set the object's property values */
     _initPropertyValues = () => {
-        const urlValues = new UrlFormValues();
-        this.tickerType = urlValues.tickerType;
-        this.ticker     = urlValues.ticker;
-        this.price      = urlValues.price;
-        this.watchType  = urlValues.watchType;
+        // const urlValues = new UrlFormValues();
+        // this.tickerType = urlValues.tickerType;
+        // this.ticker     = urlValues.ticker;
+        // this.price      = urlValues.price;
+        // this.watchType  = urlValues.watchType;
 
         this.email = HomePageElements.getEmailValue();
     }
