@@ -140,12 +140,10 @@ def _toStocksApiPriceResponse(search_obj_info: dict) -> StocksApiPriceResponse:
     return serializer.serialize()
 
 
-
-
-
-
+#------------------------------------------------------
 # Get the map of the specified pair type
 # The id is the map key
+#------------------------------------------------------
 def getProductMap(pair_type: PairTypes) -> dict[int, dict]:
     product_list = []
 
@@ -157,10 +155,10 @@ def getProductMap(pair_type: PairTypes) -> dict[int, dict]:
     return _getInvestpyMap(product_list)
 
 
-def _getInvestpyMap(product_list) -> dict[int, dict]:
+def _getInvestpyMap(products) -> dict[int, dict]:
     product_map = {}
 
-    for product in product_list:
+    for product in products:
         try:
             pair_id = int(product.get('id'))
             product_map[pair_id] = product

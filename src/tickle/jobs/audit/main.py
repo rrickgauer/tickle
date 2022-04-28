@@ -18,19 +18,46 @@ cliargs.parse()
 # configure the application
 controller.configureApplication(cliargs.is_production)
 
-# get an email connection
-email_engine = controller.getEmailEngine(cliargs.is_production)
-email_engine.connect()
 
 # get a list of watches that need to be closed
-watches_to_close = api_wrapper.getWatchesToClose()
+open_watches = api_wrapper.getOpenWatches()
+print(open_watches)
 
-for watch in watches_to_close:
+# need to build a list of tags for each of the open watches
+
+
+# then, pass that list of tags to the stockslib to fetch the prices
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # get an email connection
+# email_engine = controller.getEmailEngine(cliargs.is_production)
+# email_engine.connect()
+
+
+
+# for watch in watches_to_close:
     
-    try:
-        email_engine.sendMessage(watch)     # send email to recipient
-        api_wrapper.closeWatch(watch.id)    # close watch in database
-    except Exception as ex:
-        print(ex)
+#     try:
+#         email_engine.sendMessage(watch)     # send email to recipient
+#         api_wrapper.closeWatch(watch.id)    # close watch in database
+#     except Exception as ex:
+#         print(ex)
 
-email_engine.disconnect()
+# email_engine.disconnect()

@@ -252,11 +252,16 @@ class Watch2Serializer(SerializerBase):
     # assumes that the given model's pair_type value is not null
     #------------------------------------------------------
     def _parsePairType(self, model: models.Watch):
-        val = str(model.pair_type).upper()
-        pair_type = PairTypes.getByKey(val)
+        
+        if isinstance(model.pair_type, str):
+            val = str(model.pair_type).upper()
+            pair_type = PairTypes.getByKey(val)
 
-        if not pair_type:
-            raise ValueError("Invalid pair_type")
+            if not pair_type:
+                raise ValueError("Invalid pair_type")
+
+        else:
+            pair_type = PairTypes(model.pair_type)
 
         model.pair_type = pair_type
         

@@ -10,14 +10,43 @@ from __future__ import annotations
 from enum import Enum
 import requests
 from tickle.common import serializers
+from tickle.common.domain.models.watches import Watch
 from tickle.common.domain.views.watches import ViewWatch
 from tickle.common.config import configs
+from tickle.common.utilities import dumpJson
 
 API_URL_PREFIX = configs.Production.URL_API
 
 class ApiEndpoints(str, Enum):
     AUDIT = '/internal/audit'
     WATCHES = '/watches'
+
+
+#------------------------------------------------------
+# Fetch a list of open watches from the api
+#------------------------------------------------------
+def getOpenWatches() -> list[Watch]:
+    api_response = _requestOpenWatches()
+    dumpJson(api_response)
+
+    watches = []
+    
+    for watch_record in api_response:
+        serializer = serializers.Watch2Serializer(watch_record)
+        watches.append(serializer.serialize())
+
+    return watches
+
+def _requestOpenWatches() -> list[dict]:
+    api_response = requests.get(
+        url     = _getApiUrl(ApiEndpoints.WATCHES),
+        headers = _getCustomHeaders(),
+    )
+
+    if not api_response.ok:
+        raise ConnectionError(api_response.text)
+    
+    return api_response.json().get('data')
 
 #------------------------------------------------------
 # Get a list of watches that need to be closed from the API
@@ -69,6 +98,7 @@ def _getCustomHeaders() -> dict:
 def closeWatch(watch_id) -> requests.Response:
     url = f'{_getApiUrl(ApiEndpoints.WATCHES)}/{watch_id}'
     return requests.delete(url, headers=_getCustomHeaders())
+
 
 def _getApiUrl(endpoint: ApiEndpoints) -> str:
     return f'{API_URL_PREFIX}{endpoint.value}'
