@@ -27,6 +27,7 @@ def _registerBlueprints(flask_app: flask.Flask):
     bp_version.register_blueprint(routes.bp_test, url_prefix='/test')
     bp_version.register_blueprint(routes.bp_watches, url_prefix='/watches')
     bp_version.register_blueprint(routes.bp_search_tickers, url_prefix='/search/tickers')
+    bp_version.register_blueprint(routes.bp_prices, url_prefix='/prices')
 
     flask_app.register_blueprint(bp_version, url_prefix='/v1')
     

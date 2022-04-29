@@ -69,14 +69,16 @@ def deleted(output=None) -> flask.Response:
 #----------------------------------------------------------
 # Not found error
 #----------------------------------------------------------
-def notFound(output=None) -> flask.Response:
-    return _standardReturn(output, HTTPStatus.NOT_FOUND)
+def notFound(output=None) -> tuple:
+    # return _standardReturn(, HTTPStatus.NOT_FOUND)
+    return ('', HTTPStatus.NOT_FOUND)
 
 #----------------------------------------------------------
 # Forbidden
 #----------------------------------------------------------
-def forbidden(output=None) -> flask.Response:
-    return _standardReturn(output, HTTPStatus.FORBIDDEN)
+def forbidden(output=None) -> tuple:
+    return ('', HTTPStatus.FORBIDDEN)
+    # return _standardReturn('', HTTPStatus.FORBIDDEN)
 
 #----------------------------------------------------------
 # Forbidden
@@ -87,16 +89,17 @@ def internalError(output=None) -> flask.Response:
 #----------------------------------------------------------
 # Client error
 #----------------------------------------------------------
-def badRequest(error: BaseError) -> flask.Response:
-    return _badReturn(error, HTTPStatus.BAD_REQUEST)
+def badRequest(output=None) -> flask.Response:
+    if not output:
+        return ('', HTTPStatus.BAD_REQUEST.value)
 
-
-def _badReturn(error: BaseError, response_code: HTTPStatus) -> tuple:
-    payload = dict(
-        error = error,
+    result = dict(
+        error = output,
     )
+    
+    return (flask.jsonify(result), HTTPStatus.BAD_REQUEST.value)
 
-    output = flask.jsonify(payload)
+    
 
-    return (output, response_code.value)
+
 

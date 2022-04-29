@@ -10,8 +10,6 @@ from __future__ import annotations
 from functools import wraps
 import flask
 from tickle.common import responses
-from tickle.common.responses.errors import SearchTickersMissingQArgError
-
 
 #------------------------------------------------------
 # Decorator for isQueryUrlRequestParmPresent
@@ -21,7 +19,7 @@ def verifyRequiredUrlParm(f):
     def wrap(*args, **kwargs):
         # if user is not logged in, redirect to login page
         if not isQueryUrlRequestParmPresent():
-            return responses.badRequest(SearchTickersMissingQArgError)
+            return responses.badRequest('Missing the required "q" url parameter')
 
         return f(*args, **kwargs)
 
