@@ -84,3 +84,89 @@ h6 {
         width: 100%;
     }
 }
+
+
+
+.container-home-page-steps {
+    img {
+        width: auto;
+        height: 300px;
+    }
+
+    .row {
+        align-items: center;
+    }
+}
+
+
+.home-page-space { margin-bottom: 200px; }
+.container-home-page-steps-pr {padding-right: 100px;}
+
+.text-grey {
+    color: #595959;
+}
+
+
+.home-page-h1 {
+    font-size: 70px;
+}
+
+.home-page-h1-subtitle {
+    font-size: 22px;
+}
+
+
+h2.home-page-header {
+    font-size: 46px;
+    margin-bottom: 100px;
+}
+
+h3.home-page-header {
+    font-size: 32px;
+}
+
+
+
+
+.icon-text-combo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    p {font-size: 20px;}
+}
+
+.home-icon {
+    background-color: map-get($map: $colors-primary, $key: "light");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+
+    i {
+        font-size: 22px;
+        color: white;
+    }
+}
+
+.icon-rounded {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 4rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

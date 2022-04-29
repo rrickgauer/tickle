@@ -9,14 +9,113 @@
 
 <body>
 
-    {% include 'includes/page-alert.html' %}
 
-    <div class="container">
-        <h1>Home page</h1>
 
+    <div class="home-page-space"></div>
+
+    <div class="container text-center">
+        <h1 class="home-page-h1 mb-3">Stocks and crypto price movement alerts.</h1>
+        <p class="text-grey home-page-h1-subtitle mb-3">No sign up, no hassle - absolutely free.</p>
+        <a href="/new" class="btn btn-primary">Create a free alert</a>
     </div>
 
+    <div class="home-page-space"></div>
 
+    <div class="bg-gray-lightest">
+
+        <div class="container container-home-page-steps py-5">
+
+            <h2 class="home-page-header text-center">Creating an alert is easy</h2>
+
+            <div class="row">
+                <div class="col-md-6 container-home-page-steps-pr">
+                    <div class="d-flex justify-content-end">
+                        <img src="/static/img/home-page-imgs/search.svg" alt="Search image">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h3 class="home-page-header">Find your stock</h3>
+                    <p>We currently support over 50,000 different financial products that you can choose from.</p>
+                </div>
+            </div>
+
+            <div class="home-page-space"></div>
+
+            <div class="row">
+                <div class="col-md-6 container-home-page-steps-pr">
+                    <h3 class="home-page-header">Select your target price</h3>
+                    <p>You can choose to get alerts when the the asset moves above or below a specific price.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-start">
+                        <img src="/static/img/home-page-imgs/crypto-prices.svg" alt="Search image">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="home-page-space"></div>
+
+            <div class="row">
+                <div class="col-md-6 container-home-page-steps-pr">
+                    <div class="d-flex justify-content-end">
+                        <img src="/static/img/home-page-imgs/notification.svg" alt="Search image">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <h3 class="home-page-header">Get notified</h3>
+                    <p>If the asset crosses the specified price, we will send you an email alert.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-page-space"></div>
+
+
+
+    <div class="container">
+
+        <h2 class="home-page-header text-center">We support over 100,000 tickers</h2>
+
+        <div class="row">
+            <div class="col-md-4 icon-text-combo">
+                <div class="home-icon icon-rounded">
+                    <i class='bx bx-dollar'></i>
+                </div>
+                <p class="text-grey">39,000 Stocks</p>
+            </div>
+
+            <div class="col-md-4 icon-text-combo">
+                <div class="icon-rounded home-icon">
+                    <i class='bx bx-bitcoin'></i>
+                </div>
+                <p class="text-grey">4,697 Cryptocurrencies</p>
+            </div>
+
+            <div class="col-md-4 icon-text-combo">
+                <div class="icon-rounded home-icon">
+                    <i class='bx bx-trending-up'></i>
+                </div>
+                <p class="text-grey">And thousands of more options.</p>
+            </div>
+        </div>
+
+        
+        <div class="text-center mt-3">
+            <a href="/new" class="btn btn-primary">Get started</a>
+        </div>
+    </div>
+
+    <div class="home-page-space"></div>
+
+    
+
+
+    <div class="home-page-space"></div>
 
 
     {% include 'includes/footer.html' %}
