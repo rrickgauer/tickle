@@ -33,4 +33,11 @@ export class Utilities
 
         return urlSearchParms
     }
+
+    /**
+     * Jump to the top of the page
+     */
+    static jumpToPageTop() {
+        $('html,body').scrollTop(0);
+    }
 }
