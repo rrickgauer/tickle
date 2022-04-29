@@ -4,6 +4,7 @@ import { WatchCreationInterface } from "./form-submission";
 import { ApiWrapper } from "../../classes/api-wrapper";
 import { TickerSearchInput } from "./ticker-search";
 import { PageAlert } from "../../classes/page-alert";
+import { Utilities } from "../../classes/utilities";
 
 /**********************************************************
 Main logic
@@ -50,6 +51,7 @@ async function handleFormSubmission() {
  * Show the success alert and reset the form
  */
 function showSuccessfulRequest() {
+    Utilities.jumpToPageTop();
     PageAlert.setNormalText('Success! Be sure to check your email for the alert.');
     PageAlert.show();
     HomePageElements.resetForm();

@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 
-    <title>Create a new watch</title>
+    <title>Tickle - Free stock price movement alerts.</title>
 
 </head>
 
@@ -49,7 +49,11 @@
                     <div class="form-section-inputs">
                         <div class="form-group mb-4">
                             <label for="form-watch-input-price" class="form-label">Price</label>
-                            <input type="number" class="form-control form-control-lg form-watch-input" id="form-watch-input-price" step="0.01" min="0" required>
+
+                            <!-- <input class="form-control form-new-product-input" id="form-new-product-input-price-full" type="text" inputmode="decimal"> -->
+
+                            <input class="form-control form-control-lg form-watch-input" id="form-watch-input-price" type="text" inputmode="decimal" required>
+                            
                         </div>
 
                         <fieldset class="mb-4">
@@ -90,7 +94,7 @@
         </form>
 
         <!-- submit button -->
-        <button type="button" id="form-watch-button-submit" class="btn btn-primary float-right">Submit</button>
+        <button type="button" id="form-watch-button-submit" class="btn btn-success float-right btn-stretch-sm">Create alert</button>
 
     </div>
 
