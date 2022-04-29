@@ -53,6 +53,18 @@ export class HomePageElements
         $(HomePageElements.form)[0].reset();
     }
 
+    static setCurrentTickerPriceValue(price) {
+        $(HomePageElements.Elements.CURRENT_TICKER_PRICE_VALUE).text(price);
+    }
+
+    static toggleCurrentTickerPriceValue(show) {
+        if (show) {
+            $(HomePageElements.Elements.CURRENT_TICKER_PRICE_CONTAINER).removeClass('d-none');
+        } else {
+            $(HomePageElements.Elements.CURRENT_TICKER_PRICE_CONTAINER).addClass('d-none');
+        }
+    }
+
 }
 
 HomePageElements.Inputs = {
@@ -72,5 +84,10 @@ HomePageElements.Buttons = {
 HomePageElements.spinnerButton = new SpinnerButton(HomePageElements.Buttons.SUBMIT);
 
 
+
+HomePageElements.Elements = {
+    CURRENT_TICKER_PRICE_CONTAINER: '#form-watch-ticker-price-container',
+    CURRENT_TICKER_PRICE_VALUE: '#form-watch-ticker-price-value',
+}
 
 

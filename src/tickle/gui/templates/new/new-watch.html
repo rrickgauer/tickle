@@ -25,12 +25,14 @@
                     <p class="form-section-description text-muted text-sm">What ticker should we watch?</p>
                 </div>
 
-
                 <div class="ml-auto col-lg-7">
                     <div class="form-section-inputs">
                         <div class="form-group mb-4">
                             <label for="form-watch-input-ticker" class="form-label">Select the ticker symbol</label>
                             <select class="form-control" name="state" id="form-watch-input-ticker" required></select>
+                            <small id="form-watch-ticker-price-container" class="form-text text-muted d-none">
+                                Current price: $<span id="form-watch-ticker-price-value" class="font-weight-bold"></span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -49,11 +51,7 @@
                     <div class="form-section-inputs">
                         <div class="form-group mb-4">
                             <label for="form-watch-input-price" class="form-label">Price</label>
-
-                            <!-- <input class="form-control form-new-product-input" id="form-new-product-input-price-full" type="text" inputmode="decimal"> -->
-
                             <input class="form-control form-control-lg form-watch-input" id="form-watch-input-price" type="text" inputmode="decimal" required>
-                            
                         </div>
 
                         <fieldset class="mb-4">
