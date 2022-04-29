@@ -30,7 +30,9 @@ def _registerBlueprints(flask_app: flask.Flask):
     flask_app.register_blueprint(routes.bp_views, url_prefix='/')
     flask_app.register_blueprint(routes.bp_api, url_prefix='/api')
 
-
+#------------------------------------------------------
+# Setup some additional configurations
+#------------------------------------------------------
 def _additionalConfig(flask_app: flask.Flask):
     flask_app.json_encoder = configs.Production.JSON_ENCODER
     
