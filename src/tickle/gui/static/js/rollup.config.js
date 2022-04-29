@@ -21,7 +21,7 @@ class RollupConfig
 
 
 const configs = [
-    new RollupConfig('custom/pages/home/index.js', 'dist/home.bundle.js'),
+    new RollupConfig('custom/pages/new-watch/index.js', 'dist/new-watch.bundle.js'),
 ];
 
 

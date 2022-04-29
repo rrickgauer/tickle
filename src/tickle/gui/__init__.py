@@ -27,11 +27,12 @@ def _setupCustomConverters(flask_app: flask.Flask):
 # Register the blueprints
 #------------------------------------------------------
 def _registerBlueprints(flask_app: flask.Flask):
-    flask_app.register_blueprint(routes.bp_home, url_prefix='/')
-    flask_app.register_blueprint(routes.bp_new, url_prefix='/new')
+    flask_app.register_blueprint(routes.bp_views, url_prefix='/')
     flask_app.register_blueprint(routes.bp_api, url_prefix='/api')
 
-
+#------------------------------------------------------
+# Setup some additional configurations
+#------------------------------------------------------
 def _additionalConfig(flask_app: flask.Flask):
     flask_app.json_encoder = configs.Production.JSON_ENCODER
     
