@@ -78,3 +78,9 @@ h6 {
     text-transform: uppercase;
     letter-spacing: .1em;
 }
+
+@media screen and (max-width: 768px) {
+    .btn-stretch-sm {
+        width: 100%;
+    }
+}
