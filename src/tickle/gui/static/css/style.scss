@@ -87,43 +87,52 @@ h6 {
 
 
 
-.container-home-page-steps {
-    img {
-        width: auto;
-        height: 300px;
-    }
-
-    .row {
-        align-items: center;
-    }
-}
 
 
-.home-page-space { margin-bottom: 200px; }
+
+
+.home-page-space { margin-bottom: 50px; }
 .container-home-page-steps-pr {padding-right: 100px;}
-
-.text-grey {
-    color: #595959;
-}
-
-
-.home-page-h1 {
-    font-size: 70px;
-}
-
-.home-page-h1-subtitle {
-    font-size: 22px;
-}
-
+.text-grey {color: #595959;}
+.home-page-h1 {font-size: 37px;}
+.home-page-h1-subtitle {font-size: 22px;}
 
 h2.home-page-header {
-    font-size: 46px;
-    margin-bottom: 100px;
+    font-size: 28px;
+    margin-bottom: 50px;
 }
 
-h3.home-page-header {
-    font-size: 32px;
+h3.home-page-header {font-size: 24px;}
+
+
+.container-home-page-steps {
+    img {
+        max-width: 200px;
+        height: auto;
+    }
+
+    .row {align-items: center;}
 }
+
+
+@media screen and (min-width: 768px) {
+    .home-page-space { margin-bottom: 200px; }
+    .container-home-page-steps-pr {padding-right: 100px;}
+    .home-page-h1 {font-size: 70px;}
+    .home-page-h1-subtitle {font-size: 22px;}
+
+
+    h2.home-page-header {
+        font-size: 46px;
+        margin-bottom: 100px;
+    }
+    
+    h3.home-page-header {font-size: 32px;}
+}
+
+
+
+
 
 
 
@@ -161,7 +170,7 @@ h3.home-page-header {
 
 
 .home-page-padding {
-    // padding: 100px;
+    padding: 100px 0px;
 }
 
 
