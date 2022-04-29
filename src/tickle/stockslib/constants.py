@@ -9,12 +9,12 @@ Symbolic constants for the stockslib.
 INVESTPY_PRODUCTS = [
     # "indices",
     "stocks",
-    # "etfs",
-    # "funds",
+    "etfs",
+    "funds",
     # "commodities",
     # "currencies",
     "cryptos",
-    # "bonds",
+    "bonds",
     # "certificates",
     # "fxfutures",
 ]

@@ -5,6 +5,7 @@ import { ApiWrapper } from "../../classes/api-wrapper";
 import { TickerSearchInput } from "./ticker-search";
 import { PageAlert } from "../../classes/page-alert";
 import { Utilities } from "../../classes/utilities";
+import { PriceResponse } from "../../views/price-response";
 
 /**********************************************************
 Main logic
@@ -21,6 +22,7 @@ $(document).ready(function() {
  */
 function addEventListners() {
     $(HomePageElements.Buttons.SUBMIT).on('click', handleFormSubmission);
+    $(HomePageElements.Inputs.TICKER).on('change', fetchTickerPrice);
 }
 
 /** 
@@ -56,4 +58,22 @@ function showSuccessfulRequest() {
     PageAlert.show();
     HomePageElements.resetForm();
     TickerSearchInput.reset();
+}
+
+
+async function fetchTickerPrice() {
+    HomePageElements.toggleCurrentTickerPriceValue(false);
+    HomePageElements.setCurrentTickerPriceValue('');
+    const tag = HomePageElements.getTagValue();
+    const apiResponse = await ApiWrapper.getPrice(tag);
+
+    if (apiResponse.ok) {
+        const apiResponseData = await apiResponse.json();
+        const priceData = new PriceResponse(apiResponseData.data);
+        HomePageElements.setCurrentTickerPriceValue(priceData.last);
+        HomePageElements.toggleCurrentTickerPriceValue(true);
+    }
+    else {
+        console.error(await apiResponse.text());
+    }
 }

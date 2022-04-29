@@ -31,6 +31,14 @@ def createWatch():
 
 
 #------------------------------------------------------
+# Get the price of a tag
+#------------------------------------------------------
+@bp_api.get('prices')
+def getPrice():
+    return _sendRequest('prices')
+
+
+#------------------------------------------------------
 # Send external request
 #------------------------------------------------------
 def _sendRequest(endpoint):
