@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {% include 'includes/header.html' %}
     <title>Tickle - Free stock price movement alerts.</title>
 
@@ -11,7 +12,7 @@
 
     <div class="home-page-space"></div>
 
-    <div class="container text-center">
+    <div class="container text-center" data-aos="fade-up">
         <h1 class="home-page-h1 mb-4">Stock and crypto price movement alerts.</h1>
         <p class="text-grey home-page-h1-subtitle mb-4">No sign up, no hassle - absolutely free.</p>
         <a href="/new" class="btn btn-lg btn-primary">Create a free alert</a>
@@ -20,7 +21,7 @@
     <div class="home-page-space"></div>
 
 
-    <div class="bg-gray-lightest home-page-padding">
+    <div class="bg-gray-lightest home-page-padding"  data-aos="fade-up">
         <div class="container">
 
             <h2 class="home-page-header text-center">We support over 100,000 tickers</h2>
@@ -56,9 +57,9 @@
 
     <div class="container container-home-page-steps">
 
-        <h2 class="home-page-header text-center">Creating an alert is easy</h2>
+        <h2 class="home-page-header text-center"  data-aos="fade-up">Creating an alert is easy</h2>
 
-        <div class="row">
+        <div class="row"  data-aos="fade-up">
             <div class="col-md-6 container-home-page-steps-pr">
                 <div class="d-flex justify-content-end">
                     <img src="/static/img/home-page-imgs/search.svg" alt="Search image">
@@ -73,7 +74,7 @@
 
         <div class="home-page-space"></div>
 
-        <div class="row">
+        <div class="row"  data-aos="fade-up">
             <div class="col-md-6 container-home-page-steps-pr">
                 <h3 class="home-page-header">Select your target price</h3>
                 <p>You can choose to get alerts when the the asset moves above or below a specific price.</p>
@@ -88,7 +89,7 @@
 
         <div class="home-page-space"></div>
 
-        <div class="row">
+        <div class="row"  data-aos="fade-up">
             <div class="col-md-6 container-home-page-steps-pr">
                 <div class="d-flex justify-content-end">
                     <img src="/static/img/home-page-imgs/notification.svg" alt="Search image">
@@ -116,6 +117,11 @@
 
 
     {% include 'includes/footer.html' %}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        AOS.init();
+    </script>
     <!-- <script src="/static/js/dist/home.bundle.js"></script> -->
 
 
