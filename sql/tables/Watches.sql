@@ -1,4 +1,4 @@
-CREATE TABLE `Watches2` (
+CREATE TABLE `Watches` (
   `id` CHAR(36) NOT NULL,
   `watch_type` INT UNSIGNED NOT NULL,
   `tag` CHAR(250) NOT NULL,

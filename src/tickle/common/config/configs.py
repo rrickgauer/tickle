@@ -22,6 +22,10 @@ class Production(ConfigBase):
 class Dev(ConfigBase):
     SECRET_KEY_API = b'2JWFQU+LZXsQIiTef21hFMxQ2gdEE2YQwvkd8FztLwUYOVXzSxwuP+tTXenvhOIZ96iowjwSToqQLEU4rUCUBg=='
     SECRET_KEY_GUI = b'73fT427SmZ/TQhl7lVRvd2fSMHW+LdNPxfS+2xHtn9wjCzSy7OouBvsgoQHbtlfoTUiJUASknvIDWZ35qqoF5g=='
+    
     URL_API = 'http://10.0.0.82:5010/v1'
+
+    DB_NAME     = 'Tickle_Dev'
+    DB_HOST     = '104.225.208.163'
  
 
