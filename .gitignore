@@ -144,3 +144,5 @@ dmypy.json
 
 # Job log files
 **/jobs/logs/
+
+**/jobs/test/

@@ -7,7 +7,6 @@ Url Prefix: /prices
 """
 
 from __future__ import annotations
-from uuid import UUID
 import flask
 from tickle.api import security
 from tickle.common import responses

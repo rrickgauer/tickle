@@ -42,7 +42,7 @@ def getPrice():
 # Send external request
 #------------------------------------------------------
 def _sendRequest(endpoint):
-    config = getConfig()
+    config = getConfig(flask.current_app)
     
     url = f'{config.URL_API}/{endpoint}'
 

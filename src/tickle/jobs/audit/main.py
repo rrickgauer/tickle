@@ -26,12 +26,10 @@ routines.configureApplication(cliargs.is_production)
 
 # get a list of watches that need to be closed
 open_watches = api_wrapper.getOpenWatches()
+# print(open_watches)
+tags = [x.tag for x in open_watches]
 
 # get the prices of the watches
-tags = []
-for x in open_watches:
-    tags.append(x.tag)
-
 prices = stockslib.getPrices(tags)
 
 watches_to_close: list[models.Watch] = []
@@ -58,8 +56,8 @@ email_engine.connect()
 # close out each record and send out the email
 for watch in watches_to_close:
     try:
-        api_wrapper.closeWatch(watch.id)            # close watch in database
-        email_engine.sendPriceAlertMessage(watch)   # send email to recipient
+        api_wrapper.closeWatch(watch.id)    # close watch in database
+        email_engine.send(watch)            # send email to recipient
     except Exception as ex:
         print(ex)
 

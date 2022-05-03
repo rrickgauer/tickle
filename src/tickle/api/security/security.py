@@ -15,7 +15,7 @@ def localEndpoint(f):
     return wrap
 
 def isRequestLocal():
-    config = getConfig()
+    config = getConfig(flask.current_app)
     request_header_value = flask.request.headers.get(config.SECURITY_HEADER_KEY, 'nope')
 
     if request_header_value == config.SECURITY_HEADER_VALUE:

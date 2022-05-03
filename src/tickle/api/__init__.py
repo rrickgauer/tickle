@@ -11,8 +11,8 @@ This is the entry point for running an application.
 from __future__ import annotations
 import flask
 from . import routes
-from tickle.common.config import configs
 from tickle.common.config.base import ConfigBase
+from tickle.common.utilities import getConfig
 import pymysql
 from flask_cors import CORS
 
@@ -30,16 +30,6 @@ def _registerBlueprints(flask_app: flask.Flask):
     bp_version.register_blueprint(routes.bp_prices, url_prefix='/prices')
 
     flask_app.register_blueprint(bp_version, url_prefix='/v1')
-    
-
-#------------------------------------------------------
-# Get the configuration class to use for the application
-#------------------------------------------------------
-def _getConfigurationClass(enviornment) -> ConfigBase:
-    if enviornment == "production":
-        return configs.Production
-    else:
-        return configs.Dev
 
 #------------------------------------------------------
 # Configure the application
@@ -57,7 +47,7 @@ def _setConfigurations(flask_app: flask.Flask, selected_config: ConfigBase):
 # Main logic
 app = flask.Flask(__name__)
 CORS(app)
-app_config = _getConfigurationClass(app.env)
+app_config = getConfig(app)
 _registerBlueprints(app)
 _setConfigurations(app, app_config)
 

@@ -10,7 +10,7 @@ from __future__ import annotations
 import pymysql
 from tickle.common.config import configs
 from . import api_wrapper
-from tickle.common.email.messenger import Messenger
+from tickle.common.email.messenger import CloseWatchMessenger
 
 #------------------------------------------------------
 # Initialize some variables using the configuration values
@@ -39,9 +39,9 @@ def _setUrls(config: configs.ConfigBase):
 #------------------------------------------------------
 # Get an email engine object
 #------------------------------------------------------
-def getEmailEngine(is_production: bool) -> Messenger:
+def getEmailEngine(is_production: bool) -> CloseWatchMessenger:
     config = _getConfigClass(is_production)
-    email_engine = Messenger(config.EMAIL_USERNAME, config.EMAIL_PASSWORD)
+    email_engine = CloseWatchMessenger(config.EMAIL_USERNAME, config.EMAIL_PASSWORD)
     return email_engine
 
 

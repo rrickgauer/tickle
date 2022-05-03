@@ -8,34 +8,14 @@ Email services
 
 from __future__ import annotations
 import yagmail
-from tickle.common.domain.enums.watches import WatchTypes
 from tickle.common.domain.models import Watch
-
-CONTENTS_TEMPLATE = 'The price of {symbol} has {movement} to {price}.'
-SUBJECT           = 'Tickle price alert'
-SUBJECT_TEMPLATE  = '{symbol} price alert'
+from .messages import templates
+from .messages.formatters import formatCloseWatchPriceAlert
 
 
-# Create the email body message
-def getContents(watch: Watch):
-    if watch.watch_type == WatchTypes.DROP:
-        movement_text = 'dropped'
-    else:
-        movement_text = 'rose'
-    
-    contents = CONTENTS_TEMPLATE.format(
-        symbol = watch.symbol,
-        movement = movement_text,
-        price    = watch.price,
-    )
+class MessengerBase:
 
-    return contents
-
-
-
-class Messenger:
-
-    def __init__(self, username, password):
+    def __init__(self, username: str, password: str):
         self._username = username
         self._password = password
         self._email_engine: yagmail.SMTP = None
@@ -48,23 +28,31 @@ class Messenger:
 
     def disconnect(self):
         self._email_engine.close()
-    
 
-    def sendPriceAlertMessage(self, watch: Watch):
-        contents = getContents(watch)
+    def send(self):
+        raise NotImplementedError
 
-        try:
-            send_result = self._email_engine.send(
-                to       = watch.email,
-                subject  = SUBJECT_TEMPLATE.format(symbol=watch.symbol),
-                contents = contents,
-            )
+    def _send(self, destination, subject, contents):
+        send_result = self._email_engine.send(
+            to       = destination,
+            subject  = subject,
+            contents = contents,
+        )
 
-            return True
+        return send_result
 
-        except Exception as ex:
-            print(ex)
-            return False
 
-        
+
+class CloseWatchMessenger(MessengerBase):
+
+    def send(self, watch: Watch):
+        return self._send(
+            destination = watch.email,
+            subject     = templates.SUBJECT_TEMPLATE.format(symbol=watch.symbol),
+            contents    = formatCloseWatchPriceAlert(watch),
+        )
+
+
+
+
 
