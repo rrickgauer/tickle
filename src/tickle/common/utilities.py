@@ -119,34 +119,17 @@ def inRange(number, minimum, maximum) -> bool:
     else:
         return False
 
-
-def getConfig() -> ConfigBase:
-    if flask.current_app.env == "production":
+#------------------------------------------------------
+# Get the appropriate configuration for the specified flask application
+#------------------------------------------------------
+def getConfig(flask_app: flask.Flask) -> ConfigBase:
+    if flask_app.env == "production":
         return configs.Production()
     else:
         return configs.Dev()
 
 
-"""
-method
-scheme
-server
-root_path
-path
-query_string
-headers
-remote_addr
-environ
-shallow
-url_rule
-view_args
-"""
-def printFlaskRequest(flask_request: flask.Request):
-    items = list(flask_request.__dict__.items())
-
-    for key, value in items:
-        # print((key, value))
-        print(key)
-
+def formatFloatToCurrency(amount):
+    return "{:,.2f}".format(amount)
 
 
