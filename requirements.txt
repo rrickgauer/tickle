@@ -1,0 +1,27 @@
+certifi==2021.10.8
+charset-normalizer==2.0.12
+click==8.1.3
+colorama==0.4.4
+Flask==2.1.2
+Flask-Cors==3.0.10
+-e git+https://github.com/rrickgauer/Flask-Forward.git@9b25bf15976490f56677ae438d7040bb4fc67d27#egg=Flask_Forward&subdirectory=src
+idna==3.3
+importlib-metadata==4.11.3
+-e git+https://github.com/rrickgauer/investpy.git@63c4383ad1fb2d63af9b7940ee442cfb5f4a13ae#egg=investpy
+itsdangerous==2.1.2
+Jinja2==3.1.2
+lxml==4.8.0
+MarkupSafe==2.1.1
+mysql-connector-python==8.0.29
+numpy==1.22.3
+pandas==1.4.2
+protobuf==3.20.1
+-e git+https://github.com/rrickgauer/pymysql.git@d935df4e6f5e5f6a5ba63f2a18f1cd4adc29f964#egg=pymysql
+python-dateutil==2.8.2
+pytz==2022.1
+requests==2.27.1
+six==1.16.0
+Unidecode==1.3.4
+urllib3==1.26.9
+Werkzeug==2.1.2
+zipp==3.8.0
