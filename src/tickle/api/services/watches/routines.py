@@ -73,6 +73,9 @@ def _validateNewModel(watch: models.Watch):
     if _checkForNull(watch):
         raise ValueError(error_messages.MISSING_REQUIRED_REQUEST_FIELD)
 
+    if _invalidEmail(watch):
+        raise ValueError(error_messages.INVALID_EMAIL)
+
 
 #------------------------------------------------------
 # Checks if any of the required Watch properties are null 
@@ -90,6 +93,14 @@ def _checkForNull(watch: models.Watch) -> bool:
         return True
     else:
         return False
+
+
+def _invalidEmail(watch: models.Watch) -> bool:
+
+
+
+    return False
+
 
 #------------------------------------------------------
 # Save the watch to the database
