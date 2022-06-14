@@ -14,6 +14,7 @@ from tickle.common import serializers
 from tickle.common.utilities import getUUID
 from tickle.common.structs import BaseReturn
 import tickle.api.repository.watches as watches_repo
+from . import error_messages
 
 #------------------------------------------------------
 # Create a new watch
@@ -70,13 +71,13 @@ def _serializeModel(watch_dict: dict) -> models.Watch:
 #------------------------------------------------------
 def _validateNewModel(watch: models.Watch):
     if _checkForNull(watch):
-        raise ValueError("Missing a required field in the request. The required fields are: 'tag', 'symbol', 'price', 'watch_type', and 'email'.")
+        raise ValueError(error_messages.MISSING_REQUIRED_REQUEST_FIELD)
+
 
 #------------------------------------------------------
 # Checks if any of the required Watch properties are null 
 #------------------------------------------------------
 def _checkForNull(watch: models.Watch) -> bool:
-    
     required_properties = [
         watch.tag,
         watch.price,

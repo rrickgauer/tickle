@@ -30,7 +30,6 @@ def newWatch():
     
     return responses.created(result.data)
 
-
 #------------------------------------------------------
 # GET: /watches
 #
@@ -46,8 +45,6 @@ def get():
 
     return responses.get(watches)
 
-
-
 #------------------------------------------------------
 # DELETE: /watches/:watch_id
 #
@@ -60,5 +57,3 @@ def delete(watch_id: UUID):
         return ('', 404)
     
     return responses.deleted()
-    
-    
